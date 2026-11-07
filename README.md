@@ -34,4 +34,4 @@
 ## Скачивание
 
 - **Android:** [zametki-3.0.0.apk](https://github.com/Legoman-1337/notes/releases/download/v3.0.0/zametki-3.0.0.apk)
-- **Windows:** [UdobnyeZametki-3.0.0-windows-portable.zip](https://github.com/Legoman-1337/notes/releases/download/v3.0.0/UdobnyeZametki-3.0.0-windows-portable.zip) — распакуйте и запустите `UdobnyeZametki.exe`
+- **Windows:** [UdobnyeZametki-3.0.0-windows-portable.zip](https://github.com/Legoman-1337/notes/releases/download/v3.0.0/UdobnyeZametki-3.0.0-windows-portable.zip) — распакуйте и запустите `Удобные заметки.exe`

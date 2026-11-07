@@ -1252,6 +1252,154 @@
       .sandbox-ghost { will-change: auto; }
       .sandbox-toggle { transition: none; }
     }
+
+    /* ===== Стиль 3.0: живой сайт ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 60;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 55%, white));
+      box-shadow: 0 0 14px color-mix(in srgb, var(--accent-color) 65%, transparent);
+      pointer-events: none;
+    }
+
+    h1 span {
+      background: linear-gradient(100deg, var(--accent-color) 20%, #ffffff 42%, var(--accent-color) 64%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      animation: shine 7s linear infinite;
+    }
+
+    @keyframes shine {
+      to { background-position: -220% 0; }
+    }
+
+    .mini-note { margin-top: 18px; }
+    .mini-note-title {
+      outline: none;
+      border-bottom: 1px dashed color-mix(in srgb, var(--accent-color) 35%, transparent);
+      padding-bottom: 2px;
+    }
+    .mini-note-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 11px;
+      color: var(--text-soft);
+      font-size: 13.5px;
+      cursor: pointer;
+      user-select: none;
+      transition: color 180ms ease;
+    }
+    .mini-check {
+      display: grid;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+      border-radius: 7px;
+      background: color-mix(in srgb, var(--accent-color) 8%, transparent);
+      color: transparent;
+      font-size: 12px;
+      font-weight: 800;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+    .mini-note-line:hover .mini-check { transform: scale(1.1); }
+    .mini-note-line.done { color: var(--muted); text-decoration: line-through; }
+    .mini-note-line.done .mini-check { background: var(--accent-color); color: var(--accent-contrast); }
+    .mini-hint {
+      margin-top: 13px;
+      color: var(--subtle);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .plugins { padding-block: 0 94px; }
+    .plugin-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .chip3 {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      background: var(--surface);
+      color: var(--text-soft);
+      font-size: 12px;
+      cursor: pointer;
+      transition: transform 180ms ease, border-color 180ms ease, background-color 0.5s ease, color 0.5s ease;
+    }
+    .chip3:hover { border-color: var(--accent-color); transform: translateY(-1px); }
+    .chip3.active { background: var(--accent-color); border-color: transparent; color: var(--accent-contrast); font-weight: 700; }
+    .plugin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 10px;
+    }
+    .plugin-tile {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 13px;
+      border: 1px solid color-mix(in srgb, var(--accent-color) 12%, transparent);
+      border-radius: 14px;
+      background: var(--surface);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 0.5s ease;
+    }
+    .plugin-tile:hover {
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--accent-color) 45%, transparent);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+    }
+    .plugin-emoji {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 11px;
+      background: color-mix(in srgb, var(--accent-color) 13%, transparent);
+      font-size: 19px;
+    }
+    .plugin-name { color: var(--text); font-size: 13px; font-weight: 650; }
+    .plugin-desc { margin-top: 2px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .pkg-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .pkg-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 13px;
+      border: 1px solid color-mix(in srgb, var(--accent-color) 22%, transparent);
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent-color) 7%, transparent);
+      color: var(--text-soft);
+      font-size: 12px;
+      transition: transform 180ms ease;
+    }
+    .pkg-chip:hover { transform: translateY(-2px); }
+    .plugins-more { margin-top: 16px; color: var(--muted); font-size: 12px; }
+
+    .confetti-piece {
+      position: fixed;
+      z-index: 90;
+      pointer-events: none;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 480px) {
+      .plugin-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      h1 span { animation: none; }
+      .plugin-tile, .chip3, .pkg-chip { transition: none; }
+    }
   </style>
 
   <script>
@@ -1274,6 +1422,7 @@
 </head>
 
 <body>
+  <div class="scroll-progress" aria-hidden="true"></div>
   <header class="container topbar">
     <a class="brand" href="#" aria-label="Мои приложения, главная страница">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -1348,10 +1497,16 @@
             </div>
           </div>
 
-          <div class="preview-line"><span></span></div>
+          <div class="mini-note" aria-label="Живая демонстрация заметки">
+            <p class="preview-title mini-note-title" contenteditable="true" spellcheck="false">Дела на неделю</p>
+            <div class="mini-note-line" role="checkbox" aria-checked="false" tabindex="0"><span class="mini-check">✓</span><span>Позвонить маме</span></div>
+            <div class="mini-note-line done" role="checkbox" aria-checked="true" tabindex="0"><span class="mini-check">✓</span><span>Купить продукты</span></div>
+            <div class="mini-note-line" role="checkbox" aria-checked="false" tabindex="0"><span class="mini-check">✓</span><span>Полить цветы</span></div>
+            <div class="mini-hint">Это живая заметка — попробуйте отметить пункт или переименовать ↓</div>
+          </div>
           <div class="preview-caption">
-            <span>МОИ ПРИЛОЖЕНИЯ</span>
-            <span>01 из 01</span>
+            <span>ПОПРОБУЙТЕ ПРЯМО ЗДЕСЬ</span>
+            <span>3.0</span>
           </div>
         </div>
       </div>
@@ -1391,6 +1546,10 @@
               <span class="fact-label">Платформы</span>
               <span class="fact-value">Android + Windows</span>
             </div>
+            <div class="fact">
+              <span class="fact-label">Скачиваний 3.0</span>
+              <span class="fact-value" id="dl-count">—</span>
+            </div>
           </div>
 
           <div class="download-row">
@@ -1421,6 +1580,42 @@
           </p>
         </div>
       </article>
+    </section>
+
+    <section class="container plugins reveal" id="plugins" aria-labelledby="plugins-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Внутри приложения</p>
+          <h2 id="plugins-title">Магазин плагинов</h2>
+        </div>
+        <span class="app-count">102 плагина</span>
+      </div>
+
+      <div class="plugin-toolbar" role="group" aria-label="Категории плагинов">
+        <button class="chip3 active" type="button" data-cat="all">Все</button>
+        <button class="chip3" type="button" data-cat="Игры">🎲 Игры</button>
+        <button class="chip3" type="button" data-cat="Настроение">🎉 Настроение</button>
+        <button class="chip3" type="button" data-cat="Дом">🏠 Дом</button>
+        <button class="chip3" type="button" data-cat="Деньги">💰 Деньги</button>
+        <button class="chip3" type="button" data-cat="Здоровье">💪 Здоровье</button>
+        <button class="chip3" type="button" data-cat="Учёба">📚 Учёба</button>
+        <button class="chip3" type="button" data-cat="Семья">🤗 Семья</button>
+        <button class="chip3" type="button" data-cat="Мелочи">🧰 Мелочи</button>
+      </div>
+
+      <div class="plugin-grid" id="plugin-grid"></div>
+
+      <div class="pkg-row" aria-label="Пакеты плагинов">
+        <span class="pkg-chip">🎲 Игры для компании</span>
+        <span class="pkg-chip">🏠 Дом и уют</span>
+        <span class="pkg-chip">💰 Копилка и расчёты</span>
+        <span class="pkg-chip">💪 Здоровье и бодрость</span>
+        <span class="pkg-chip">🎉 Настроение и праздники</span>
+        <span class="pkg-chip">📚 Учёба и списки</span>
+        <span class="pkg-chip">🧳 В дорогу</span>
+      </div>
+
+      <p class="plugins-more">Это лишь часть — всего в приложении 102 дополнительных плагина и 7 пакетов. Полный список — в магазине плагинов внутри приложения.</p>
     </section>
   </main>
 
@@ -2133,6 +2328,158 @@
         bodies.forEach(paintBody);
         requestPhysicsFrame();
       }, { passive: true });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      // ===== Прогресс-бар скролла =====
+      const progress = document.querySelector('.scroll-progress');
+      function paintProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(100, window.scrollY * 100 / max) : 0;
+        if (progress) progress.style.width = p + '%';
+      }
+      window.addEventListener('scroll', paintProgress, { passive: true });
+      window.addEventListener('resize', paintProgress);
+      paintProgress();
+
+      // ===== Живая мини-заметка в hero =====
+      document.querySelectorAll('.mini-note-line').forEach((line) => {
+        const toggle = () => {
+          line.classList.toggle('done');
+          line.setAttribute('aria-checked', String(line.classList.contains('done')));
+        };
+        line.addEventListener('click', toggle);
+        line.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+      });
+
+      // ===== Витрина плагинов =====
+      const PLUGINS = [
+        ['🧚', 'Фея', 'Немного всего: комплимент, шутка, совет или доброе дело', 'Настроение'],
+        ['🎲', 'Кубик', 'Бросок одной кнопкой и история', 'Игры'],
+        ['🎲', 'Двойные кости', 'Два кубика для настолок, сумма', 'Игры'],
+        ['🎯', 'Игральные кости', 'd4–d20 для настоящих партий', 'Игры'],
+        ['🪙', 'Монетка', 'Орёл или решка со статистикой', 'Игры'],
+        ['🔮', 'Магический шар', 'Задай вопрос — получи ответ', 'Игры'],
+        ['🔢', 'Угадай число', '1–100 с подсказками больше/меньше', 'Игры'],
+        ['✌️', 'Камень-ножницы-бумага', 'Против приложения, со счётом', 'Игры'],
+        ['🕵️', 'Шпион', 'Роли для компании, шпион один', 'Игры'],
+        ['❌', 'Крестики-нолики', 'Классика на двоих за одним экраном', 'Игры'],
+        ['💣', 'Горячая картошка', 'Бомба на 10–30 секунд — передавай!', 'Игры'],
+        ['⚡', 'Реакция', 'Жёлтый — жди, зелёный — жми!', 'Игры'],
+        ['🔗', 'Цепочка слов', 'Слова на последнюю букву', 'Игры'],
+        ['🔥', 'Правда или действие', 'Знаменитая игра для компании', 'Игры'],
+        ['🎰', 'Лото-числа', '6 чисел из 45 для розыгрышей', 'Игры'],
+        ['💐', 'Комплимент', 'Тёплые слова по кнопке', 'Настроение'],
+        ['😂', 'Шутки', 'Семейные шутки и каламбуры', 'Настроение'],
+        ['🧠', 'Факты', 'Неожиданные факты для ума', 'Настроение'],
+        ['❓', 'Загадки', 'С ответами — для конкурса за столом', 'Настроение'],
+        ['🥂', 'Тосты', 'Тост для любого застолья', 'Настроение'],
+        ['💌', 'Записочки', 'Тёплые фразы близким', 'Настроение'],
+        ['🌈', 'Дневник настроения', 'Эмодзи дня + пара слов', 'Настроение'],
+        ['♌', 'Гороскоп шуточный', 'Что говорят звёзды (может быть)', 'Настроение'],
+        ['🏠', 'Домашние дела', 'Список дел по дому с галочками', 'Дом'],
+        ['🌷', 'Полив цветов', 'Когда поливали каждое растение', 'Дом'],
+        ['🐱', 'Питомец', 'Покормила, поиграла, наполнитель', 'Дом'],
+        ['🧳', 'Сборы в поездку', 'Чек-лист для чемодана', 'Дом'],
+        ['🍲', 'Меню недели', 'Что готовим на неделе', 'Дом'],
+        ['🧹', 'Уборка-жребий', 'Кто какую зону берёт', 'Дом'],
+        ['🐷', 'Копилка мечты', 'Цель + откладывания = прогресс', 'Деньги'],
+        ['💸', 'Траты дня', 'Что потрачено и на что', 'Деньги'],
+        ['💯', 'Скидка', 'Цена со скидкой и экономия', 'Деньги'],
+        ['🪙', 'Пересчёт мелочи', 'Монеты по номиналам → сумма', 'Деньги'],
+        ['💧', 'Вода', 'Стаканы за день, норма 8', 'Здоровье'],
+        ['👟', 'Шаги', 'Цифра с шагомера и норма', 'Здоровье'],
+        ['🌬️', 'Дыхание 4-7-8', 'Успокоение по инструкции', 'Здоровье'],
+        ['😴', 'Дневник сна', 'Лёг/встал → часы сна', 'Здоровье'],
+        ['🍅', 'Помодоро', '25 минут дела · 5 минут отдыха', 'Учёба'],
+        ['🎓', 'Оценки', 'Оценки и средний балл', 'Учёба'],
+        ['🔤', 'Карточки слов', 'Слово — перевод, проверь память', 'Учёба'],
+        ['📚', 'Прочитать', 'Список книг с отметками', 'Учёба'],
+        ['🎄', 'До Нового года', 'Живой отсчёт до праздника', 'Семья'],
+        ['🤗', 'Обнимашки', 'Счётчик обнимашек за день', 'Семья'],
+        ['🍿', 'Киновечер', 'Чья очередь выбирать фильм', 'Семья'],
+        ['🌙', 'Фаза луны', 'Какая сегодня луна', 'Семья'],
+        ['📐', 'Конвертер', 'Кг, см, литры, градусы', 'Мелочи'],
+        ['🔐', 'Паролик', 'Надёжный пароль за секунду', 'Мелочи'],
+        ['🏛️', 'Римские числа', '2024 ↔ MMXXIV', 'Мелочи'],
+        ['📡', 'Морзе', 'Текст → точки и тире', 'Мелочи'],
+        ['⏱️', 'Таймер', 'Простой таймер на минуты', 'Мелочи'],
+        ['🎂', 'Возраст', 'Точный возраст в годах и днях', 'Мелочи'],
+        ['📝', 'Стикер', 'Одна заметка всегда под рукой', 'Мелочи']
+      ];
+      const grid = document.getElementById('plugin-grid');
+      const tiles = PLUGINS.map(([emoji, name, desc, cat]) => {
+        const tile = document.createElement('div');
+        tile.className = 'plugin-tile';
+        tile.dataset.cat = cat;
+        tile.innerHTML = '<span class="plugin-emoji" aria-hidden="true">' + emoji + '</span>'
+          + '<span><span class="plugin-name">' + name + '</span>'
+          + '<span class="plugin-desc">' + desc + '</span></span>';
+        return tile;
+      });
+      function renderPlugins(cat) {
+        grid.innerHTML = '';
+        tiles.filter(t => cat === 'all' || t.dataset.cat === cat).forEach(t => grid.appendChild(t));
+      }
+      renderPlugins('all');
+      document.querySelectorAll('.chip3').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.chip3').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          renderPlugins(chip.dataset.cat);
+        });
+      });
+
+      // ===== Счётчик скачиваний из GitHub API =====
+      const dl = document.getElementById('dl-count');
+      fetch('https://api.github.com/repos/Legoman-1337/notes/releases')
+        .then(r => r.json())
+        .then(releases => {
+          if (!Array.isArray(releases)) return;
+          const total = releases.reduce((sum, rel) => sum
+            + rel.assets.reduce((s, a) => s + (a.download_count || 0), 0), 0);
+          if (dl && total > 0) {
+            let shown = 0;
+            const step = Math.max(1, Math.round(total / 40));
+            const timer = setInterval(() => {
+              shown = Math.min(total, shown + step);
+              dl.textContent = shown.toLocaleString('ru-RU');
+              if (shown >= total) clearInterval(timer);
+            }, 30);
+          }
+        })
+        .catch(() => {});
+
+      // ===== Конфетти на кнопках скачивания =====
+      const COLORS = ['#a9f5bd', '#ffb36b', '#ff858d', '#c4a0ff', '#80bdff', '#ffffff'];
+      function burst(x, y) {
+        for (let i = 0; i < 22; i++) {
+          const p = document.createElement('span');
+          p.className = 'confetti-piece';
+          p.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+          p.style.left = x + 'px';
+          p.style.top = y + 'px';
+          document.body.appendChild(p);
+          const dx = (Math.random() - 0.5) * 320;
+          const dy = -120 - Math.random() * 220;
+          const rot = (Math.random() - 0.5) * 540;
+          p.animate([
+            { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+            { transform: `translate(${dx}px, ${dy + 260}px) rotate(${rot}deg)`, opacity: 0 }
+          ], { duration: 850 + Math.random() * 450, easing: 'cubic-bezier(.2,.65,.3,1)' })
+            .addEventListener('finish', () => p.remove());
+        }
+      }
+      document.querySelectorAll('.download-button, .primary-link').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          burst(e.clientX, e.clientY);
+        });
+      });
     })();
   </script>
 </body>

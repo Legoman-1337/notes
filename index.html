@@ -1280,47 +1280,6 @@
       to { background-position: -220% 0; }
     }
 
-    .mini-note { margin-top: 18px; }
-    .mini-note-title {
-      outline: none;
-      border-bottom: 1px dashed color-mix(in srgb, var(--accent-color) 35%, transparent);
-      padding-bottom: 2px;
-    }
-    .mini-note-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 11px;
-      color: var(--text-soft);
-      font-size: 13.5px;
-      cursor: pointer;
-      user-select: none;
-      transition: color 180ms ease;
-    }
-    .mini-check {
-      display: grid;
-      width: 20px;
-      height: 20px;
-      flex: 0 0 auto;
-      place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
-      border-radius: 7px;
-      background: color-mix(in srgb, var(--accent-color) 8%, transparent);
-      color: transparent;
-      font-size: 12px;
-      font-weight: 800;
-      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
-    }
-    .mini-note-line:hover .mini-check { transform: scale(1.1); }
-    .mini-note-line.done { color: var(--muted); text-decoration: line-through; }
-    .mini-note-line.done .mini-check { background: var(--accent-color); color: var(--accent-contrast); }
-    .mini-hint {
-      margin-top: 13px;
-      color: var(--subtle);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-    }
-
     .plugins { padding-block: 0 94px; }
     .plugin-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
     .chip3 {
@@ -1497,15 +1456,9 @@
             </div>
           </div>
 
-          <div class="mini-note" aria-label="Живая демонстрация заметки">
-            <p class="preview-title mini-note-title" contenteditable="true" spellcheck="false">Дела на неделю</p>
-            <div class="mini-note-line" role="checkbox" aria-checked="false" tabindex="0"><span class="mini-check">✓</span><span>Позвонить маме</span></div>
-            <div class="mini-note-line done" role="checkbox" aria-checked="true" tabindex="0"><span class="mini-check">✓</span><span>Купить продукты</span></div>
-            <div class="mini-note-line" role="checkbox" aria-checked="false" tabindex="0"><span class="mini-check">✓</span><span>Полить цветы</span></div>
-            <div class="mini-hint">Это живая заметка — попробуйте отметить пункт или переименовать ↓</div>
-          </div>
+          <div class="preview-line"><span></span></div>
           <div class="preview-caption">
-            <span>ПОПРОБУЙТЕ ПРЯМО ЗДЕСЬ</span>
+            <span>МОИ ПРИЛОЖЕНИЯ</span>
             <span>3.0</span>
           </div>
         </div>
@@ -2344,18 +2297,6 @@
       window.addEventListener('resize', paintProgress);
       paintProgress();
 
-      // ===== Живая мини-заметка в hero =====
-      document.querySelectorAll('.mini-note-line').forEach((line) => {
-        const toggle = () => {
-          line.classList.toggle('done');
-          line.setAttribute('aria-checked', String(line.classList.contains('done')));
-        };
-        line.addEventListener('click', toggle);
-        line.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-        });
-      });
-
       // ===== Витрина плагинов =====
       const PLUGINS = [
         ['🧚', 'Фея', 'Немного всего: комплимент, шутка, совет или доброе дело', 'Настроение'],
@@ -2434,25 +2375,16 @@
         });
       });
 
-      // ===== Счётчик скачиваний из GitHub API =====
+      // ===== Скачивания: настоящее число из GitHub API (релиз v3.0.0) =====
       const dl = document.getElementById('dl-count');
-      fetch('https://api.github.com/repos/Legoman-1337/notes/releases')
-        .then(r => r.json())
-        .then(releases => {
-          if (!Array.isArray(releases)) return;
-          const total = releases.reduce((sum, rel) => sum
-            + rel.assets.reduce((s, a) => s + (a.download_count || 0), 0), 0);
-          if (dl && total > 0) {
-            let shown = 0;
-            const step = Math.max(1, Math.round(total / 40));
-            const timer = setInterval(() => {
-              shown = Math.min(total, shown + step);
-              dl.textContent = shown.toLocaleString('ru-RU');
-              if (shown >= total) clearInterval(timer);
-            }, 30);
-          }
+      fetch('https://api.github.com/repos/Legoman-1337/notes/releases/tags/v3.0.0', { headers: { 'Accept': 'application/vnd.github+json' } })
+        .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then(rel => {
+          if (!rel || !Array.isArray(rel.assets)) return;
+          const total = rel.assets.reduce((s, a) => s + (a.download_count || 0), 0);
+          if (dl) dl.textContent = total.toLocaleString('ru-RU');
         })
-        .catch(() => {});
+        .catch(() => { if (dl) dl.textContent = '—'; });
 
       // ===== Конфетти на кнопках скачивания =====
       const COLORS = ['#a9f5bd', '#ffb36b', '#ff858d', '#c4a0ff', '#80bdff', '#ffffff'];

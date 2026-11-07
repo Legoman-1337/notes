@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080d0b">
-  <meta name="description" content="Удобные заметки 3.0 для Android: напоминания, будильник и улучшенное форматирование. Скачай APK из GitHub Releases.">
-  <title>Удобные заметки 3.0 · Мои приложения</title>
+  <meta name="description" content="Удобные заметки 3.0 для Android и Windows: плагины с магазином, напоминания, облачная синхронизация. Скачай APK или версию для ПК из GitHub Releases.">
+  <title>Удобные заметки 3.0 · Android и ПК</title>
 
   <style>
     @property --background {
@@ -687,6 +687,23 @@
       height: 17px;
     }
 
+    .download-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .download-button.outline {
+      background: transparent;
+      color: var(--accent-color);
+    }
+
+    .download-button.outline:hover {
+      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
+      box-shadow: 0 0 28px color-mix(in srgb, var(--accent-color) 19%, transparent);
+      transform: translateY(-2px);
+    }
+
     .download-note {
       margin: 11px 0 0;
       color: var(--subtle);
@@ -1292,7 +1309,7 @@
       <div class="hero-copy">
         <div class="eyebrow">
           <span class="eyebrow-line" aria-hidden="true"></span>
-          Приложения для Android · личная коллекция
+          Приложения для Android и ПК · личная коллекция
         </div>
 
         <h1 id="hero-title">
@@ -1301,7 +1318,7 @@
         </h1>
 
         <p class="intro">
-          Мои приложения для Android в одном месте. Выбирай нужное и скачивай установочный файл из раздела релизов GitHub.
+          Мои приложения для Android и Windows в одном месте. Выбирай нужное и скачивай установочный файл из раздела релизов GitHub.
         </p>
 
         <div class="hero-actions">
@@ -1320,14 +1337,14 @@
         <div class="preview-card">
           <div class="preview-top">
             <div class="window-dots"><span></span><span></span><span></span></div>
-            <span class="preview-label">ПРИЛОЖЕНИЕ ДЛЯ ANDROID</span>
+            <span class="preview-label">ANDROID · WINDOWS</span>
           </div>
 
           <div class="preview-body">
             <div class="preview-icon">✳</div>
             <div>
               <p class="preview-title">Заметки</p>
-              <p class="preview-version">Версия 3.0 · APK</p>
+              <p class="preview-version">Версия 3.0 · APK + EXE</p>
             </div>
           </div>
 
@@ -1356,13 +1373,13 @@
 
         <div class="app-info">
           <div class="app-overline">
-            <span class="app-type">Приложение для Android</span>
+            <span class="app-type">Приложение для Android и ПК</span>
             <span class="available">Релиз 3.0 доступен</span>
           </div>
 
           <h3 class="app-title">Заметки</h3>
           <p class="app-description">
-            Заметки для Android с гибкими напоминаниями и будильником. В версии 3.0 появились плагины с магазином (каталог на GitHub, установка без перезапуска), плагин «Журнал и Табель» для учёта посещаемости и оплат, облачное сохранение данных плагинов и обновлённый интерфейс.
+            Заметки для Android и Windows: напоминания, будильник, гибкое форматирование и плагины. В версии 3.0 — магазин плагинов с вкладками «Рекомендуемые», «Дополнительно» (больше ста прикольных плагинов) и «Пакеты», плагин «Журнал и Табель», облачная синхронизация заметок и данных плагинов, а также новые плавные анимации переходов. На ПК — отдельная версия с теми же возможностями.
           </p>
 
           <div class="app-facts">
@@ -1371,24 +1388,36 @@
               <span class="fact-value">3.0</span>
             </div>
             <div class="fact">
-              <span class="fact-label">Формат</span>
-              <span class="fact-value">APK</span>
+              <span class="fact-label">Платформы</span>
+              <span class="fact-value">Android + Windows</span>
             </div>
           </div>
 
-          <a
-            class="download-button"
-            href="https://github.com/Legoman-1337/notes/releases/download/v3.0.0/zametki-3.0.0.apk"
-            aria-label="Скачать приложение Заметки версии 3.0"
-          >
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Скачать APK
-          </a>
+          <div class="download-row">
+            <a
+              class="download-button"
+              href="https://github.com/Legoman-1337/notes/releases/download/v3.0.0/zametki-3.0.0.apk"
+              aria-label="Скачать приложение Заметки 3.0 для Android (APK)"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Скачать APK
+            </a>
+            <a
+              class="download-button outline"
+              href="https://github.com/Legoman-1337/notes/releases/download/v3.0.0/UdobnyeZametki-3.0.0-windows.exe"
+              aria-label="Скачать Удобные заметки 3.0 для Windows (установщик EXE)"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Скачать для ПК (.exe)
+            </a>
+          </div>
 
           <p class="download-note">
-            Начнётся скачивание оригинального файла из раздела релизов GitHub.
+            APK — для Android, установщик .exe — для Windows 10/11. Оригинальные файлы из раздела релизов GitHub.
           </p>
         </div>
       </article>

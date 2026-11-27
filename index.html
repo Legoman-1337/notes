@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#060a08">
+  <meta name="theme-color" content="#050907">
   <meta name="description" content="Удобные заметки 3.2 для Android и Windows: без регистрации — заметки сразу на устройстве, напоминания, будильник и гибкое форматирование. Скачай APK или портативную версию для ПК.">
   <title>Удобные заметки 3.2 · Android и ПК</title>
 
@@ -11,19 +11,19 @@
     @property --background {
       syntax: "<color>";
       inherits: true;
-      initial-value: #060a08;
+      initial-value: #050907;
     }
 
     @property --surface {
       syntax: "<color>";
       inherits: true;
-      initial-value: #0d1611;
+      initial-value: #0c1510;
     }
 
     @property --surface-light {
       syntax: "<color>";
       inherits: true;
-      initial-value: #14221a;
+      initial-value: #132119;
     }
 
     @property --text {
@@ -41,7 +41,7 @@
     @property --text-soft {
       syntax: "<color>";
       inherits: true;
-      initial-value: #cad9cf;
+      initial-value: #c9d8ce;
     }
 
     @property --subtle {
@@ -70,45 +70,45 @@
 
     :root {
       color-scheme: dark;
-      --background: #060a08;
-      --surface: #0d1611;
-      --surface-light: #14221a;
-      --border: color-mix(in srgb, var(--accent-color) 18%, transparent);
+      --background: #050907;
+      --surface: #0c1510;
+      --surface-light: #132119;
+      --border: color-mix(in srgb, var(--accent-color) 15%, transparent);
       --text: #f2faf4;
       --muted: #8da294;
-      --text-soft: #cad9cf;
+      --text-soft: #c9d8ce;
       --subtle: #6d8275;
       --accent-color: #a9f5bd;
       --accent-ink: var(--accent-color);
       --accent-contrast: #06120a;
-      --card-bg: linear-gradient(150deg, color-mix(in srgb, var(--surface-light) 86%, var(--accent-color) 14%), color-mix(in srgb, var(--surface) 94%, black) 78%);
-      --card-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+      --card-bg: linear-gradient(155deg, color-mix(in srgb, var(--surface-light) 84%, var(--accent-color) 12%), color-mix(in srgb, var(--surface) 95%, black) 80%);
+      --card-shadow: 0 32px 96px rgba(0, 0, 0, 0.58);
       transition:
-        --background 0.55s ease,
-        --surface 0.55s ease,
-        --surface-light 0.55s ease,
-        --text 0.55s ease,
-        --muted 0.55s ease,
-        --text-soft 0.55s ease,
-        --subtle 0.55s ease,
-        --accent-color 0.55s ease,
-        --accent-ink 0.55s ease;
+        --background 0.6s ease,
+        --surface 0.6s ease,
+        --surface-light 0.6s ease,
+        --text 0.6s ease,
+        --muted 0.6s ease,
+        --text-soft 0.6s ease,
+        --subtle 0.6s ease,
+        --accent-color 0.6s ease,
+        --accent-ink 0.6s ease;
     }
 
     :root[data-theme="light"] {
       color-scheme: light;
-      --background: #f2f7f4;
+      --background: #f1f6f3;
       --surface: #ffffff;
-      --surface-light: #e7f1eb;
-      --border: color-mix(in srgb, var(--accent-ink) 20%, rgba(14, 34, 21, 0.08));
+      --surface-light: #e6f0ea;
+      --border: color-mix(in srgb, var(--accent-ink) 18%, rgba(14, 34, 21, 0.08));
       --text: #101f15;
       --muted: #566b5d;
-      --text-soft: #394e40;
+      --text-soft: #384d3f;
       --subtle: #6b8072;
-      --accent-ink: color-mix(in srgb, var(--accent-color) 58%, #091c10);
-      --accent-contrast: #0c1d12;
-      --card-bg: linear-gradient(150deg, #ffffff 28%, color-mix(in srgb, var(--surface-light) 78%, var(--accent-color) 20%));
-      --card-shadow: 0 26px 70px rgba(14, 42, 24, 0.1);
+      --accent-ink: color-mix(in srgb, var(--accent-color) 56%, #081b0f);
+      --accent-contrast: #0b1c11;
+      --card-bg: linear-gradient(155deg, #ffffff 30%, color-mix(in srgb, var(--surface-light) 78%, var(--accent-color) 18%));
+      --card-shadow: 0 28px 72px rgba(14, 42, 24, 0.09);
     }
 
     /* 12 сочных акцентных палитр */
@@ -145,7 +145,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Полноэкранный Canvas с частицами */
+    /* Полноэкранный Canvas */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -155,61 +155,63 @@
       pointer-events: none;
     }
 
-    /* Кинематографичная фоновая аура */
+    /* Фоновые живые ауры с плавным параллаксом при скролле */
     .ambient-bg {
       position: fixed;
       inset: 0;
       z-index: -3;
       overflow: hidden;
       pointer-events: none;
+      transform: translate3d(0, var(--scroll-shift, 0px), 0);
+      will-change: transform;
     }
 
     .aurora {
       position: absolute;
       border-radius: 50%;
-      filter: blur(95px);
-      opacity: 0.42;
+      filter: blur(100px);
+      opacity: 0.4;
       will-change: transform;
-      animation: aurora-float 18s ease-in-out infinite alternate;
+      animation: aurora-float 20s ease-in-out infinite alternate;
     }
 
     .aurora-1 {
-      top: -18%;
-      right: -10%;
-      width: 52vw;
-      height: 52vw;
+      top: -20%;
+      right: -12%;
+      width: 54vw;
+      height: 54vw;
       min-width: 360px;
       min-height: 360px;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 42%, transparent), transparent 68%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 40%, transparent), transparent 68%);
     }
 
     .aurora-2 {
-      bottom: -14%;
-      left: -12%;
-      width: 48vw;
-      height: 48vw;
+      bottom: -16%;
+      left: -14%;
+      width: 50vw;
+      height: 50vw;
       min-width: 320px;
       min-height: 320px;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%);
-      animation-duration: 25s;
-      animation-delay: -7s;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 26%, transparent), transparent 70%);
+      animation-duration: 27s;
+      animation-delay: -8s;
     }
 
     .aurora-3 {
-      top: 38%;
+      top: 36%;
       left: 34%;
-      width: 34vw;
-      height: 34vw;
+      width: 36vw;
+      height: 36vw;
       min-width: 260px;
       min-height: 260px;
-      opacity: 0.22;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 36%, transparent), transparent 72%);
-      animation-duration: 21s;
+      opacity: 0.2;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 32%, transparent), transparent 72%);
+      animation-duration: 23s;
       animation-direction: alternate-reverse;
     }
 
     :root[data-theme="light"] .aurora {
-      opacity: 0.28;
+      opacity: 0.26;
     }
 
     /* Сетка перспективы и пленочное зерно */
@@ -218,9 +220,9 @@
       z-index: -2;
       inset: 0;
       background-image:
-        linear-gradient(color-mix(in srgb, var(--accent-ink) 5%, transparent) 1px, transparent 1px),
-        linear-gradient(90deg, color-mix(in srgb, var(--accent-ink) 5%, transparent) 1px, transparent 1px);
-      background-size: 48px 48px;
+        linear-gradient(color-mix(in srgb, var(--accent-ink) 4.5%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--accent-ink) 4.5%, transparent) 1px, transparent 1px);
+      background-size: 50px 50px;
       content: "";
       mask-image: radial-gradient(ellipse at 50% 24%, black 22%, transparent 82%);
       pointer-events: none;
@@ -230,22 +232,22 @@
       position: fixed;
       z-index: -1;
       inset: 0;
-      opacity: 0.035;
+      opacity: 0.032;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       content: "";
       pointer-events: none;
     }
 
-    /* Мягкое свечение, следующее за курсором */
+    /* Деликатная аура за курсором */
     .cursor-aura {
       position: fixed;
       top: 0;
       left: 0;
       z-index: -1;
-      width: 520px;
-      height: 520px;
+      width: 480px;
+      height: 480px;
       border-radius: 50%;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 11%, transparent), transparent 65%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 8.5%, transparent), transparent 66%);
       transform: translate3d(-999px, -999px, 0);
       pointer-events: none;
       will-change: transform;
@@ -254,7 +256,7 @@
     }
 
     :root[data-theme="light"] .cursor-aura {
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 16%, transparent), transparent 65%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 13%, transparent), transparent 66%);
     }
 
     a {
@@ -272,10 +274,10 @@
       top: 0;
       left: 0;
       z-index: 95;
-      height: 3px;
+      height: 2.5px;
       width: 0%;
-      background: linear-gradient(90deg, var(--accent-ink), var(--accent-color), white);
-      box-shadow: 0 0 18px color-mix(in srgb, var(--accent-color) 80%, transparent);
+      background: linear-gradient(90deg, var(--accent-ink), var(--accent-color));
+      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-color) 65%, transparent);
       pointer-events: none;
     }
 
@@ -284,10 +286,10 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(20px) saturate(140%);
-      -webkit-backdrop-filter: blur(20px) saturate(140%);
-      background: color-mix(in srgb, var(--background) 70%, transparent);
-      border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
+      backdrop-filter: blur(22px) saturate(145%);
+      -webkit-backdrop-filter: blur(22px) saturate(145%);
+      background: color-mix(in srgb, var(--background) 68%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
       transition: background-color 0.5s ease, border-color 0.5s ease;
     }
 
@@ -318,16 +320,16 @@
       width: 36px;
       height: 36px;
       place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 40%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 38%, transparent);
       border-radius: 11px;
-      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
-      box-shadow: 0 0 26px color-mix(in srgb, var(--accent-color) 20%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--accent-color) 16%, transparent);
       transition: transform 420ms cubic-bezier(.2,.85,.3,1), box-shadow 420ms ease;
     }
 
     .brand:hover .brand-mark {
       transform: rotate(135deg) scale(1.08);
-      box-shadow: 0 0 36px color-mix(in srgb, var(--accent-color) 42%, transparent);
+      box-shadow: 0 0 34px color-mix(in srgb, var(--accent-color) 36%, transparent);
     }
 
     .brand-mark::before {
@@ -350,9 +352,9 @@
       align-items: center;
       gap: 8px;
       padding: 6px 12px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 18%, transparent);
       border-radius: 99px;
-      background: color-mix(in srgb, var(--accent-color) 9%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 8%, transparent);
       color: var(--text-soft);
       font-size: 11px;
       font-weight: 650;
@@ -366,8 +368,8 @@
       height: 7px;
       border-radius: 50%;
       background: var(--accent-ink);
-      box-shadow: 0 0 12px var(--accent-color), 0 0 4px white;
-      animation: pulse-glow 2.2s ease-in-out infinite;
+      box-shadow: 0 0 10px var(--accent-color);
+      animation: pulse-glow 2.3s ease-in-out infinite;
     }
 
     .header-controls {
@@ -393,7 +395,7 @@
       width: 16px;
       height: 16px;
       padding: 0;
-      border: 1.5px solid color-mix(in srgb, var(--text) 18%, transparent);
+      border: 1.5px solid color-mix(in srgb, var(--text) 16%, transparent);
       border-radius: 50%;
       background: var(--swatch-color);
       cursor: pointer;
@@ -401,13 +403,13 @@
     }
 
     .accent-swatch:hover {
-      box-shadow: 0 0 16px var(--swatch-color);
-      transform: scale(1.28) translateY(-1px);
+      box-shadow: 0 0 14px var(--swatch-color);
+      transform: scale(1.26) translateY(-1px);
     }
 
     .accent-swatch[aria-pressed="true"] {
       border-color: var(--text);
-      box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--swatch-color), 0 0 14px color-mix(in srgb, var(--swatch-color) 65%, transparent);
+      box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--swatch-color), 0 0 12px color-mix(in srgb, var(--swatch-color) 55%, transparent);
       transform: scale(1.12);
     }
 
@@ -427,7 +429,7 @@
 
     .theme-toggle:hover {
       background-color: var(--surface-light);
-      box-shadow: 0 0 24px color-mix(in srgb, var(--accent-color) 24%, transparent);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--accent-color) 20%, transparent);
       transform: translateY(-2px);
     }
 
@@ -451,51 +453,66 @@
       outline-offset: 3px;
     }
 
-    /* Эффект бегущего светового контура (@property --beam-angle) */
+    /* ПОФИКШЕННЫЕ ЛУЧИ: строго 1px внутренняя световая кромка через mask-composite, мягкая и без резкого белого пика */
     .beam-border {
       position: relative;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 16%, transparent);
     }
 
     .beam-border::before {
       position: absolute;
-      inset: -1.5px;
-      z-index: -1;
+      inset: 0;
+      z-index: 3;
+      padding: 1px;
       border-radius: inherit;
       background: conic-gradient(
         from var(--beam-angle),
         transparent 0deg,
-        transparent 250deg,
-        color-mix(in srgb, var(--accent-color) 40%, transparent) 295deg,
-        var(--accent-color) 330deg,
-        white 345deg,
+        transparent 225deg,
+        color-mix(in srgb, var(--accent-ink) 26%, transparent) 280deg,
+        color-mix(in srgb, var(--accent-color) 62%, transparent) 324deg,
+        color-mix(in srgb, var(--accent-ink) 22%, transparent) 348deg,
         transparent 360deg
       );
-      opacity: 0.65;
-      animation: spin-beam 6.5s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0.42;
+      animation: spin-beam 9.5s linear infinite;
+      transition: opacity 380ms ease;
       content: "";
       pointer-events: none;
     }
 
+    .beam-border:hover::before {
+      opacity: 0.72;
+    }
+
     :root[data-theme="light"] .beam-border::before {
-      opacity: 0.45;
+      opacity: 0.3;
       background: conic-gradient(
         from var(--beam-angle),
         transparent 0deg,
-        transparent 255deg,
-        color-mix(in srgb, var(--accent-ink) 35%, transparent) 300deg,
-        var(--accent-ink) 340deg,
+        transparent 230deg,
+        color-mix(in srgb, var(--accent-ink) 28%, transparent) 290deg,
+        color-mix(in srgb, var(--accent-ink) 58%, transparent) 330deg,
         transparent 360deg
       );
+    }
+
+    :root[data-theme="light"] .beam-border:hover::before {
+      opacity: 0.55;
     }
 
     /* Hero */
     .hero {
       display: grid;
-      min-height: min(670px, 88vh);
-      grid-template-columns: 1.05fr 0.95fr;
+      min-height: min(690px, 88vh);
+      grid-template-columns: 1.04fr 0.96fr;
       align-items: center;
       gap: 48px;
-      padding-block: 54px 80px;
+      padding-block: 54px 72px;
     }
 
     .hero-copy .eyebrow {
@@ -516,16 +533,16 @@
       height: 2px;
       border-radius: 2px;
       background: linear-gradient(90deg, transparent, var(--accent-ink));
-      box-shadow: 0 0 12px color-mix(in srgb, var(--accent-color) 85%, transparent);
+      box-shadow: 0 0 10px color-mix(in srgb, var(--accent-color) 75%, transparent);
     }
 
     h1 {
       max-width: 680px;
       margin: 0;
-      font-size: clamp(48px, 7vw, 90px);
+      font-size: clamp(48px, 7.1vw, 92px);
       font-weight: 820;
       letter-spacing: -0.068em;
-      line-height: 0.96;
+      line-height: 0.95;
       animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 90ms both;
     }
 
@@ -534,15 +551,15 @@
       background: linear-gradient(
         105deg,
         var(--accent-ink) 10%,
-        color-mix(in srgb, var(--accent-color) 40%, white) 44%,
+        color-mix(in srgb, var(--accent-color) 36%, white) 44%,
         var(--accent-ink) 78%
       );
       background-size: 230% 100%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 28px color-mix(in srgb, var(--accent-color) 22%, transparent));
-      animation: shine 5.5s linear infinite;
+      filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent-color) 18%, transparent));
+      animation: shine 6s linear infinite;
     }
 
     :root[data-theme="light"] h1 span {
@@ -585,8 +602,8 @@
       align-items: center;
       justify-content: center;
       gap: 11px;
-      padding: 0 25px;
-      border: 1px solid color-mix(in srgb, var(--accent-color) 70%, transparent);
+      padding: 0 26px;
+      border: 1px solid color-mix(in srgb, var(--accent-color) 65%, transparent);
       border-radius: 15px;
       background: var(--accent-color);
       color: var(--accent-contrast);
@@ -594,7 +611,7 @@
       font-weight: 780;
       text-decoration: none;
       box-shadow:
-        0 14px 36px color-mix(in srgb, var(--accent-color) 26%, transparent),
+        0 14px 36px color-mix(in srgb, var(--accent-color) 24%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
       transition: transform 220ms cubic-bezier(.2,.8,.3,1), box-shadow 220ms ease, filter 220ms ease;
     }
@@ -603,9 +620,9 @@
     .download-button:not(.outline)::after {
       position: absolute;
       inset: 0;
-      background: linear-gradient(110deg, transparent 28%, rgba(255, 255, 255, 0.52) 50%, transparent 72%);
+      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.42) 50%, transparent 70%);
       transform: translateX(-140%);
-      transition: transform 680ms cubic-bezier(.2,.7,.25,1);
+      transition: transform 720ms cubic-bezier(.2,.7,.25,1);
       content: "";
       pointer-events: none;
     }
@@ -616,8 +633,8 @@
     }
 
     .primary-link:hover {
-      filter: brightness(1.07);
-      box-shadow: 0 18px 46px color-mix(in srgb, var(--accent-color) 42%, transparent);
+      filter: brightness(1.06);
+      box-shadow: 0 18px 46px color-mix(in srgb, var(--accent-color) 38%, transparent);
     }
 
     .arrow {
@@ -647,7 +664,7 @@
     }
 
     .ghost-link:hover {
-      border-color: color-mix(in srgb, var(--accent-ink) 50%, transparent);
+      border-color: color-mix(in srgb, var(--accent-ink) 48%, transparent);
       background: var(--surface-light);
       color: var(--text);
       box-shadow: 0 10px 28px color-mix(in srgb, var(--accent-color) 12%, transparent);
@@ -679,15 +696,15 @@
       content: "";
     }
 
-    /* 3D Визуальная сцена в Hero */
+    /* 3D Сцена в Hero с Сатурн-кольцом и 3 уровнями глубины */
     .hero-visual {
       position: relative;
       display: grid;
-      min-height: 450px;
+      min-height: 460px;
       place-items: center;
-      perspective: 1200px;
+      perspective: 1300px;
       isolation: isolate;
-      animation: hero-stage-in 1000ms cubic-bezier(.16,1,.3,1) 140ms both;
+      animation: hero-stage-in 1050ms cubic-bezier(.16,1,.3,1) 140ms both;
     }
 
     .hero-stage {
@@ -697,33 +714,35 @@
       place-items: center;
       transform-style: preserve-3d;
       transform: rotateX(var(--hero-rx, 0deg)) rotateY(var(--hero-ry, 0deg));
-      transition: transform 260ms cubic-bezier(.2,.7,.25,1);
+      transition: transform 280ms cubic-bezier(.2,.7,.25,1);
     }
 
     .hero-glow-disc {
       position: absolute;
       z-index: -3;
-      width: min(84vw, 430px);
+      width: min(84vw, 440px);
       aspect-ratio: 1;
       border-radius: 50%;
       background: radial-gradient(
         circle,
-        color-mix(in srgb, var(--accent-color) 32%, transparent),
-        color-mix(in srgb, var(--accent-color) 10%, transparent) 46%,
+        color-mix(in srgb, var(--accent-color) 30%, transparent),
+        color-mix(in srgb, var(--accent-color) 9%, transparent) 46%,
         transparent 72%
       );
-      filter: blur(14px);
-      animation: breathe 5.5s ease-in-out infinite alternate;
+      filter: blur(18px);
+      transform: translateZ(-40px);
+      animation: breathe 5.8s ease-in-out infinite alternate;
     }
 
     .orbit {
       position: absolute;
       z-index: -2;
-      width: min(78vw, 390px);
+      width: min(78vw, 396px);
       aspect-ratio: 1;
-      border: 1px dashed color-mix(in srgb, var(--accent-ink) 24%, transparent);
+      border: 1px dashed color-mix(in srgb, var(--accent-ink) 20%, transparent);
       border-radius: 50%;
-      animation: rotate-slow 30s linear infinite;
+      transform: translateZ(-20px);
+      animation: rotate-slow 32s linear infinite;
     }
 
     .orbit::before,
@@ -736,10 +755,10 @@
     .orbit::before {
       top: 13%;
       left: 13%;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       background: var(--accent-color);
-      box-shadow: 0 0 20px var(--accent-color), 0 0 8px white;
+      box-shadow: 0 0 18px var(--accent-color);
     }
 
     .orbit::after {
@@ -748,15 +767,14 @@
       width: 5px;
       height: 5px;
       background: var(--accent-ink);
-      box-shadow: 0 0 12px var(--accent-color);
-      opacity: 0.7;
+      opacity: 0.65;
     }
 
     .orbit-two {
-      width: min(60vw, 290px);
+      width: min(60vw, 294px);
       border-style: solid;
-      border-color: color-mix(in srgb, var(--accent-ink) 16%, transparent);
-      animation: rotate-slow 19s linear infinite reverse;
+      border-color: color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      animation: rotate-slow 20s linear infinite reverse;
     }
 
     .orbit-two::before {
@@ -764,29 +782,63 @@
       right: 9%;
       bottom: 20%;
       left: auto;
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
     }
 
     .orbit-two::after {
       display: none;
     }
 
+    /* 3D наклонённая орбита (эффект кольца Сатурна) */
+    .orbit-tilt {
+      position: absolute;
+      z-index: -1;
+      width: min(88vw, 450px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform-style: preserve-3d;
+      transform: rotateX(72deg) rotateY(-18deg);
+      pointer-events: none;
+    }
+
+    .orbit-tilt-ring {
+      width: 100%;
+      height: 100%;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 22%, transparent);
+      border-radius: 50%;
+      animation: rotate-slow 14s linear infinite;
+    }
+
+    .orbit-tilt-ring::before {
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 18px var(--accent-color);
+      transform: translateX(-50%);
+      content: "";
+    }
+
     .preview-card {
       position: relative;
-      width: min(100%, 364px);
+      width: min(100%, 366px);
       padding: 23px;
       border-radius: 26px;
       background: var(--card-bg);
       box-shadow:
         var(--card-shadow),
-        0 0 75px color-mix(in srgb, var(--accent-color) 16%, transparent),
+        0 0 70px color-mix(in srgb, var(--accent-color) 14%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
       transform-style: preserve-3d;
-      animation: float-card 6s ease-in-out infinite;
+      transform: translateZ(18px);
+      animation: float-card 6.2s ease-in-out infinite;
     }
 
-    /* Пробегающий световой блик по стеклу карточки */
+    /* Деликатный стеклянный блик */
     .preview-sheen {
       position: absolute;
       inset: 0;
@@ -797,13 +849,13 @@
 
     .preview-sheen::after {
       position: absolute;
-      top: -40%;
-      left: -60%;
-      width: 55%;
-      height: 180%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      top: -45%;
+      left: -65%;
+      width: 48%;
+      height: 190%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.045), transparent);
       transform: rotate(25deg);
-      animation: sheen-sweep 7s ease-in-out infinite;
+      animation: sheen-sweep 8.5s ease-in-out infinite;
       content: "";
     }
 
@@ -812,7 +864,7 @@
       align-items: center;
       justify-content: space-between;
       padding-bottom: 15px;
-      border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 13%, transparent);
     }
 
     .window-dots {
@@ -824,7 +876,7 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: color-mix(in srgb, var(--accent-ink) 32%, transparent);
+      background: color-mix(in srgb, var(--accent-ink) 30%, transparent);
     }
 
     .window-dots span:first-child {
@@ -853,12 +905,12 @@
       height: 58px;
       flex: 0 0 auto;
       place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 35%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 32%, transparent);
       border-radius: 18px;
-      background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 32%, transparent), color-mix(in srgb, var(--accent-color) 10%, transparent));
+      background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 28%, transparent), color-mix(in srgb, var(--accent-color) 9%, transparent));
       color: var(--accent-ink);
       font-size: 26px;
-      box-shadow: 0 12px 28px color-mix(in srgb, var(--accent-color) 20%, transparent);
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--accent-color) 18%, transparent);
     }
 
     .preview-title {
@@ -874,14 +926,13 @@
       font-size: 12px;
     }
 
-    /* Визуальная сцена заметки внутри карточки */
     .preview-lines {
       position: relative;
       display: grid;
       gap: 10px;
       margin-top: 20px;
       padding: 15px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
       border-radius: 15px;
       background: color-mix(in srgb, var(--background) 48%, transparent);
       overflow: hidden;
@@ -902,19 +953,19 @@
       height: 12px;
       border-radius: 4px;
       border: 1.5px solid var(--accent-ink);
-      background: color-mix(in srgb, var(--accent-color) 24%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 20%, transparent);
       flex: 0 0 auto;
     }
 
     .mock-check.pulse {
-      animation: check-glow 3.2s ease-in-out infinite;
+      animation: check-glow 3.4s ease-in-out infinite;
     }
 
     .mock-bar {
       position: relative;
       height: 7px;
       border-radius: 99px;
-      background: color-mix(in srgb, var(--accent-ink) 16%, transparent);
+      background: color-mix(in srgb, var(--accent-ink) 15%, transparent);
       overflow: hidden;
     }
 
@@ -928,12 +979,11 @@
       width: 65%;
       border-radius: inherit;
       background: linear-gradient(90deg, var(--accent-ink), var(--accent-color));
-      box-shadow: 0 0 12px var(--accent-color);
+      box-shadow: 0 0 10px color-mix(in srgb, var(--accent-color) 70%, transparent);
       animation: bar-pulse 3.6s ease-in-out infinite alternate;
       content: "";
     }
 
-    /* Живая волна импульса внизу превью */
     .wave-bars {
       display: flex;
       align-items: center;
@@ -946,7 +996,7 @@
       height: 6px;
       border-radius: 99px;
       background: var(--accent-ink);
-      opacity: 0.8;
+      opacity: 0.78;
       animation: eq-dance 1.3s ease-in-out infinite alternate;
     }
 
@@ -973,12 +1023,12 @@
       align-items: center;
       gap: 9px;
       padding: 10px 15px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 28%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent);
       border-radius: 14px;
       background: color-mix(in srgb, var(--surface) 84%, transparent);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 24px color-mix(in srgb, var(--accent-color) 12%, transparent);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 22px color-mix(in srgb, var(--accent-color) 10%, transparent);
       color: var(--text);
       font-size: 12px;
       font-weight: 680;
@@ -995,22 +1045,75 @@
       height: 8px;
       border-radius: 50%;
       background: var(--accent-ink);
-      box-shadow: 0 0 12px var(--accent-color);
-      animation: pulse-glow 2s ease-in-out infinite;
+      box-shadow: 0 0 10px var(--accent-color);
+      animation: pulse-glow 2.1s ease-in-out infinite;
     }
 
     .float-badge.top-right {
-      top: 14px;
+      top: 12px;
       right: -8px;
-      transform: translateZ(45px);
+      transform: translateZ(55px);
       animation: float-badge-a 5.4s ease-in-out infinite;
     }
 
     .float-badge.bottom-left {
-      bottom: 22px;
-      left: -12px;
-      transform: translateZ(35px);
+      bottom: 20px;
+      left: -14px;
+      transform: translateZ(45px);
       animation: float-badge-b 6.6s ease-in-out infinite;
+    }
+
+    .float-badge.mid-right {
+      right: 12px;
+      bottom: -6px;
+      padding: 8px 13px;
+      font-size: 11px;
+      transform: translateZ(34px);
+      animation: float-badge-c 7.2s ease-in-out infinite;
+    }
+
+    /* Бесконечная лента-тикер */
+    .marquee-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 72px;
+      padding-block: 14px;
+      border-block: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
+      background: color-mix(in srgb, var(--surface) 45%, transparent);
+      mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 36px;
+      animation: marquee-scroll 34s linear infinite;
+    }
+
+    .marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-soft);
+      font-size: 12.5px;
+      font-weight: 650;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .marquee-item::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-ink);
+      opacity: 0.75;
+      content: "";
     }
 
     /* Заголовки секций */
@@ -1051,7 +1154,7 @@
 
     /* Карточка приложения */
     .library {
-      padding-block: 10px 88px;
+      padding-block: 6px 86px;
       scroll-margin-top: 90px;
     }
 
@@ -1066,7 +1169,7 @@
       border-radius: inherit;
       background: radial-gradient(
         520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        color-mix(in srgb, var(--accent-color) 14%, transparent),
+        color-mix(in srgb, var(--accent-color) 11%, transparent),
         transparent 62%
       );
       opacity: 0;
@@ -1083,7 +1186,7 @@
       --card-scale: 1;
       position: relative;
       display: grid;
-      grid-template-columns: 270px 1fr;
+      grid-template-columns: 276px 1fr;
       border-radius: 28px;
       background: var(--card-bg);
       box-shadow: var(--card-shadow);
@@ -1094,7 +1197,7 @@
 
     @media (hover: hover) and (pointer: fine) {
       .app-card:hover {
-        --card-scale: 1.012;
+        --card-scale: 1.01;
         will-change: transform;
       }
     }
@@ -1102,39 +1205,61 @@
     .app-art {
       position: relative;
       display: grid;
-      min-height: 320px;
+      min-height: 330px;
       place-items: center;
       border-right: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
       background:
-        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 22%, transparent), transparent 68%),
+        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 20%, transparent), transparent 68%),
         color-mix(in srgb, var(--background) 32%, transparent);
       overflow: hidden;
-      border-top-left-radius: inherit;
-      border-bottom-left-radius: inherit;
     }
 
     :root[data-theme="light"] .app-art {
       background:
-        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 32%, transparent), transparent 70%),
+        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%),
         color-mix(in srgb, var(--surface-light) 65%, transparent);
     }
 
     .app-art-ring {
       position: absolute;
-      width: 185px;
-      height: 185px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 22%, transparent);
+      width: 186px;
+      height: 186px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent);
       border-radius: 50%;
       animation: breathe 4.8s ease-in-out infinite alternate;
     }
 
     .app-art-ring.outer {
-      width: 240px;
-      height: 240px;
+      width: 244px;
+      height: 244px;
       border-style: dashed;
-      border-color: color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      border-color: color-mix(in srgb, var(--accent-ink) 13%, transparent);
       animation: rotate-slow 26s linear infinite;
     }
+
+    /* Всплывающие искорки в витрине иконки */
+    .art-sparks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .art-sparks span {
+      position: absolute;
+      bottom: 22%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 10px var(--accent-color);
+      opacity: 0;
+      animation: spark-rise 4.4s ease-in-out infinite;
+    }
+
+    .art-sparks span:nth-child(1) { left: 26%; animation-delay: 0s; }
+    .art-sparks span:nth-child(2) { left: 70%; animation-delay: 1.3s; }
+    .art-sparks span:nth-child(3) { left: 48%; animation-delay: 2.6s; width: 3px; height: 3px; }
+    .art-sparks span:nth-child(4) { left: 34%; animation-delay: 3.4s; }
 
     .app-icon-stack {
       position: relative;
@@ -1147,8 +1272,8 @@
       width: 118px;
       height: 118px;
       border-radius: 34px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
-      background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 28%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 10%, transparent);
       transform: rotate(10deg) translate(10px, 8px);
       transition: transform 380ms cubic-bezier(.2,.85,.3,1);
     }
@@ -1167,14 +1292,14 @@
       border-radius: 34px;
       background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 90%, white), color-mix(in srgb, var(--accent-color) 70%, #194d2c));
       box-shadow:
-        0 20px 55px color-mix(in srgb, var(--accent-color) 34%, transparent),
+        0 20px 55px color-mix(in srgb, var(--accent-color) 32%, transparent),
         inset 0 2px 0 rgba(255, 255, 255, 0.72);
       transform: rotate(-7deg);
       transition: transform 360ms cubic-bezier(.2,.85,.3,1), box-shadow 360ms ease;
     }
 
     .app-card:hover .app-icon {
-      box-shadow: 0 26px 70px color-mix(in srgb, var(--accent-color) 48%, transparent);
+      box-shadow: 0 26px 70px color-mix(in srgb, var(--accent-color) 46%, transparent);
       transform: rotate(0deg) scale(1.07);
     }
 
@@ -1220,9 +1345,9 @@
       align-items: center;
       gap: 7px;
       padding: 5px 12px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 26%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent);
       border-radius: 99px;
-      background: color-mix(in srgb, var(--accent-color) 11%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 10%, transparent);
       color: var(--accent-ink);
       font-size: 10px;
       font-weight: 700;
@@ -1265,7 +1390,7 @@
     .fact {
       min-width: 112px;
       padding: 11px 14px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 13%, transparent);
       border-radius: 14px;
       background: color-mix(in srgb, var(--surface) 76%, transparent);
       transition: transform 220ms ease, border-color 220ms ease;
@@ -1322,7 +1447,7 @@
 
     .download-button:hover {
       filter: brightness(1.07);
-      box-shadow: 0 16px 40px color-mix(in srgb, var(--accent-color) 38%, transparent);
+      box-shadow: 0 16px 40px color-mix(in srgb, var(--accent-color) 36%, transparent);
     }
 
     .download-button svg {
@@ -1332,15 +1457,15 @@
     }
 
     .download-button.outline {
-      border-color: color-mix(in srgb, var(--accent-ink) 34%, transparent);
+      border-color: color-mix(in srgb, var(--accent-ink) 32%, transparent);
       background: color-mix(in srgb, var(--accent-color) 7%, transparent);
       color: var(--accent-ink);
       box-shadow: none;
     }
 
     .download-button.outline:hover {
-      background: color-mix(in srgb, var(--accent-color) 18%, transparent);
-      box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-color) 18%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      box-shadow: 0 12px 30px color-mix(in srgb, var(--accent-color) 16%, transparent);
       filter: none;
     }
 
@@ -1351,9 +1476,9 @@
       line-height: 1.55;
     }
 
-    /* Bento-витрина с анимированными визуальными сценами */
+    /* Bento-витрина */
     .features {
-      padding-block: 0 96px;
+      padding-block: 0 84px;
     }
 
     .bento-grid {
@@ -1378,24 +1503,8 @@
 
     .bento-card:hover {
       transform: translateY(-5px);
-      border-color: color-mix(in srgb, var(--accent-ink) 42%, transparent);
-      box-shadow: var(--card-shadow), 0 0 40px color-mix(in srgb, var(--accent-color) 12%, transparent);
-    }
-
-    .bento-card::before {
-      position: absolute;
-      top: 0;
-      right: 26px;
-      left: 26px;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 70%, transparent), transparent);
-      opacity: 0;
-      transition: opacity 340ms ease;
-      content: "";
-    }
-
-    .bento-card:hover::before {
-      opacity: 1;
+      border-color: color-mix(in srgb, var(--accent-ink) 38%, transparent);
+      box-shadow: var(--card-shadow), 0 0 38px color-mix(in srgb, var(--accent-color) 10%, transparent);
     }
 
     .bento-wide { grid-column: span 7; }
@@ -1404,19 +1513,19 @@
     .bento-visual {
       position: relative;
       display: grid;
-      height: 148px;
+      height: 158px;
       place-items: center;
       overflow: hidden;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 13%, transparent);
       border-radius: 18px;
       background:
         radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 10%, transparent), transparent 72%),
-        color-mix(in srgb, var(--background) 46%, transparent);
+        color-mix(in srgb, var(--background) 48%, transparent);
     }
 
     :root[data-theme="light"] .bento-visual {
       background:
-        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 18%, transparent), transparent 72%),
+        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 16%, transparent), transparent 72%),
         color-mix(in srgb, var(--surface-light) 78%, white);
     }
 
@@ -1444,7 +1553,7 @@
       line-height: 1.68;
     }
 
-    /* Визуал 1: Локальное хранилище + лазерный сканер */
+    /* Визуал 1: Локальный щит + парящие капсулы + мягкий блик */
     .vis-vault {
       position: relative;
       display: flex;
@@ -1455,100 +1564,128 @@
     .scan-beam {
       position: absolute;
       inset-block: 0;
-      width: 60px;
-      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent);
+      width: 72px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent);
       transform: skewX(-18deg);
-      animation: vault-scan 4.2s ease-in-out infinite;
+      animation: vault-scan 5.4s ease-in-out infinite;
       pointer-events: none;
+    }
+
+    .vault-shield {
+      position: relative;
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 38%, transparent);
+      border-radius: 17px;
+      background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      color: var(--accent-ink);
+      box-shadow: 0 0 28px color-mix(in srgb, var(--accent-color) 20%, transparent);
+      animation: float-card 5s ease-in-out infinite;
+    }
+
+    .vault-shield svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .vault-pills {
+      display: grid;
+      gap: 8px;
     }
 
     .vault-pill {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 11px 16px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 34%, transparent);
-      border-radius: 14px;
-      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
-      box-shadow: 0 10px 28px color-mix(in srgb, var(--accent-color) 16%, transparent);
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
+      border-radius: 11px;
+      background: color-mix(in srgb, var(--accent-color) 12%, transparent);
       color: var(--text);
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
-      animation: float-card 4.8s ease-in-out infinite;
     }
 
     .vault-pill.ghost {
-      opacity: 0.45;
+      opacity: 0.44;
       border-style: dashed;
       background: transparent;
-      box-shadow: none;
       text-decoration: line-through;
-      animation: none;
     }
 
-    /* Визуал 2: Радар будильника + импульсы + тост */
+    /* Визуал 2: Часы-радар будильника */
     .vis-alarm-stage {
       position: relative;
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 18px;
     }
 
     .radar-wrap {
       position: relative;
       display: grid;
-      width: 84px;
-      height: 84px;
+      width: 88px;
+      height: 88px;
       place-items: center;
+    }
+
+    .radar-dial {
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      border: 1px dashed color-mix(in srgb, var(--accent-ink) 28%, transparent);
+      background: conic-gradient(from var(--beam-angle), transparent 270deg, color-mix(in srgb, var(--accent-color) 24%, transparent) 360deg);
+      animation: spin-beam 4s linear infinite;
     }
 
     .alarm-wave {
       position: absolute;
-      width: 64px;
-      height: 64px;
-      border: 1.5px solid color-mix(in srgb, var(--accent-ink) 50%, transparent);
+      width: 66px;
+      height: 66px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 45%, transparent);
       border-radius: 50%;
-      animation: ripple-ring 2.8s cubic-bezier(.15,.6,.3,1) infinite;
+      animation: ripple-ring 3s cubic-bezier(.15,.6,.3,1) infinite;
     }
 
     .alarm-wave.delay {
-      animation-delay: 1.4s;
+      animation-delay: 1.5s;
     }
 
     .alarm-core {
       position: relative;
       display: grid;
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 45%, transparent);
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--accent-color) 20%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 44%, transparent);
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--surface) 88%, var(--accent-color) 12%);
       color: var(--accent-ink);
-      box-shadow: 0 0 32px color-mix(in srgb, var(--accent-color) 28%, transparent);
-      animation: bell-rock 4s ease-in-out infinite;
+      box-shadow: 0 0 26px color-mix(in srgb, var(--accent-color) 24%, transparent);
+      animation: bell-rock 4.2s ease-in-out infinite;
     }
 
     .alarm-core svg {
-      width: 24px;
-      height: 24px;
+      width: 23px;
+      height: 23px;
     }
 
     .alarm-toast {
       display: grid;
-      gap: 4px;
+      gap: 3px;
       padding: 10px 14px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 28%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 26%, transparent);
       border-radius: 13px;
       background: color-mix(in srgb, var(--surface) 88%, transparent);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
-      animation: float-badge-a 4.8s ease-in-out infinite;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+      animation: float-card 4.8s ease-in-out infinite;
     }
 
     .alarm-toast strong {
       font-size: 13px;
       color: var(--accent-ink);
-      letter-spacing: 0.02em;
     }
 
     .alarm-toast span {
@@ -1556,11 +1693,22 @@
       color: var(--muted);
     }
 
-    /* Визуал 3: Форматирование с анимацией подсветки и курсора */
+    /* Визуал 3: Парящий лист форматирования */
     .vis-format {
       width: 82%;
+      padding: 13px 15px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 18%, transparent);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--surface) 78%, transparent);
       display: grid;
-      gap: 10px;
+      gap: 9px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+      transform: perspective(600px) rotateX(6deg) rotateY(-4deg);
+      transition: transform 350ms ease;
+    }
+
+    .bento-card:hover .vis-format {
+      transform: perspective(600px) rotateX(0deg) rotateY(0deg);
     }
 
     .fmt-row {
@@ -1571,24 +1719,24 @@
 
     .fmt-tag {
       display: grid;
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       flex: 0 0 auto;
       place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 28%, transparent);
-      border-radius: 8px;
-      background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 26%, transparent);
+      border-radius: 7px;
+      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
       color: var(--accent-ink);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
     }
 
     .fmt-track {
       position: relative;
       flex: 1;
-      height: 9px;
+      height: 8px;
       border-radius: 99px;
-      background: color-mix(in srgb, var(--accent-ink) 14%, transparent);
+      background: color-mix(in srgb, var(--accent-ink) 13%, transparent);
       overflow: hidden;
     }
 
@@ -1599,8 +1747,8 @@
       animation: type-flow 4s ease-in-out infinite alternate;
     }
 
-    .fmt-fill.f2 { animation-delay: 0.6s; width: 65%; opacity: 0.72; }
-    .fmt-fill.f3 { animation-delay: 1.2s; width: 80%; opacity: 0.52; }
+    .fmt-fill.f2 { animation-delay: 0.65s; width: 65%; opacity: 0.72; }
+    .fmt-fill.f3 { animation-delay: 1.3s; width: 80%; opacity: 0.5; }
 
     /* Визуал 4: Android + Windows в объёме */
     .vis-devices {
@@ -1612,21 +1760,21 @@
 
     .dev-pc {
       position: relative;
-      width: 136px;
-      height: 84px;
-      padding: 10px;
-      border: 1.5px solid color-mix(in srgb, var(--accent-ink) 42%, transparent);
+      width: 146px;
+      height: 88px;
+      padding: 11px;
+      border: 1.5px solid color-mix(in srgb, var(--accent-ink) 40%, transparent);
       border-radius: 13px;
-      background: linear-gradient(155deg, color-mix(in srgb, var(--accent-color) 16%, transparent), color-mix(in srgb, var(--surface) 80%, transparent));
-      box-shadow: 0 14px 32px color-mix(in srgb, var(--accent-color) 16%, transparent);
-      animation: float-badge-b 6s ease-in-out infinite;
+      background: linear-gradient(155deg, color-mix(in srgb, var(--accent-color) 16%, transparent), color-mix(in srgb, var(--surface) 82%, transparent));
+      box-shadow: 0 14px 32px color-mix(in srgb, var(--accent-color) 14%, transparent);
+      animation: float-card 6s ease-in-out infinite;
     }
 
     .dev-pc::after {
       position: absolute;
       bottom: -9px;
       left: 50%;
-      width: 54px;
+      width: 58px;
       height: 4px;
       border-radius: 4px;
       background: color-mix(in srgb, var(--accent-ink) 46%, transparent);
@@ -1635,27 +1783,89 @@
     }
 
     .dev-phone {
-      width: 48px;
-      height: 84px;
-      padding: 8px 6px;
-      border: 1.5px solid color-mix(in srgb, var(--accent-ink) 52%, transparent);
+      width: 50px;
+      height: 88px;
+      padding: 9px 6px;
+      border: 1.5px solid color-mix(in srgb, var(--accent-ink) 50%, transparent);
       border-radius: 12px;
-      background: linear-gradient(155deg, color-mix(in srgb, var(--accent-color) 24%, transparent), color-mix(in srgb, var(--surface) 80%, transparent));
-      box-shadow: 0 16px 36px color-mix(in srgb, var(--accent-color) 24%, transparent);
-      animation: float-badge-a 5.2s ease-in-out infinite;
+      background: linear-gradient(155deg, color-mix(in srgb, var(--accent-color) 22%, transparent), color-mix(in srgb, var(--surface) 82%, transparent));
+      box-shadow: 0 16px 36px color-mix(in srgb, var(--accent-color) 22%, transparent);
+      animation: float-card 5.2s ease-in-out infinite reverse;
+    }
+
+    .dev-tag {
+      display: inline-block;
+      margin-bottom: 7px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: color-mix(in srgb, var(--accent-color) 20%, transparent);
+      color: var(--accent-ink);
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
     }
 
     .dev-line {
       height: 5px;
       margin-bottom: 6px;
       border-radius: 99px;
-      background: color-mix(in srgb, var(--accent-ink) 55%, transparent);
+      background: color-mix(in srgb, var(--accent-ink) 50%, transparent);
     }
 
     .dev-line.s { width: 62%; opacity: 0.55; }
     .dev-line.glow {
       background: var(--accent-ink);
-      box-shadow: 0 0 10px var(--accent-color);
+      box-shadow: 0 0 8px color-mix(in srgb, var(--accent-color) 65%, transparent);
+    }
+
+    /* Секция 3 ключевых цифр */
+    .metrics {
+      padding-block: 0 92px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .metric-card {
+      padding: 26px 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--card-shadow);
+      transition: transform 280ms ease, border-color 280ms ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--accent-ink) 36%, transparent);
+    }
+
+    .metric-num {
+      display: block;
+      font-size: clamp(34px, 4.5vw, 48px);
+      font-weight: 820;
+      letter-spacing: -0.05em;
+      color: var(--accent-ink);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .metric-label {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .metric-sub {
+      display: block;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
     }
 
     /* Подвал */
@@ -1665,7 +1875,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding-block: 24px 36px;
+      padding-block: 24px 38px;
       border-top: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
       color: var(--subtle);
       font-size: 12px;
@@ -1688,7 +1898,7 @@
       z-index: 98;
       inset: 0;
       pointer-events: none;
-      background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
       clip-path: circle(0 at var(--ripple-x) var(--ripple-y));
       animation: color-ripple 720ms cubic-bezier(.2,.65,.25,1) forwards;
     }
@@ -1702,7 +1912,7 @@
       border-radius: 3px;
     }
 
-    /* Появление при скролле с расфокусом */
+    /* Появление при скролле */
     .reveal {
       opacity: 0;
       filter: blur(8px);
@@ -1720,7 +1930,7 @@
       transform: translateY(0) scale(1);
     }
 
-    /* Песочница букв (оригинальная пасхалка в подвале) */
+    /* Песочница букв */
     .sandbox-toggle {
       position: relative;
       z-index: 10001;
@@ -1870,8 +2080,18 @@
     }
 
     @keyframes sheen-sweep {
-      0%, 55% { transform: translateX(-120%) rotate(25deg); }
+      0%, 60% { transform: translateX(-120%) rotate(25deg); }
       100%    { transform: translateX(340%) rotate(25deg); }
+    }
+
+    @keyframes marquee-scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes spark-rise {
+      0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+      25%  { opacity: 0.9; }
+      100% { transform: translateY(-130px) scale(1.1); opacity: 0; }
     }
 
     @keyframes pulse-glow {
@@ -1889,18 +2109,23 @@
     }
 
     @keyframes float-card {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
+      0%, 100% { transform: translateZ(18px) translateY(0); }
+      50%      { transform: translateZ(18px) translateY(-12px); }
     }
 
     @keyframes float-badge-a {
-      0%, 100% { transform: translate3d(0, 0, 45px); }
-      50% { transform: translate3d(-5px, -10px, 45px); }
+      0%, 100% { transform: translateZ(55px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(55px) translate3d(-5px, -10px, 0); }
     }
 
     @keyframes float-badge-b {
-      0%, 100% { transform: translate3d(0, 0, 35px); }
-      50% { transform: translate3d(6px, 9px, 35px); }
+      0%, 100% { transform: translateZ(45px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(45px) translate3d(6px, 9px, 0); }
+    }
+
+    @keyframes float-badge-c {
+      0%, 100% { transform: translateZ(34px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(34px) translate3d(-4px, 7px, 0); }
     }
 
     @keyframes bar-pulse {
@@ -1910,7 +2135,7 @@
 
     @keyframes check-glow {
       0%, 100% { box-shadow: 0 0 0 transparent; transform: scale(1); }
-      50% { box-shadow: 0 0 12px var(--accent-color); transform: scale(1.12); }
+      50% { box-shadow: 0 0 10px color-mix(in srgb, var(--accent-color) 70%, transparent); transform: scale(1.12); }
     }
 
     @keyframes eq-dance {
@@ -1926,7 +2151,7 @@
     }
 
     @keyframes ripple-ring {
-      0%   { transform: scale(0.75); opacity: 0.9; }
+      0%   { transform: scale(0.75); opacity: 0.85; }
       100% { transform: scale(2.1); opacity: 0; }
     }
 
@@ -1944,7 +2169,7 @@
     }
 
     @keyframes color-ripple {
-      10% { opacity: 0.78; }
+      10% { opacity: 0.72; }
       to {
         opacity: 0;
         clip-path: circle(150vmax at var(--ripple-x) var(--ripple-y));
@@ -1966,11 +2191,11 @@
         min-height: auto;
         grid-template-columns: 1fr;
         gap: 34px;
-        padding-block: 48px 58px;
+        padding-block: 48px 54px;
       }
 
       .hero-visual {
-        min-height: 370px;
+        min-height: 380px;
       }
 
       .app-card {
@@ -1978,16 +2203,18 @@
       }
 
       .app-art {
-        min-height: 220px;
+        min-height: 230px;
         border-right: 0;
         border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
-        border-bottom-left-radius: 0;
-        border-top-right-radius: inherit;
       }
 
       .bento-wide,
       .bento-narrow {
         grid-column: span 12;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -2018,6 +2245,7 @@
 
       .float-badge.top-right { right: 0; }
       .float-badge.bottom-left { left: 0; }
+      .float-badge.mid-right { display: none; }
 
       .download-button {
         width: 100%;
@@ -2164,6 +2392,7 @@
           <div class="hero-glow-disc"></div>
           <div class="orbit"></div>
           <div class="orbit orbit-two"></div>
+          <div class="orbit-tilt"><div class="orbit-tilt-ring"></div></div>
 
           <div class="preview-card beam-border">
             <div class="preview-sheen"></div>
@@ -2212,9 +2441,35 @@
             <span class="float-badge-dot"></span>
             Все данные на устройстве
           </div>
+
+          <div class="float-badge mid-right">
+            <span class="float-badge-dot"></span>
+            v3.2.0
+          </div>
         </div>
       </div>
     </section>
+
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">Без регистрации</span>
+        <span class="marquee-item">Напоминания</span>
+        <span class="marquee-item">Встроенный будильник</span>
+        <span class="marquee-item">Гибкое форматирование</span>
+        <span class="marquee-item">Android APK</span>
+        <span class="marquee-item">Windows Portable</span>
+        <span class="marquee-item">Плавные анимации</span>
+        <span class="marquee-item">Хранение на устройстве</span>
+        <span class="marquee-item">Без регистрации</span>
+        <span class="marquee-item">Напоминания</span>
+        <span class="marquee-item">Встроенный будильник</span>
+        <span class="marquee-item">Гибкое форматирование</span>
+        <span class="marquee-item">Android APK</span>
+        <span class="marquee-item">Windows Portable</span>
+        <span class="marquee-item">Плавные анимации</span>
+        <span class="marquee-item">Хранение на устройстве</span>
+      </div>
+    </div>
 
     <section class="container library reveal" id="apps" aria-labelledby="library-title">
       <div class="section-heading">
@@ -2229,6 +2484,9 @@
         <div class="app-art" aria-hidden="true">
           <div class="app-art-ring outer"></div>
           <div class="app-art-ring"></div>
+          <div class="art-sparks">
+            <span></span><span></span><span></span><span></span>
+          </div>
           <div class="app-icon-stack">
             <div class="app-icon-shadow"></div>
             <div class="app-icon"></div>
@@ -2309,8 +2567,16 @@
           <div class="bento-visual" aria-hidden="true">
             <div class="scan-beam"></div>
             <div class="vis-vault">
-              <span class="vault-pill ghost">Регистрация</span>
-              <span class="vault-pill">Открыл → сразу пишешь</span>
+              <div class="vault-shield">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3 4 7v5c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V7l-8-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="vault-pills">
+                <span class="vault-pill ghost">Логин и регистрация</span>
+                <span class="vault-pill">Открыл → сразу пишешь</span>
+              </div>
             </div>
           </div>
           <div>
@@ -2326,6 +2592,7 @@
           <div class="bento-visual" aria-hidden="true">
             <div class="vis-alarm-stage">
               <div class="radar-wrap">
+                <span class="radar-dial"></span>
                 <span class="alarm-wave"></span>
                 <span class="alarm-wave delay"></span>
                 <div class="alarm-core">
@@ -2379,11 +2646,13 @@
           <div class="bento-visual" aria-hidden="true">
             <div class="vis-devices">
               <div class="dev-pc">
+                <span class="dev-tag">.EXE</span>
                 <div class="dev-line glow"></div>
                 <div class="dev-line s"></div>
                 <div class="dev-line"></div>
               </div>
               <div class="dev-phone">
+                <span class="dev-tag">APK</span>
                 <div class="dev-line glow"></div>
                 <div class="dev-line s"></div>
                 <div class="dev-line"></div>
@@ -2398,6 +2667,26 @@
             </p>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="container metrics" aria-label="Главные преимущества в цифрах">
+      <div class="metrics-grid">
+        <div class="metric-card spotlight-card reveal" style="--delay: 0ms;">
+          <span class="metric-num"><span class="count-up" data-target="0">0</span></span>
+          <span class="metric-label">Лишних шагов при запуске</span>
+          <span class="metric-sub">Никакой регистрации и паролей — открываете и сразу пишете.</span>
+        </div>
+        <div class="metric-card spotlight-card reveal" style="--delay: 90ms;">
+          <span class="metric-num"><span class="count-up" data-target="2">0</span></span>
+          <span class="metric-label">Платформы в одном релизе</span>
+          <span class="metric-sub">Нативный APK для Android и портативный .exe для Windows.</span>
+        </div>
+        <div class="metric-card spotlight-card reveal" style="--delay: 180ms;">
+          <span class="metric-num"><span class="count-up" data-target="100">0</span>%</span>
+          <span class="metric-label">Записей прямо у вас</span>
+          <span class="metric-sub">Все заметки хранятся локально на вашем устройстве.</span>
+        </div>
       </div>
     </section>
   </main>
@@ -2425,24 +2714,23 @@
       const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
       const validAccents = new Set(["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold"]);
 
-      let accentRgb = "169, 245, 189";
+      let targetRgb = [169, 245, 189];
+      let currentRgb = [169, 245, 189];
 
-      function hexToRgb(hex) {
+      function hexToRgbArray(hex) {
         const clean = hex.trim().replace("#", "");
-        if (clean.length !== 6) return "169, 245, 189";
+        if (clean.length !== 6) return [169, 245, 189];
         const num = parseInt(clean, 16);
-        return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
+        return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
       }
 
-      function refreshCanvasColor() {
-        const val = getComputedStyle(root).getPropertyValue("--accent-color");
-        if (val.startsWith("#")) {
-          accentRgb = hexToRgb(val);
-        } else {
-          const active = document.querySelector('.accent-swatch[aria-pressed="true"]');
-          if (active) {
-            const swatch = active.style.getPropertyValue("--swatch-color");
-            if (swatch) accentRgb = hexToRgb(swatch);
+      function refreshCanvasColor(instant = false) {
+        const active = document.querySelector(`.accent-swatch[data-accent="${root.dataset.accent || "green"}"]`);
+        if (active) {
+          const swatch = active.style.getPropertyValue("--swatch-color");
+          if (swatch) {
+            targetRgb = hexToRgbArray(swatch);
+            if (instant) currentRgb = [...targetRgb];
           }
         }
       }
@@ -2453,15 +2741,15 @@
         } catch (_) {}
       }
 
-      function syncThemeControls() {
+      function syncThemeControls(instantColor = false) {
         const isLight = root.dataset.theme === "light";
         toggle.setAttribute("aria-pressed", String(isLight));
         toggle.setAttribute("aria-label", isLight ? "Включить тёмную тему" : "Включить светлую тему");
-        if (themeMeta) themeMeta.setAttribute("content", isLight ? "#f2f7f4" : "#060a08");
+        if (themeMeta) themeMeta.setAttribute("content", isLight ? "#f1f6f3" : "#050907");
         accentButtons.forEach((button) => {
           button.setAttribute("aria-pressed", String(button.dataset.accent === (root.dataset.accent || "green")));
         });
-        refreshCanvasColor();
+        refreshCanvasColor(instantColor);
       }
 
       toggle.addEventListener("click", () => {
@@ -2498,15 +2786,34 @@
         });
       });
 
-      // Прогресс-бар скролла
-      function paintProgress() {
+      // Плавный скролл-прогресс + параллакс фоновых аур
+      function paintScroll() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const p = max > 0 ? Math.min(100, (window.scrollY * 100) / max) : 0;
         if (progress) progress.style.width = `${p}%`;
+        if (!reducedMotion) {
+          root.style.setProperty("--scroll-shift", `${-(window.scrollY * 0.08).toFixed(1)}px`);
+        }
       }
-      window.addEventListener("scroll", paintProgress, { passive: true });
-      window.addEventListener("resize", paintProgress, { passive: true });
-      paintProgress();
+      window.addEventListener("scroll", paintScroll, { passive: true });
+      window.addEventListener("resize", paintScroll, { passive: true });
+      paintScroll();
+
+      // Анимация счётчиков цифр (Count-up)
+      function animateNumber(el, target, duration = 900) {
+        if (reducedMotion || target === 0) {
+          el.textContent = target.toLocaleString("ru-RU");
+          return;
+        }
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(target * eased).toLocaleString("ru-RU");
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
 
       // Появление секций при скролле
       const revealItems = document.querySelectorAll(".reveal");
@@ -2515,16 +2822,25 @@
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add("is-visible");
+              entry.target.querySelectorAll(".count-up").forEach((num) => {
+                const target = parseInt(num.dataset.target || "0", 10);
+                animateNumber(num, target, 1000);
+              });
               activeObserver.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+        }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
         revealItems.forEach((item) => observer.observe(item));
       } else {
-        revealItems.forEach((item) => item.classList.add("is-visible"));
+        revealItems.forEach((item) => {
+          item.classList.add("is-visible");
+          item.querySelectorAll(".count-up").forEach((num) => {
+            num.textContent = num.dataset.target || "0";
+          });
+        });
       }
 
-      // Аура за курсором + spotlight на карточках + 3D параллакс Hero + магнитные кнопки
+      // Аура за курсором + spotlight + 3D параллакс Hero + магнитные кнопки
       let mouseX = -999;
       let mouseY = -999;
       let auraX = -999;
@@ -2547,7 +2863,7 @@
               auraX += (mouseX - auraX) * 0.12;
               auraY += (mouseY - auraY) * 0.12;
             }
-            cursorAura.style.transform = `translate3d(${auraX - 260}px, ${auraY - 260}px, 0)`;
+            cursorAura.style.transform = `translate3d(${auraX - 240}px, ${auraY - 240}px, 0)`;
           }
           requestAnimationFrame(loopAura);
         }
@@ -2568,8 +2884,8 @@
             const r = heroSection.getBoundingClientRect();
             const nx = (e.clientX - r.left) / r.width - 0.5;
             const ny = (e.clientY - r.top) / r.height - 0.5;
-            heroStage.style.setProperty("--hero-rx", `${(-ny * 8).toFixed(2)}deg`);
-            heroStage.style.setProperty("--hero-ry", `${(nx * 10).toFixed(2)}deg`);
+            heroStage.style.setProperty("--hero-rx", `${(-ny * 9).toFixed(2)}deg`);
+            heroStage.style.setProperty("--hero-ry", `${(nx * 11).toFixed(2)}deg`);
           });
           heroSection.addEventListener("pointerleave", () => {
             heroStage.style.setProperty("--hero-rx", "0deg");
@@ -2603,7 +2919,6 @@
           });
         }
 
-        // Магнитный эффект для основных кнопок
         document.querySelectorAll(".magnetic").forEach((btn) => {
           btn.addEventListener("pointermove", (e) => {
             if (e.pointerType !== "mouse") return;
@@ -2618,14 +2933,14 @@
         });
       }
 
-      // Живой Canvas с частицами и созвездиями
+      // Живой Canvas с глубиной слоёв (боке + звёзды) и плавным перетеканием цвета
       const canvas = document.getElementById("bg-canvas");
       if (canvas && !reducedMotion) {
         const ctx = canvas.getContext("2d");
         let width = 0;
         let height = 0;
         let dpr = 1;
-        const COUNT = window.innerWidth < 700 ? 32 : 58;
+        const COUNT = window.innerWidth < 700 ? 36 : 64;
         const particles = [];
 
         function resizeCanvas() {
@@ -2640,21 +2955,30 @@
         function initParticles() {
           particles.length = 0;
           for (let i = 0; i < COUNT; i++) {
+            const depth = 0.35 + Math.random() * 0.85;
             particles.push({
               x: Math.random() * width,
               y: Math.random() * height,
-              vx: (Math.random() - 0.5) * 0.35,
-              vy: -0.15 - Math.random() * 0.35,
-              r: 1.1 + Math.random() * 2.1,
-              alpha: 0.22 + Math.random() * 0.55
+              vx: (Math.random() - 0.5) * 0.32 * depth,
+              vy: (-0.12 - Math.random() * 0.34) * depth,
+              r: (0.9 + Math.random() * 2.1) * depth,
+              alpha: 0.18 + Math.random() * 0.52,
+              depth
             });
           }
         }
 
         function drawCanvas() {
           ctx.clearRect(0, 0, width, height);
+
+          // Плавная интерполяция RGB-цвета частиц при смене палитры
+          currentRgb[0] += (targetRgb[0] - currentRgb[0]) * 0.06;
+          currentRgb[1] += (targetRgb[1] - currentRgb[1]) * 0.06;
+          currentRgb[2] += (targetRgb[2] - currentRgb[2]) * 0.06;
+          const rgb = `${Math.round(currentRgb[0])}, ${Math.round(currentRgb[1])}, ${Math.round(currentRgb[2])}`;
+
           const isLight = root.dataset.theme === "light";
-          const alphaScale = isLight ? 0.45 : 0.72;
+          const alphaScale = isLight ? 0.42 : 0.72;
 
           for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
@@ -2665,32 +2989,31 @@
               const dx = mouseX - p.x;
               const dy = mouseY - p.y;
               const dist = Math.hypot(dx, dy);
-              if (dist < 150 && dist > 1) {
-                const force = (150 - dist) / 150;
-                p.x -= (dx / dist) * force * 0.75;
-                p.y -= (dy / dist) * force * 0.75;
+              if (dist < 155 && dist > 1) {
+                const force = (155 - dist) / 155;
+                p.x -= (dx / dist) * force * 0.8 * p.depth;
+                p.y -= (dy / dist) * force * 0.8 * p.depth;
               }
             }
 
-            if (p.y < -12) { p.y = height + 12; p.x = Math.random() * width; }
-            if (p.x < -12) p.x = width + 12;
-            if (p.x > width + 12) p.x = -12;
+            if (p.y < -14) { p.y = height + 14; p.x = Math.random() * width; }
+            if (p.x < -14) p.x = width + 14;
+            if (p.x > width + 14) p.x = -14;
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${accentRgb}, ${(p.alpha * alphaScale).toFixed(3)})`;
+            ctx.fillStyle = `rgba(${rgb}, ${(p.alpha * alphaScale).toFixed(3)})`;
             ctx.fill();
 
-            // Соединяем ближайшие частицы тонкими линиями
             for (let j = i + 1; j < particles.length; j++) {
               const q = particles[j];
               const d = Math.hypot(p.x - q.x, p.y - q.y);
-              if (d < 120) {
+              if (d < 125) {
                 ctx.beginPath();
                 ctx.moveTo(p.x, p.y);
                 ctx.lineTo(q.x, q.y);
-                const lineAlpha = (1 - d / 120) * 0.14 * alphaScale;
-                ctx.strokeStyle = `rgba(${accentRgb}, ${lineAlpha.toFixed(3)})`;
+                const lineAlpha = (1 - d / 125) * 0.13 * alphaScale;
+                ctx.strokeStyle = `rgba(${rgb}, ${lineAlpha.toFixed(3)})`;
                 ctx.lineWidth = 1;
                 ctx.stroke();
               }
@@ -2701,13 +3024,11 @@
 
         resizeCanvas();
         initParticles();
-        window.addEventListener("resize", () => {
-          resizeCanvas();
-        }, { passive: true });
+        window.addEventListener("resize", resizeCanvas, { passive: true });
         requestAnimationFrame(drawCanvas);
       }
 
-      // Счётчик скачиваний с GitHub API
+      // Счётчик скачиваний с GitHub API с плавным набором числа
       const dl = document.getElementById("dl-count");
       fetch("https://api.github.com/repos/Legoman-1337/notes/releases/tags/v3.2.0", {
         headers: { Accept: "application/vnd.github+json" }
@@ -2716,7 +3037,7 @@
         .then((rel) => {
           if (!rel || !Array.isArray(rel.assets)) return;
           const total = rel.assets.reduce((s, a) => s + (a.download_count || 0), 0);
-          if (dl) dl.textContent = total.toLocaleString("ru-RU");
+          if (dl) animateNumber(dl, total, 1100);
         })
         .catch(() => {
           if (dl) dl.textContent = "—";
@@ -2752,7 +3073,7 @@
         });
       });
 
-      syncThemeControls();
+      syncThemeControls(true);
     })();
   </script>
 

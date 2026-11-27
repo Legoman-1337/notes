@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050907">
+  <meta name="theme-color" content="#040705">
   <meta name="description" content="Удобные заметки 3.2 для Android и Windows: без регистрации — заметки сразу на устройстве, напоминания, будильник и гибкое форматирование. Скачай APK или портативную версию для ПК.">
   <title>Удобные заметки 3.2 · Android и ПК</title>
 
@@ -11,43 +11,43 @@
     @property --background {
       syntax: "<color>";
       inherits: true;
-      initial-value: #050907;
+      initial-value: #040705;
     }
 
     @property --surface {
       syntax: "<color>";
       inherits: true;
-      initial-value: #0c1510;
+      initial-value: #0b130e;
     }
 
     @property --surface-light {
       syntax: "<color>";
       inherits: true;
-      initial-value: #132119;
+      initial-value: #122017;
     }
 
     @property --text {
       syntax: "<color>";
       inherits: true;
-      initial-value: #f2faf4;
+      initial-value: #f3fbf5;
     }
 
     @property --muted {
       syntax: "<color>";
       inherits: true;
-      initial-value: #8da294;
+      initial-value: #899e90;
     }
 
     @property --text-soft {
       syntax: "<color>";
       inherits: true;
-      initial-value: #c9d8ce;
+      initial-value: #c8d8ce;
     }
 
     @property --subtle {
       syntax: "<color>";
       inherits: true;
-      initial-value: #6d8275;
+      initial-value: #697f71;
     }
 
     @property --accent-color {
@@ -70,48 +70,48 @@
 
     :root {
       color-scheme: dark;
-      --background: #050907;
-      --surface: #0c1510;
-      --surface-light: #132119;
-      --border: color-mix(in srgb, var(--accent-color) 15%, transparent);
-      --text: #f2faf4;
-      --muted: #8da294;
-      --text-soft: #c9d8ce;
-      --subtle: #6d8275;
+      --background: #040705;
+      --surface: #0b130e;
+      --surface-light: #122017;
+      --border: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      --text: #f3fbf5;
+      --muted: #899e90;
+      --text-soft: #c8d8ce;
+      --subtle: #697f71;
       --accent-color: #a9f5bd;
       --accent-ink: var(--accent-color);
       --accent-contrast: #06120a;
-      --card-bg: linear-gradient(155deg, color-mix(in srgb, var(--surface-light) 84%, var(--accent-color) 12%), color-mix(in srgb, var(--surface) 95%, black) 80%);
-      --card-shadow: 0 32px 96px rgba(0, 0, 0, 0.58);
+      --card-bg: linear-gradient(158deg, color-mix(in srgb, var(--surface-light) 82%, var(--accent-color) 11%), color-mix(in srgb, var(--surface) 96%, black) 80%);
+      --card-shadow: 0 36px 100px rgba(0, 0, 0, 0.65);
       transition:
-        --background 0.6s ease,
-        --surface 0.6s ease,
-        --surface-light 0.6s ease,
-        --text 0.6s ease,
-        --muted 0.6s ease,
-        --text-soft 0.6s ease,
-        --subtle 0.6s ease,
-        --accent-color 0.6s ease,
-        --accent-ink 0.6s ease;
+        --background 0.65s ease,
+        --surface 0.65s ease,
+        --surface-light 0.65s ease,
+        --text 0.65s ease,
+        --muted 0.65s ease,
+        --text-soft 0.65s ease,
+        --subtle 0.65s ease,
+        --accent-color 0.65s ease,
+        --accent-ink 0.65s ease;
     }
 
     :root[data-theme="light"] {
       color-scheme: light;
-      --background: #f1f6f3;
+      --background: #eff5f1;
       --surface: #ffffff;
-      --surface-light: #e6f0ea;
-      --border: color-mix(in srgb, var(--accent-ink) 18%, rgba(14, 34, 21, 0.08));
-      --text: #101f15;
-      --muted: #566b5d;
-      --text-soft: #384d3f;
-      --subtle: #6b8072;
-      --accent-ink: color-mix(in srgb, var(--accent-color) 56%, #081b0f);
+      --surface-light: #e3eee7;
+      --border: color-mix(in srgb, var(--accent-ink) 18%, rgba(12, 32, 18, 0.08));
+      --text: #0f1e14;
+      --muted: #52685a;
+      --text-soft: #354a3c;
+      --subtle: #677d6f;
+      --accent-ink: color-mix(in srgb, var(--accent-color) 52%, #08190e);
       --accent-contrast: #0b1c11;
-      --card-bg: linear-gradient(155deg, #ffffff 30%, color-mix(in srgb, var(--surface-light) 78%, var(--accent-color) 18%));
-      --card-shadow: 0 28px 72px rgba(14, 42, 24, 0.09);
+      --card-bg: linear-gradient(158deg, #ffffff 32%, color-mix(in srgb, var(--surface-light) 78%, var(--accent-color) 18%));
+      --card-shadow: 0 28px 75px rgba(14, 42, 24, 0.09);
     }
 
-    /* 12 сочных акцентных палитр */
+    /* 13 дизайнерских палитр */
     :root[data-accent="green"]   { --accent-color: #a9f5bd; }
     :root[data-accent="emerald"] { --accent-color: #52f295; }
     :root[data-accent="teal"]    { --accent-color: #4bf2d4; }
@@ -124,6 +124,7 @@
     :root[data-accent="red"]     { --accent-color: #ff7676; }
     :root[data-accent="orange"]  { --accent-color: #ffad5c; }
     :root[data-accent="gold"]    { --accent-color: #f0e665; }
+    :root[data-accent="silver"]  { --accent-color: #dfe6ec; }
 
     * {
       box-sizing: border-box;
@@ -145,7 +146,22 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Полноэкранный Canvas */
+    /* Стартовая световая вспышка линии горизонта (бесшовная, без блокировки) */
+    .horizon-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 120;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+      box-shadow: 0 0 30px var(--accent-color);
+      transform-origin: center;
+      animation: horizon-open 1.1s cubic-bezier(.16,1,.3,1) forwards;
+      pointer-events: none;
+    }
+
+    /* Генеративный Canvas */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -155,7 +171,7 @@
       pointer-events: none;
     }
 
-    /* Фоновые живые ауры с плавным параллаксом при скролле */
+    /* Объёмные фоновые ауры с параллаксом */
     .ambient-bg {
       position: fixed;
       inset: 0;
@@ -169,62 +185,62 @@
     .aurora {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.4;
+      filter: blur(110px);
+      opacity: 0.38;
       will-change: transform;
-      animation: aurora-float 20s ease-in-out infinite alternate;
+      animation: aurora-float 22s ease-in-out infinite alternate;
     }
 
     .aurora-1 {
-      top: -20%;
+      top: -22%;
       right: -12%;
-      width: 54vw;
-      height: 54vw;
+      width: 56vw;
+      height: 56vw;
       min-width: 360px;
       min-height: 360px;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 40%, transparent), transparent 68%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 42%, transparent), transparent 68%);
     }
 
     .aurora-2 {
-      bottom: -16%;
+      bottom: -18%;
       left: -14%;
-      width: 50vw;
-      height: 50vw;
+      width: 52vw;
+      height: 52vw;
       min-width: 320px;
       min-height: 320px;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 26%, transparent), transparent 70%);
-      animation-duration: 27s;
-      animation-delay: -8s;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%);
+      animation-duration: 28s;
+      animation-delay: -9s;
     }
 
     .aurora-3 {
-      top: 36%;
-      left: 34%;
-      width: 36vw;
-      height: 36vw;
+      top: 34%;
+      left: 32%;
+      width: 38vw;
+      height: 38vw;
       min-width: 260px;
       min-height: 260px;
-      opacity: 0.2;
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 32%, transparent), transparent 72%);
-      animation-duration: 23s;
+      opacity: 0.18;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 34%, transparent), transparent 72%);
+      animation-duration: 24s;
       animation-direction: alternate-reverse;
     }
 
     :root[data-theme="light"] .aurora {
-      opacity: 0.26;
+      opacity: 0.25;
     }
 
-    /* Сетка перспективы и пленочное зерно */
+    /* Архитектурная сетка + зерно */
     body::before {
       position: fixed;
       z-index: -2;
       inset: 0;
       background-image:
-        linear-gradient(color-mix(in srgb, var(--accent-ink) 4.5%, transparent) 1px, transparent 1px),
-        linear-gradient(90deg, color-mix(in srgb, var(--accent-ink) 4.5%, transparent) 1px, transparent 1px);
-      background-size: 50px 50px;
+        linear-gradient(color-mix(in srgb, var(--accent-ink) 4.2%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--accent-ink) 4.2%, transparent) 1px, transparent 1px);
+      background-size: 54px 54px;
       content: "";
-      mask-image: radial-gradient(ellipse at 50% 24%, black 22%, transparent 82%);
+      mask-image: radial-gradient(ellipse at 50% 24%, black 20%, transparent 84%);
       pointer-events: none;
     }
 
@@ -232,13 +248,13 @@
       position: fixed;
       z-index: -1;
       inset: 0;
-      opacity: 0.032;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.036;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       content: "";
       pointer-events: none;
     }
 
-    /* Деликатная аура за курсором */
+    /* Аура за курсором + Оптический прицел курсора */
     .cursor-aura {
       position: fixed;
       top: 0;
@@ -255,8 +271,32 @@
       transition: opacity 400ms ease;
     }
 
-    :root[data-theme="light"] .cursor-aura {
-      background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 13%, transparent), transparent 66%);
+    .cursor-reticle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 34px;
+      height: 34px;
+      margin: -17px 0 0 -17px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 42%, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      will-change: transform, width, height, opacity;
+      transition: width 220ms cubic-bezier(.2,.8,.3,1), height 220ms cubic-bezier(.2,.8,.3,1), margin 220ms cubic-bezier(.2,.8,.3,1), border-color 220ms ease, background-color 220ms ease, opacity 300ms ease;
+    }
+
+    .cursor-reticle.is-hover {
+      width: 52px;
+      height: 52px;
+      margin: -26px 0 0 -26px;
+      border-color: var(--accent-ink);
+      background: color-mix(in srgb, var(--accent-color) 8%, transparent);
+    }
+
+    .cursor-reticle.is-down {
+      transform: scale(0.82);
     }
 
     a {
@@ -264,7 +304,7 @@
     }
 
     .container {
-      width: min(1160px, calc(100% - 44px));
+      width: min(1180px, calc(100% - 44px));
       margin-inline: auto;
     }
 
@@ -286,9 +326,9 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(22px) saturate(145%);
-      -webkit-backdrop-filter: blur(22px) saturate(145%);
-      background: color-mix(in srgb, var(--background) 68%, transparent);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      background: color-mix(in srgb, var(--background) 65%, transparent);
       border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
       transition: background-color 0.5s ease, border-color 0.5s ease;
     }
@@ -307,8 +347,8 @@
       gap: 12px;
       color: var(--text);
       font-size: 13px;
-      font-weight: 780;
-      letter-spacing: 0.13em;
+      font-weight: 800;
+      letter-spacing: 0.14em;
       text-decoration: none;
       text-transform: uppercase;
       white-space: nowrap;
@@ -324,7 +364,7 @@
       border-radius: 11px;
       background: color-mix(in srgb, var(--accent-color) 12%, transparent);
       box-shadow: 0 0 24px color-mix(in srgb, var(--accent-color) 16%, transparent);
-      transition: transform 420ms cubic-bezier(.2,.85,.3,1), box-shadow 420ms ease;
+      transition: transform 460ms cubic-bezier(.2,.85,.3,1), box-shadow 460ms ease;
     }
 
     .brand:hover .brand-mark {
@@ -356,9 +396,9 @@
       border-radius: 99px;
       background: color-mix(in srgb, var(--accent-color) 8%, transparent);
       color: var(--text-soft);
-      font-size: 11px;
-      font-weight: 650;
-      letter-spacing: 0.08em;
+      font-size: 10.5px;
+      font-weight: 680;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -369,7 +409,7 @@
       border-radius: 50%;
       background: var(--accent-ink);
       box-shadow: 0 0 10px var(--accent-color);
-      animation: pulse-glow 2.3s ease-in-out infinite;
+      animation: pulse-glow 2.2s ease-in-out infinite;
     }
 
     .header-controls {
@@ -382,7 +422,7 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      gap: 5.5px;
       padding: 7px 11px;
       border: 1px solid var(--border);
       border-radius: 99px;
@@ -392,8 +432,8 @@
 
     .accent-swatch {
       position: relative;
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       padding: 0;
       border: 1.5px solid color-mix(in srgb, var(--text) 16%, transparent);
       border-radius: 50%;
@@ -404,13 +444,13 @@
 
     .accent-swatch:hover {
       box-shadow: 0 0 14px var(--swatch-color);
-      transform: scale(1.26) translateY(-1px);
+      transform: scale(1.3) translateY(-1px);
     }
 
     .accent-swatch[aria-pressed="true"] {
       border-color: var(--text);
       box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--swatch-color), 0 0 12px color-mix(in srgb, var(--swatch-color) 55%, transparent);
-      transform: scale(1.12);
+      transform: scale(1.14);
     }
 
     .theme-toggle {
@@ -453,10 +493,10 @@
       outline-offset: 3px;
     }
 
-    /* ПОФИКШЕННЫЕ ЛУЧИ: строго 1px внутренняя световая кромка через mask-composite, мягкая и без резкого белого пика */
+    /* Тончайшие 1px световые кромки (пофикшенные лучи) */
     .beam-border {
       position: relative;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 16%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 15%, transparent);
     }
 
     .beam-border::before {
@@ -469,63 +509,104 @@
         from var(--beam-angle),
         transparent 0deg,
         transparent 225deg,
-        color-mix(in srgb, var(--accent-ink) 26%, transparent) 280deg,
-        color-mix(in srgb, var(--accent-color) 62%, transparent) 324deg,
-        color-mix(in srgb, var(--accent-ink) 22%, transparent) 348deg,
+        color-mix(in srgb, var(--accent-ink) 24%, transparent) 285deg,
+        color-mix(in srgb, var(--accent-color) 56%, transparent) 326deg,
+        color-mix(in srgb, var(--accent-ink) 20%, transparent) 350deg,
         transparent 360deg
       );
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask-composite: exclude;
-      opacity: 0.42;
-      animation: spin-beam 9.5s linear infinite;
-      transition: opacity 380ms ease;
+      opacity: 0.36;
+      animation: spin-beam 10s linear infinite;
+      transition: opacity 400ms ease;
       content: "";
       pointer-events: none;
     }
 
     .beam-border:hover::before {
-      opacity: 0.72;
+      opacity: 0.64;
     }
 
     :root[data-theme="light"] .beam-border::before {
-      opacity: 0.3;
+      opacity: 0.26;
       background: conic-gradient(
         from var(--beam-angle),
         transparent 0deg,
         transparent 230deg,
-        color-mix(in srgb, var(--accent-ink) 28%, transparent) 290deg,
-        color-mix(in srgb, var(--accent-ink) 58%, transparent) 330deg,
+        color-mix(in srgb, var(--accent-ink) 26%, transparent) 290deg,
+        color-mix(in srgb, var(--accent-ink) 52%, transparent) 330deg,
         transparent 360deg
       );
     }
 
     :root[data-theme="light"] .beam-border:hover::before {
-      opacity: 0.55;
+      opacity: 0.48;
+    }
+
+    /* Стилистические уголки-засечки (+) */
+    .hud-frame {
+      position: relative;
+    }
+
+    .hud-corner {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      opacity: 0.45;
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+
+    .hud-corner::before,
+    .hud-corner::after {
+      position: absolute;
+      background: var(--accent-ink);
+      content: "";
+    }
+
+    .hud-corner::before { top: 4px; left: 0; width: 10px; height: 1px; }
+    .hud-corner::after  { left: 4px; top: 0; width: 1px; height: 10px; }
+
+    .hud-corner.tl { top: 14px; left: 14px; }
+    .hud-corner.tr { top: 14px; right: 14px; }
+    .hud-corner.bl { bottom: 14px; left: 14px; }
+    .hud-corner.br { bottom: 14px; right: 14px; }
+
+    .hud-frame:hover .hud-corner {
+      opacity: 0.9;
+      transform: scale(1.15);
     }
 
     /* Hero */
     .hero {
       display: grid;
-      min-height: min(690px, 88vh);
+      min-height: min(700px, 88vh);
       grid-template-columns: 1.04fr 0.96fr;
       align-items: center;
       gap: 48px;
-      padding-block: 54px 72px;
+      padding-block: 52px 70px;
     }
 
-    .hero-copy .eyebrow {
+    .hero-meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      animation: blur-up 750ms cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 22px;
       color: var(--accent-ink);
       font-size: 11px;
-      font-weight: 750;
+      font-weight: 760;
       letter-spacing: 0.17em;
       text-transform: uppercase;
-      animation: blur-up 750ms cubic-bezier(.16,1,.3,1) both;
     }
 
     .eyebrow-line {
@@ -536,17 +617,36 @@
       box-shadow: 0 0 10px color-mix(in srgb, var(--accent-color) 75%, transparent);
     }
 
-    h1 {
-      max-width: 680px;
-      margin: 0;
-      font-size: clamp(48px, 7.1vw, 92px);
-      font-weight: 820;
-      letter-spacing: -0.068em;
-      line-height: 0.95;
-      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 90ms both;
+    .tech-code {
+      padding: 4px 9px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent);
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
     }
 
-    h1 span {
+    h1 {
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(50px, 7.3vw, 96px);
+      font-weight: 840;
+      letter-spacing: -0.07em;
+      line-height: 0.94;
+    }
+
+    .hero-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero-line-inner {
+      display: block;
+      animation: kinetic-unmask 950ms cubic-bezier(.16,1,.3,1) var(--line-delay, 80ms) both;
+    }
+
+    h1 span.accent-word {
       display: inline-block;
       background: linear-gradient(
         105deg,
@@ -558,11 +658,11 @@
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent-color) 18%, transparent));
-      animation: shine 6s linear infinite;
+      filter: drop-shadow(0 0 26px color-mix(in srgb, var(--accent-color) 20%, transparent));
+      animation: shine 5.8s linear infinite;
     }
 
-    :root[data-theme="light"] h1 span {
+    :root[data-theme="light"] h1 span.accent-word {
       background: linear-gradient(
         105deg,
         var(--accent-ink) 12%,
@@ -578,11 +678,11 @@
 
     .intro {
       max-width: 500px;
-      margin: 24px 0 0;
+      margin: 26px 0 0;
       color: var(--text-soft);
-      font-size: 17px;
+      font-size: 17.5px;
       line-height: 1.72;
-      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 170ms both;
+      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 220ms both;
     }
 
     .hero-actions {
@@ -591,27 +691,27 @@
       align-items: center;
       gap: 14px;
       margin-top: 34px;
-      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 250ms both;
+      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 300ms both;
     }
 
     .primary-link {
       position: relative;
       overflow: hidden;
       display: inline-flex;
-      min-height: 54px;
+      min-height: 55px;
       align-items: center;
       justify-content: center;
       gap: 11px;
-      padding: 0 26px;
+      padding: 0 27px;
       border: 1px solid color-mix(in srgb, var(--accent-color) 65%, transparent);
       border-radius: 15px;
       background: var(--accent-color);
       color: var(--accent-contrast);
       font-size: 14.5px;
-      font-weight: 780;
+      font-weight: 790;
       text-decoration: none;
       box-shadow:
-        0 14px 36px color-mix(in srgb, var(--accent-color) 24%, transparent),
+        0 14px 38px color-mix(in srgb, var(--accent-color) 24%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
       transition: transform 220ms cubic-bezier(.2,.8,.3,1), box-shadow 220ms ease, filter 220ms ease;
     }
@@ -620,7 +720,7 @@
     .download-button:not(.outline)::after {
       position: absolute;
       inset: 0;
-      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.42) 50%, transparent 70%);
+      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.44) 50%, transparent 70%);
       transform: translateX(-140%);
       transition: transform 720ms cubic-bezier(.2,.7,.25,1);
       content: "";
@@ -634,7 +734,7 @@
 
     .primary-link:hover {
       filter: brightness(1.06);
-      box-shadow: 0 18px 46px color-mix(in srgb, var(--accent-color) 38%, transparent);
+      box-shadow: 0 18px 48px color-mix(in srgb, var(--accent-color) 38%, transparent);
     }
 
     .arrow {
@@ -648,14 +748,14 @@
 
     .ghost-link {
       display: inline-flex;
-      min-height: 54px;
+      min-height: 55px;
       align-items: center;
       gap: 8px;
-      padding: 0 20px;
+      padding: 0 21px;
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: color-mix(in srgb, var(--surface) 78%, transparent);
-      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--surface) 76%, transparent);
+      backdrop-filter: blur(14px);
       color: var(--text-soft);
       font-size: 14px;
       font-weight: 620;
@@ -678,7 +778,7 @@
       margin-top: 28px;
       color: var(--muted);
       font-size: 12.5px;
-      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 320ms both;
+      animation: blur-up 850ms cubic-bezier(.16,1,.3,1) 360ms both;
     }
 
     .hero-pills span {
@@ -696,15 +796,15 @@
       content: "";
     }
 
-    /* 3D Сцена в Hero с Сатурн-кольцом и 3 уровнями глубины */
+    /* 3D Скульптура Hero с гироскопом и динамическим бликом */
     .hero-visual {
       position: relative;
       display: grid;
-      min-height: 460px;
+      min-height: 480px;
       place-items: center;
-      perspective: 1300px;
+      perspective: 1400px;
       isolation: isolate;
-      animation: hero-stage-in 1050ms cubic-bezier(.16,1,.3,1) 140ms both;
+      animation: hero-stage-in 1100ms cubic-bezier(.16,1,.3,1) 140ms both;
     }
 
     .hero-stage {
@@ -714,35 +814,35 @@
       place-items: center;
       transform-style: preserve-3d;
       transform: rotateX(var(--hero-rx, 0deg)) rotateY(var(--hero-ry, 0deg));
-      transition: transform 280ms cubic-bezier(.2,.7,.25,1);
+      transition: transform 260ms cubic-bezier(.2,.7,.25,1);
     }
 
     .hero-glow-disc {
       position: absolute;
-      z-index: -3;
-      width: min(84vw, 440px);
+      z-index: -4;
+      width: min(86vw, 460px);
       aspect-ratio: 1;
       border-radius: 50%;
       background: radial-gradient(
         circle,
-        color-mix(in srgb, var(--accent-color) 30%, transparent),
-        color-mix(in srgb, var(--accent-color) 9%, transparent) 46%,
+        color-mix(in srgb, var(--accent-color) 32%, transparent),
+        color-mix(in srgb, var(--accent-color) 10%, transparent) 46%,
         transparent 72%
       );
-      filter: blur(18px);
-      transform: translateZ(-40px);
+      filter: blur(20px);
+      transform: translateZ(-50px);
       animation: breathe 5.8s ease-in-out infinite alternate;
     }
 
     .orbit {
       position: absolute;
-      z-index: -2;
-      width: min(78vw, 396px);
+      z-index: -3;
+      width: min(80vw, 410px);
       aspect-ratio: 1;
       border: 1px dashed color-mix(in srgb, var(--accent-ink) 20%, transparent);
       border-radius: 50%;
-      transform: translateZ(-20px);
-      animation: rotate-slow 32s linear infinite;
+      transform: translateZ(-26px);
+      animation: rotate-slow 34s linear infinite;
     }
 
     .orbit::before,
@@ -771,10 +871,10 @@
     }
 
     .orbit-two {
-      width: min(60vw, 294px);
+      width: min(62vw, 304px);
       border-style: solid;
       border-color: color-mix(in srgb, var(--accent-ink) 14%, transparent);
-      animation: rotate-slow 20s linear infinite reverse;
+      animation: rotate-slow 21s linear infinite reverse;
     }
 
     .orbit-two::before {
@@ -786,15 +886,13 @@
       height: 6px;
     }
 
-    .orbit-two::after {
-      display: none;
-    }
+    .orbit-two::after { display: none; }
 
-    /* 3D наклонённая орбита (эффект кольца Сатурна) */
+    /* Двойные 3D гироскопические кольца */
     .orbit-tilt {
       position: absolute;
-      z-index: -1;
-      width: min(88vw, 450px);
+      z-index: -2;
+      width: min(92vw, 470px);
       aspect-ratio: 1;
       border-radius: 50%;
       transform-style: preserve-3d;
@@ -802,43 +900,75 @@
       pointer-events: none;
     }
 
+    .orbit-tilt-2 {
+      transform: rotateX(68deg) rotateY(28deg);
+      width: min(84vw, 420px);
+    }
+
     .orbit-tilt-ring {
       width: 100%;
       height: 100%;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 22%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent);
       border-radius: 50%;
-      animation: rotate-slow 14s linear infinite;
+      animation: rotate-slow 15s linear infinite;
+    }
+
+    .orbit-tilt-2 .orbit-tilt-ring {
+      animation-direction: reverse;
+      animation-duration: 21s;
+      border-style: dotted;
     }
 
     .orbit-tilt-ring::before {
       position: absolute;
       top: -4px;
       left: 50%;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--accent-color);
-      box-shadow: 0 0 18px var(--accent-color);
+      box-shadow: 0 0 16px var(--accent-color);
       transform: translateX(-50%);
       content: "";
     }
 
     .preview-card {
       position: relative;
-      width: min(100%, 366px);
-      padding: 23px;
-      border-radius: 26px;
+      width: min(100%, 376px);
+      padding: 24px;
+      border-radius: 28px;
       background: var(--card-bg);
       box-shadow:
         var(--card-shadow),
-        0 0 70px color-mix(in srgb, var(--accent-color) 14%, transparent),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 0 75px color-mix(in srgb, var(--accent-color) 14%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
       transform-style: preserve-3d;
-      transform: translateZ(18px);
+      transform: translateZ(20px);
       animation: float-card 6.2s ease-in-out infinite;
     }
 
-    /* Деликатный стеклянный блик */
+    /* Динамический зеркальный блик, следующий за мышью */
+    .specular-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        340px circle at var(--glare-x, 30%) var(--glare-y, 20%),
+        rgba(255, 255, 255, 0.09),
+        transparent 60%
+      );
+      pointer-events: none;
+      transition: opacity 300ms ease;
+    }
+
+    :root[data-theme="light"] .specular-glare {
+      background: radial-gradient(
+        340px circle at var(--glare-x, 30%) var(--glare-y, 20%),
+        rgba(255, 255, 255, 0.55),
+        transparent 60%
+      );
+    }
+
     .preview-sheen {
       position: absolute;
       inset: 0;
@@ -851,11 +981,11 @@
       position: absolute;
       top: -45%;
       left: -65%;
-      width: 48%;
+      width: 45%;
       height: 190%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.045), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
       transform: rotate(25deg);
-      animation: sheen-sweep 8.5s ease-in-out infinite;
+      animation: sheen-sweep 9s ease-in-out infinite;
       content: "";
     }
 
@@ -886,9 +1016,10 @@
 
     .preview-label {
       color: var(--subtle);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
     }
 
     .preview-body {
@@ -901,22 +1032,22 @@
     .preview-icon {
       position: relative;
       display: grid;
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       flex: 0 0 auto;
       place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 32%, transparent);
-      border-radius: 18px;
-      background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 28%, transparent), color-mix(in srgb, var(--accent-color) 9%, transparent));
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 34%, transparent);
+      border-radius: 19px;
+      background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 30%, transparent), color-mix(in srgb, var(--accent-color) 8%, transparent));
       color: var(--accent-ink);
-      font-size: 26px;
-      box-shadow: 0 12px 28px color-mix(in srgb, var(--accent-color) 18%, transparent);
+      font-size: 27px;
+      box-shadow: 0 14px 30px color-mix(in srgb, var(--accent-color) 18%, transparent);
     }
 
     .preview-title {
       margin: 0;
       font-size: 21px;
-      font-weight: 780;
+      font-weight: 800;
       letter-spacing: -0.025em;
     }
 
@@ -933,7 +1064,7 @@
       margin-top: 20px;
       padding: 15px;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
-      border-radius: 15px;
+      border-radius: 16px;
       background: color-mix(in srgb, var(--background) 48%, transparent);
       overflow: hidden;
     }
@@ -984,6 +1115,27 @@
       content: "";
     }
 
+    /* Телеметрия-чипы внутри карточки Hero */
+    .telemetry-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tel-chip {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 9px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
+      background: color-mix(in srgb, var(--surface) 60%, transparent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 9px;
+      text-align: center;
+      color: var(--text-soft);
+      letter-spacing: 0.05em;
+    }
+
     .wave-bars {
       display: flex;
       align-items: center;
@@ -996,7 +1148,7 @@
       height: 6px;
       border-radius: 99px;
       background: var(--accent-ink);
-      opacity: 0.78;
+      opacity: 0.8;
       animation: eq-dance 1.3s ease-in-out infinite alternate;
     }
 
@@ -1009,7 +1161,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 15px;
+      margin-top: 14px;
       color: var(--subtle);
       font-size: 10px;
       font-weight: 700;
@@ -1026,9 +1178,9 @@
       border: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent);
       border-radius: 14px;
       background: color-mix(in srgb, var(--surface) 84%, transparent);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 22px color-mix(in srgb, var(--accent-color) 10%, transparent);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32), 0 0 22px color-mix(in srgb, var(--accent-color) 10%, transparent);
       color: var(--text);
       font-size: 12px;
       font-weight: 680;
@@ -1050,25 +1202,25 @@
     }
 
     .float-badge.top-right {
-      top: 12px;
-      right: -8px;
-      transform: translateZ(55px);
+      top: 10px;
+      right: -10px;
+      transform: translateZ(65px);
       animation: float-badge-a 5.4s ease-in-out infinite;
     }
 
     .float-badge.bottom-left {
       bottom: 20px;
-      left: -14px;
-      transform: translateZ(45px);
+      left: -16px;
+      transform: translateZ(50px);
       animation: float-badge-b 6.6s ease-in-out infinite;
     }
 
     .float-badge.mid-right {
-      right: 12px;
-      bottom: -6px;
+      right: 14px;
+      bottom: -8px;
       padding: 8px 13px;
       font-size: 11px;
-      transform: translateZ(34px);
+      transform: translateZ(36px);
       animation: float-badge-c 7.2s ease-in-out infinite;
     }
 
@@ -1076,7 +1228,7 @@
     .marquee-wrap {
       position: relative;
       overflow: hidden;
-      margin-bottom: 72px;
+      margin-bottom: 68px;
       padding-block: 14px;
       border-block: 1px solid color-mix(in srgb, var(--accent-ink) 11%, transparent);
       background: color-mix(in srgb, var(--surface) 45%, transparent);
@@ -1087,8 +1239,8 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      gap: 36px;
-      animation: marquee-scroll 34s linear infinite;
+      gap: 38px;
+      animation: marquee-scroll 32s linear infinite;
     }
 
     .marquee-wrap:hover .marquee-track {
@@ -1100,9 +1252,9 @@
       align-items: center;
       gap: 12px;
       color: var(--text-soft);
-      font-size: 12.5px;
-      font-weight: 650;
-      letter-spacing: 0.09em;
+      font-size: 12px;
+      font-weight: 680;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -1112,8 +1264,21 @@
       height: 6px;
       border-radius: 50%;
       background: var(--accent-ink);
-      opacity: 0.75;
+      opacity: 0.78;
       content: "";
+    }
+
+    /* Саморисующийся разделитель секций */
+    .section-rule {
+      height: 1px;
+      margin-bottom: 42px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-ink) 32%, transparent), transparent);
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(.16,1,.3,1);
+    }
+
+    .section-rule.is-visible {
+      transform: scaleX(1);
     }
 
     /* Заголовки секций */
@@ -1128,6 +1293,7 @@
     .section-kicker {
       margin: 0 0 8px;
       color: var(--accent-ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 10.5px;
       font-weight: 760;
       letter-spacing: 0.18em;
@@ -1136,9 +1302,9 @@
 
     h2 {
       margin: 0;
-      font-size: clamp(28px, 4.4vw, 42px);
-      font-weight: 800;
-      letter-spacing: -0.048em;
+      font-size: clamp(30px, 4.5vw, 44px);
+      font-weight: 820;
+      letter-spacing: -0.05em;
     }
 
     .app-count {
@@ -1152,7 +1318,7 @@
       letter-spacing: 0.08em;
     }
 
-    /* Карточка приложения */
+    /* Карточка приложения с 3D-подиумом */
     .library {
       padding-block: 6px 86px;
       scroll-margin-top: 90px;
@@ -1169,7 +1335,7 @@
       border-radius: inherit;
       background: radial-gradient(
         520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        color-mix(in srgb, var(--accent-color) 11%, transparent),
+        color-mix(in srgb, var(--accent-color) 10%, transparent),
         transparent 62%
       );
       opacity: 0;
@@ -1186,7 +1352,7 @@
       --card-scale: 1;
       position: relative;
       display: grid;
-      grid-template-columns: 276px 1fr;
+      grid-template-columns: 290px 1fr;
       border-radius: 28px;
       background: var(--card-bg);
       box-shadow: var(--card-shadow);
@@ -1205,39 +1371,41 @@
     .app-art {
       position: relative;
       display: grid;
-      min-height: 330px;
+      min-height: 350px;
       place-items: center;
       border-right: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
       background:
-        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 20%, transparent), transparent 68%),
-        color-mix(in srgb, var(--background) 32%, transparent);
+        radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--accent-color) 20%, transparent), transparent 68%),
+        color-mix(in srgb, var(--background) 34%, transparent);
       overflow: hidden;
     }
 
     :root[data-theme="light"] .app-art {
       background:
-        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%),
+        radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%),
         color-mix(in srgb, var(--surface-light) 65%, transparent);
+    }
+
+    /* Вращающийся транспортир со шкалой градусов */
+    .dial-svg {
+      position: absolute;
+      width: 248px;
+      height: 248px;
+      color: var(--accent-ink);
+      opacity: 0.28;
+      animation: rotate-slow 40s linear infinite;
+      pointer-events: none;
     }
 
     .app-art-ring {
       position: absolute;
-      width: 186px;
-      height: 186px;
+      width: 184px;
+      height: 184px;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 20%, transparent);
       border-radius: 50%;
       animation: breathe 4.8s ease-in-out infinite alternate;
     }
 
-    .app-art-ring.outer {
-      width: 244px;
-      height: 244px;
-      border-style: dashed;
-      border-color: color-mix(in srgb, var(--accent-ink) 13%, transparent);
-      animation: rotate-slow 26s linear infinite;
-    }
-
-    /* Всплывающие искорки в витрине иконки */
     .art-sparks {
       position: absolute;
       inset: 0;
@@ -1246,7 +1414,7 @@
 
     .art-sparks span {
       position: absolute;
-      bottom: 22%;
+      bottom: 20%;
       width: 4px;
       height: 4px;
       border-radius: 50%;
@@ -1257,14 +1425,27 @@
     }
 
     .art-sparks span:nth-child(1) { left: 26%; animation-delay: 0s; }
-    .art-sparks span:nth-child(2) { left: 70%; animation-delay: 1.3s; }
-    .art-sparks span:nth-child(3) { left: 48%; animation-delay: 2.6s; width: 3px; height: 3px; }
-    .art-sparks span:nth-child(4) { left: 34%; animation-delay: 3.4s; }
+    .art-sparks span:nth-child(2) { left: 72%; animation-delay: 1.2s; }
+    .art-sparks span:nth-child(3) { left: 50%; animation-delay: 2.4s; width: 3px; height: 3px; }
+    .art-sparks span:nth-child(4) { left: 34%; animation-delay: 3.5s; }
 
     .app-icon-stack {
       position: relative;
       display: grid;
       place-items: center;
+      animation: float-card 5.6s ease-in-out infinite;
+    }
+
+    /* Проекция светящейся тени на подиуме под иконкой */
+    .pedestal-glow {
+      position: absolute;
+      bottom: -44px;
+      width: 112px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, color-mix(in srgb, var(--accent-color) 46%, transparent), transparent 70%);
+      filter: blur(6px);
+      animation: shadow-pulse 5.6s ease-in-out infinite;
     }
 
     .app-icon-shadow {
@@ -1272,8 +1453,8 @@
       width: 118px;
       height: 118px;
       border-radius: 34px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 28%, transparent);
-      background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 30%, transparent);
+      background: color-mix(in srgb, var(--accent-color) 11%, transparent);
       transform: rotate(10deg) translate(10px, 8px);
       transition: transform 380ms cubic-bezier(.2,.85,.3,1);
     }
@@ -1320,7 +1501,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 36px clamp(22px, 5vw, 50px);
+      padding: 38px clamp(22px, 5vw, 52px);
     }
 
     .app-overline {
@@ -1367,8 +1548,8 @@
 
     .app-title {
       margin: 0;
-      font-size: clamp(34px, 5vw, 50px);
-      font-weight: 820;
+      font-size: clamp(34px, 5vw, 52px);
+      font-weight: 840;
       letter-spacing: -0.055em;
     }
 
@@ -1427,17 +1608,17 @@
       position: relative;
       overflow: hidden;
       display: inline-flex;
-      min-height: 54px;
+      min-height: 55px;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 0 23px;
+      padding: 0 24px;
       border: 1px solid color-mix(in srgb, var(--accent-color) 65%, transparent);
       border-radius: 15px;
       background: var(--accent-color);
       color: var(--accent-contrast);
       font-size: 14px;
-      font-weight: 780;
+      font-weight: 790;
       text-decoration: none;
       box-shadow:
         0 12px 32px color-mix(in srgb, var(--accent-color) 24%, transparent),
@@ -1447,13 +1628,18 @@
 
     .download-button:hover {
       filter: brightness(1.07);
-      box-shadow: 0 16px 40px color-mix(in srgb, var(--accent-color) 36%, transparent);
+      box-shadow: 0 16px 42px color-mix(in srgb, var(--accent-color) 36%, transparent);
     }
 
     .download-button svg {
       width: 17px;
       height: 17px;
       flex: 0 0 auto;
+      transition: transform 240ms cubic-bezier(.2,.8,.3,1);
+    }
+
+    .download-button:hover svg {
+      transform: translateY(2px);
     }
 
     .download-button.outline {
@@ -1502,7 +1688,7 @@
     }
 
     .bento-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: color-mix(in srgb, var(--accent-ink) 38%, transparent);
       box-shadow: var(--card-shadow), 0 0 38px color-mix(in srgb, var(--accent-color) 10%, transparent);
     }
@@ -1513,7 +1699,7 @@
     .bento-visual {
       position: relative;
       display: grid;
-      height: 158px;
+      height: 164px;
       place-items: center;
       overflow: hidden;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 13%, transparent);
@@ -1533,6 +1719,7 @@
       display: inline-block;
       margin-bottom: 8px;
       color: var(--accent-ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 10px;
       font-weight: 760;
       letter-spacing: 0.16em;
@@ -1553,41 +1740,41 @@
       line-height: 1.68;
     }
 
-    /* Визуал 1: Локальный щит + парящие капсулы + мягкий блик */
+    /* Визуал 1: Локальный щит + мягкий сканер */
     .vis-vault {
       position: relative;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
     .scan-beam {
       position: absolute;
       inset-block: 0;
-      width: 72px;
-      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent);
+      width: 74px;
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 11%, transparent), transparent);
       transform: skewX(-18deg);
-      animation: vault-scan 5.4s ease-in-out infinite;
+      animation: vault-scan 5.5s ease-in-out infinite;
       pointer-events: none;
     }
 
     .vault-shield {
       position: relative;
       display: grid;
-      width: 54px;
-      height: 54px;
+      width: 58px;
+      height: 58px;
       place-items: center;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 38%, transparent);
-      border-radius: 17px;
-      background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--accent-color) 15%, transparent);
       color: var(--accent-ink);
       box-shadow: 0 0 28px color-mix(in srgb, var(--accent-color) 20%, transparent);
       animation: float-card 5s ease-in-out infinite;
     }
 
     .vault-shield svg {
-      width: 24px;
-      height: 24px;
+      width: 25px;
+      height: 25px;
     }
 
     .vault-pills {
@@ -1615,7 +1802,7 @@
       text-decoration: line-through;
     }
 
-    /* Визуал 2: Часы-радар будильника */
+    /* Визуал 2: Хронограф будильника */
     .vis-alarm-stage {
       position: relative;
       display: flex;
@@ -1626,32 +1813,30 @@
     .radar-wrap {
       position: relative;
       display: grid;
-      width: 88px;
-      height: 88px;
+      width: 92px;
+      height: 92px;
       place-items: center;
     }
 
     .radar-dial {
       position: absolute;
-      inset: 6px;
+      inset: 5px;
       border-radius: 50%;
       border: 1px dashed color-mix(in srgb, var(--accent-ink) 28%, transparent);
-      background: conic-gradient(from var(--beam-angle), transparent 270deg, color-mix(in srgb, var(--accent-color) 24%, transparent) 360deg);
-      animation: spin-beam 4s linear infinite;
+      background: conic-gradient(from var(--beam-angle), transparent 275deg, color-mix(in srgb, var(--accent-color) 22%, transparent) 360deg);
+      animation: spin-beam 4.2s linear infinite;
     }
 
     .alarm-wave {
       position: absolute;
-      width: 66px;
-      height: 66px;
-      border: 1px solid color-mix(in srgb, var(--accent-ink) 45%, transparent);
+      width: 68px;
+      height: 68px;
+      border: 1px solid color-mix(in srgb, var(--accent-ink) 42%, transparent);
       border-radius: 50%;
       animation: ripple-ring 3s cubic-bezier(.15,.6,.3,1) infinite;
     }
 
-    .alarm-wave.delay {
-      animation-delay: 1.5s;
-    }
+    .alarm-wave.delay { animation-delay: 1.5s; }
 
     .alarm-core {
       position: relative;
@@ -1663,14 +1848,11 @@
       border-radius: 15px;
       background: color-mix(in srgb, var(--surface) 88%, var(--accent-color) 12%);
       color: var(--accent-ink);
-      box-shadow: 0 0 26px color-mix(in srgb, var(--accent-color) 24%, transparent);
+      box-shadow: 0 0 26px color-mix(in srgb, var(--accent-color) 22%, transparent);
       animation: bell-rock 4.2s ease-in-out infinite;
     }
 
-    .alarm-core svg {
-      width: 23px;
-      height: 23px;
-    }
+    .alarm-core svg { width: 23px; height: 23px; }
 
     .alarm-toast {
       display: grid;
@@ -1683,26 +1865,19 @@
       animation: float-card 4.8s ease-in-out infinite;
     }
 
-    .alarm-toast strong {
-      font-size: 13px;
-      color: var(--accent-ink);
-    }
-
-    .alarm-toast span {
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .alarm-toast strong { font-size: 13px; color: var(--accent-ink); }
+    .alarm-toast span { font-size: 11px; color: var(--muted); }
 
     /* Визуал 3: Парящий лист форматирования */
     .vis-format {
       width: 82%;
-      padding: 13px 15px;
+      padding: 14px 16px;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 18%, transparent);
-      border-radius: 14px;
+      border-radius: 15px;
       background: color-mix(in srgb, var(--surface) 78%, transparent);
       display: grid;
       gap: 9px;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
       transform: perspective(600px) rotateX(6deg) rotateY(-4deg);
       transition: transform 350ms ease;
     }
@@ -1750,12 +1925,38 @@
     .fmt-fill.f2 { animation-delay: 0.65s; width: 65%; opacity: 0.72; }
     .fmt-fill.f3 { animation-delay: 1.3s; width: 80%; opacity: 0.5; }
 
-    /* Визуал 4: Android + Windows в объёме */
+    /* Визуал 4: Android + Windows + Лазерная дуга связи */
     .vis-devices {
       position: relative;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 42px;
+    }
+
+    .bridge-arc {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 96px;
+      height: 50px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .bridge-base {
+      fill: none;
+      stroke: color-mix(in srgb, var(--accent-ink) 20%, transparent);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+    }
+
+    .bridge-pulse {
+      fill: none;
+      stroke: var(--accent-ink);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-dasharray: 18 90;
+      animation: arc-flow 2.4s linear infinite;
     }
 
     .dev-pc {
@@ -1820,7 +2021,7 @@
 
     /* Секция 3 ключевых цифр */
     .metrics {
-      padding-block: 0 92px;
+      padding-block: 0 96px;
     }
 
     .metrics-grid {
@@ -1830,9 +2031,9 @@
     }
 
     .metric-card {
-      padding: 26px 28px;
+      padding: 28px 30px;
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 24px;
       background: var(--card-bg);
       box-shadow: var(--card-shadow);
       transition: transform 280ms ease, border-color 280ms ease;
@@ -1845,8 +2046,8 @@
 
     .metric-num {
       display: block;
-      font-size: clamp(34px, 4.5vw, 48px);
-      font-weight: 820;
+      font-size: clamp(36px, 4.8vw, 52px);
+      font-weight: 840;
       letter-spacing: -0.05em;
       color: var(--accent-ink);
       line-height: 1;
@@ -1855,10 +2056,10 @@
 
     .metric-label {
       display: block;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 15.5px;
+      font-weight: 720;
       color: var(--text);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .metric-sub {
@@ -1912,22 +2113,22 @@
       border-radius: 3px;
     }
 
-    /* Появление при скролле */
+    /* 3D Появление при скролле */
     .reveal {
       opacity: 0;
       filter: blur(8px);
-      transform: translateY(28px) scale(0.97);
+      transform: perspective(1000px) rotateX(6deg) translateY(34px) scale(0.97);
       transition:
-        opacity 760ms cubic-bezier(.16,1,.3,1),
-        filter 760ms cubic-bezier(.16,1,.3,1),
-        transform 760ms cubic-bezier(.16,1,.3,1);
+        opacity 800ms cubic-bezier(.16,1,.3,1),
+        filter 800ms cubic-bezier(.16,1,.3,1),
+        transform 800ms cubic-bezier(.16,1,.3,1);
       transition-delay: var(--delay, 0ms);
     }
 
     .reveal.is-visible {
       opacity: 1;
       filter: blur(0);
-      transform: translateY(0) scale(1);
+      transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
     }
 
     /* Песочница букв */
@@ -2040,6 +2241,25 @@
     }
 
     /* Keyframes */
+    @keyframes horizon-open {
+      0%   { transform: scaleX(0); opacity: 1; }
+      55%  { transform: scaleX(1); opacity: 0.9; }
+      100% { transform: scaleX(1.1); opacity: 0; }
+    }
+
+    @keyframes kinetic-unmask {
+      from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(105%) skewY(3deg);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) skewY(0);
+      }
+    }
+
     @keyframes spin-beam {
       to { --beam-angle: 360deg; }
     }
@@ -2050,29 +2270,13 @@
     }
 
     @keyframes blur-up {
-      from {
-        opacity: 0;
-        filter: blur(10px);
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
-      }
+      from { opacity: 0; filter: blur(10px); transform: translateY(24px); }
+      to   { opacity: 1; filter: blur(0); transform: translateY(0); }
     }
 
     @keyframes hero-stage-in {
-      from {
-        opacity: 0;
-        filter: blur(12px);
-        transform: scale(0.92) translateY(20px);
-      }
-      to {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1) translateY(0);
-      }
+      from { opacity: 0; filter: blur(12px); transform: scale(0.92) translateY(22px); }
+      to   { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); }
     }
 
     @keyframes shine {
@@ -2080,7 +2284,7 @@
     }
 
     @keyframes sheen-sweep {
-      0%, 60% { transform: translateX(-120%) rotate(25deg); }
+      0%, 62% { transform: translateX(-120%) rotate(25deg); }
       100%    { transform: translateX(340%) rotate(25deg); }
     }
 
@@ -2091,7 +2295,12 @@
     @keyframes spark-rise {
       0%   { transform: translateY(0) scale(0.5); opacity: 0; }
       25%  { opacity: 0.9; }
-      100% { transform: translateY(-130px) scale(1.1); opacity: 0; }
+      100% { transform: translateY(-135px) scale(1.1); opacity: 0; }
+    }
+
+    @keyframes shadow-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.85; }
+      50%      { transform: scale(0.76); opacity: 0.45; }
     }
 
     @keyframes pulse-glow {
@@ -2109,23 +2318,23 @@
     }
 
     @keyframes float-card {
-      0%, 100% { transform: translateZ(18px) translateY(0); }
-      50%      { transform: translateZ(18px) translateY(-12px); }
+      0%, 100% { transform: translateZ(20px) translateY(0); }
+      50%      { transform: translateZ(20px) translateY(-12px); }
     }
 
     @keyframes float-badge-a {
-      0%, 100% { transform: translateZ(55px) translate3d(0, 0, 0); }
-      50%      { transform: translateZ(55px) translate3d(-5px, -10px, 0); }
+      0%, 100% { transform: translateZ(65px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(65px) translate3d(-5px, -10px, 0); }
     }
 
     @keyframes float-badge-b {
-      0%, 100% { transform: translateZ(45px) translate3d(0, 0, 0); }
-      50%      { transform: translateZ(45px) translate3d(6px, 9px, 0); }
+      0%, 100% { transform: translateZ(50px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(50px) translate3d(6px, 9px, 0); }
     }
 
     @keyframes float-badge-c {
-      0%, 100% { transform: translateZ(34px) translate3d(0, 0, 0); }
-      50%      { transform: translateZ(34px) translate3d(-4px, 7px, 0); }
+      0%, 100% { transform: translateZ(36px) translate3d(0, 0, 0); }
+      50%      { transform: translateZ(36px) translate3d(-4px, 7px, 0); }
     }
 
     @keyframes bar-pulse {
@@ -2168,6 +2377,11 @@
       to   { width: 92%; }
     }
 
+    @keyframes arc-flow {
+      from { stroke-dashoffset: 108; }
+      to   { stroke-dashoffset: 0; }
+    }
+
     @keyframes color-ripple {
       10% { opacity: 0.72; }
       to {
@@ -2182,10 +2396,8 @@
     }
 
     /* Адаптивность */
-    @media (max-width: 960px) {
-      .top-status {
-        display: none;
-      }
+    @media (max-width: 980px) {
+      .top-status { display: none; }
 
       .hero {
         min-height: auto;
@@ -2194,71 +2406,31 @@
         padding-block: 48px 54px;
       }
 
-      .hero-visual {
-        min-height: 380px;
-      }
-
-      .app-card {
-        grid-template-columns: 1fr;
-      }
+      .hero-visual { min-height: 390px; }
+      .app-card { grid-template-columns: 1fr; }
 
       .app-art {
-        min-height: 230px;
+        min-height: 240px;
         border-right: 0;
         border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
       }
 
-      .bento-wide,
-      .bento-narrow {
-        grid-column: span 12;
-      }
-
-      .metrics-grid {
-        grid-template-columns: 1fr;
-      }
+      .bento-wide, .bento-narrow { grid-column: span 12; }
+      .metrics-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 580px) {
-      .container {
-        width: min(100% - 30px, 1160px);
-      }
-
-      .topbar {
-        flex-wrap: wrap;
-        padding-block: 12px;
-      }
-
-      .header-tools {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .accent-picker {
-        max-width: calc(100% - 50px);
-        justify-content: center;
-      }
-
-      .accent-swatch {
-        width: 15px;
-        height: 15px;
-      }
-
+      .container { width: min(100% - 30px, 1180px); }
+      .topbar { flex-wrap: wrap; padding-block: 12px; }
+      .header-tools { width: 100%; justify-content: space-between; }
+      .accent-picker { max-width: calc(100% - 50px); justify-content: center; }
+      .accent-swatch { width: 14px; height: 14px; }
       .float-badge.top-right { right: 0; }
       .float-badge.bottom-left { left: 0; }
       .float-badge.mid-right { display: none; }
-
-      .download-button {
-        width: 100%;
-      }
-
-      .fact {
-        flex: 1 1 calc(50% - 5px);
-      }
-
-      footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .download-button { width: 100%; }
+      .fact { flex: 1 1 calc(50% - 5px); }
+      footer { flex-direction: column; align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -2271,23 +2443,14 @@
         transition-duration: 0.01ms !important;
       }
 
-      .reveal {
-        opacity: 1;
-        filter: none;
-        transform: none;
-      }
-
-      .color-ripple,
-      .cursor-aura,
-      #bg-canvas {
-        display: none;
-      }
+      .reveal { opacity: 1; filter: none; transform: none; }
+      .color-ripple, .cursor-aura, .cursor-reticle, .horizon-flash, #bg-canvas { display: none; }
     }
   </style>
 
   <script>
     (() => {
-      const validAccents = ["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold"];
+      const validAccents = ["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold", "silver"];
       try {
         const mode = localStorage.getItem("notes-site-mode");
         const accent = localStorage.getItem("notes-site-accent");
@@ -2303,6 +2466,7 @@
 </head>
 
 <body>
+  <div class="horizon-flash" aria-hidden="true"></div>
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
   <div class="ambient-bg" aria-hidden="true">
     <div class="aurora aurora-1"></div>
@@ -2310,6 +2474,7 @@
     <div class="aurora aurora-3"></div>
   </div>
   <div class="cursor-aura" aria-hidden="true"></div>
+  <div class="cursor-reticle" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <div class="topbar-wrap">
@@ -2339,6 +2504,7 @@
             <button class="accent-swatch" type="button" data-accent="red"     style="--swatch-color:#ff7676" aria-label="Алый" aria-pressed="false" title="Алый"></button>
             <button class="accent-swatch" type="button" data-accent="orange"  style="--swatch-color:#ffad5c" aria-label="Янтарь" aria-pressed="false" title="Янтарь"></button>
             <button class="accent-swatch" type="button" data-accent="gold"    style="--swatch-color:#f0e665" aria-label="Золото" aria-pressed="false" title="Золото"></button>
+            <button class="accent-swatch" type="button" data-accent="silver"  style="--swatch-color:#dfe6ec" aria-label="Серебро" aria-pressed="false" title="Серебро"></button>
           </div>
 
           <button class="theme-toggle" type="button" aria-label="Включить светлую тему" aria-pressed="false" title="Сменить тему">
@@ -2356,14 +2522,17 @@
   <main>
     <section class="container hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <div class="eyebrow">
-          <span class="eyebrow-line" aria-hidden="true"></span>
-          Android и Windows · версия 3.2
+        <div class="hero-meta-bar">
+          <div class="eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            Android и Windows
+          </div>
+          <span class="tech-code">BUILD 3.2.0 // LOCAL</span>
         </div>
 
         <h1 id="hero-title">
-          Заметки.<br>
-          <span>Без лишнего.</span>
+          <span class="hero-line"><span class="hero-line-inner" style="--line-delay: 70ms;">Заметки.</span></span>
+          <span class="hero-line"><span class="hero-line-inner" style="--line-delay: 160ms;"><span class="accent-word">Без лишнего.</span></span></span>
         </h1>
 
         <p class="intro">
@@ -2393,19 +2562,24 @@
           <div class="orbit"></div>
           <div class="orbit orbit-two"></div>
           <div class="orbit-tilt"><div class="orbit-tilt-ring"></div></div>
+          <div class="orbit-tilt orbit-tilt-2"><div class="orbit-tilt-ring"></div></div>
 
-          <div class="preview-card beam-border">
+          <div class="preview-card beam-border hud-frame" id="hero-card">
+            <span class="hud-corner tl"></span>
+            <span class="hud-corner br"></span>
+            <div class="specular-glare"></div>
             <div class="preview-sheen"></div>
+
             <div class="preview-top">
               <div class="window-dots"><span></span><span></span><span></span></div>
-              <span class="preview-label">ANDROID · WINDOWS</span>
+              <span class="preview-label">SYS // 3.2.0</span>
             </div>
 
             <div class="preview-body">
               <div class="preview-icon">✳</div>
               <div>
                 <p class="preview-title">Удобные заметки</p>
-                <p class="preview-version">Версия 3.2 · Локально</p>
+                <p class="preview-version">Android · Windows Portable</p>
               </div>
             </div>
 
@@ -2424,11 +2598,17 @@
               </div>
             </div>
 
+            <div class="telemetry-strip">
+              <span class="tel-chip">LOCAL: OK</span>
+              <span class="tel-chip">ALARM: ON</span>
+              <span class="tel-chip">AUTH: 0</span>
+            </div>
+
             <div class="preview-caption">
               <div class="wave-bars">
                 <span></span><span></span><span></span><span></span><span></span>
               </div>
-              <span>БЫСТРЫЙ СТАРТ · v3.2</span>
+              <span>READY TO WRITE</span>
             </div>
           </div>
 
@@ -2471,23 +2651,32 @@
       </div>
     </div>
 
+    <div class="container section-rule reveal" aria-hidden="true"></div>
+
     <section class="container library reveal" id="apps" aria-labelledby="library-title">
       <div class="section-heading">
         <div>
-          <p class="section-kicker">Загрузка</p>
+          <p class="section-kicker">01 // Загрузка</p>
           <h2 id="library-title">Удобные заметки 3.2</h2>
         </div>
         <span class="app-count">Android + Windows</span>
       </div>
 
-      <article class="app-card spotlight-card beam-border">
+      <article class="app-card spotlight-card beam-border hud-frame">
+        <span class="hud-corner tr"></span>
+        <span class="hud-corner bl"></span>
+
         <div class="app-art" aria-hidden="true">
-          <div class="app-art-ring outer"></div>
+          <svg class="dial-svg" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8"/>
+            <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" stroke-width="0.7" stroke-dasharray="14 10"/>
+          </svg>
           <div class="app-art-ring"></div>
           <div class="art-sparks">
             <span></span><span></span><span></span><span></span>
           </div>
           <div class="app-icon-stack">
+            <div class="pedestal-glow"></div>
             <div class="app-icon-shadow"></div>
             <div class="app-icon"></div>
           </div>
@@ -2553,17 +2742,20 @@
       </article>
     </section>
 
+    <div class="container section-rule reveal" aria-hidden="true"></div>
+
     <section class="container features" aria-labelledby="features-title">
       <div class="section-heading reveal">
         <div>
-          <p class="section-kicker">Возможности</p>
+          <p class="section-kicker">02 // Архитектура</p>
           <h2 id="features-title">Продумано для дел</h2>
         </div>
         <span class="app-count">Версия 3.2</span>
       </div>
 
       <div class="bento-grid">
-        <article class="bento-card bento-wide spotlight-card reveal" style="--delay: 0ms;">
+        <article class="bento-card bento-wide spotlight-card hud-frame reveal" style="--delay: 0ms;">
+          <span class="hud-corner tr"></span>
           <div class="bento-visual" aria-hidden="true">
             <div class="scan-beam"></div>
             <div class="vis-vault">
@@ -2588,7 +2780,8 @@
           </div>
         </article>
 
-        <article class="bento-card bento-narrow spotlight-card reveal" style="--delay: 90ms;">
+        <article class="bento-card bento-narrow spotlight-card hud-frame reveal" style="--delay: 90ms;">
+          <span class="hud-corner tr"></span>
           <div class="bento-visual" aria-hidden="true">
             <div class="vis-alarm-stage">
               <div class="radar-wrap">
@@ -2616,1041 +2809,6 @@
           </div>
         </article>
 
-        <article class="bento-card bento-narrow spotlight-card reveal" style="--delay: 140ms;">
-          <div class="bento-visual" aria-hidden="true">
-            <div class="vis-format">
-              <div class="fmt-row">
-                <span class="fmt-tag">H1</span>
-                <div class="fmt-track"><div class="fmt-fill"></div></div>
-              </div>
-              <div class="fmt-row">
-                <span class="fmt-tag">✓</span>
-                <div class="fmt-track"><div class="fmt-fill f2"></div></div>
-              </div>
-              <div class="fmt-row">
-                <span class="fmt-tag">B</span>
-                <div class="fmt-track"><div class="fmt-fill f3"></div></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <span class="bento-kicker">Чистый текст</span>
-            <h3 class="bento-title">Гибкое форматирование</h3>
-            <p class="bento-text">
-              Выделяйте главное, оформляйте списки и структурируйте мысли так, чтобы читать было приятно.
-            </p>
-          </div>
-        </article>
-
-        <article class="bento-card bento-wide spotlight-card reveal" style="--delay: 200ms;">
-          <div class="bento-visual" aria-hidden="true">
-            <div class="vis-devices">
-              <div class="dev-pc">
-                <span class="dev-tag">.EXE</span>
-                <div class="dev-line glow"></div>
-                <div class="dev-line s"></div>
-                <div class="dev-line"></div>
-              </div>
-              <div class="dev-phone">
-                <span class="dev-tag">APK</span>
-                <div class="dev-line glow"></div>
-                <div class="dev-line s"></div>
-                <div class="dev-line"></div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <span class="bento-kicker">Две платформы</span>
-            <h3 class="bento-title">Android и портативный Windows</h3>
-            <p class="bento-text">
-              Один аккуратный интерфейс и плавные анимации как на смартфоне, так и на ПК. Версия для Windows запускается прямо из папки без установки.
-            </p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="container metrics" aria-label="Главные преимущества в цифрах">
-      <div class="metrics-grid">
-        <div class="metric-card spotlight-card reveal" style="--delay: 0ms;">
-          <span class="metric-num"><span class="count-up" data-target="0">0</span></span>
-          <span class="metric-label">Лишних шагов при запуске</span>
-          <span class="metric-sub">Никакой регистрации и паролей — открываете и сразу пишете.</span>
-        </div>
-        <div class="metric-card spotlight-card reveal" style="--delay: 90ms;">
-          <span class="metric-num"><span class="count-up" data-target="2">0</span></span>
-          <span class="metric-label">Платформы в одном релизе</span>
-          <span class="metric-sub">Нативный APK для Android и портативный .exe для Windows.</span>
-        </div>
-        <div class="metric-card spotlight-card reveal" style="--delay: 180ms;">
-          <span class="metric-num"><span class="count-up" data-target="100">0</span>%</span>
-          <span class="metric-label">Записей прямо у вас</span>
-          <span class="metric-sub">Все заметки хранятся локально на вашем устройстве.</span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="container reveal">
-    <span>Мои приложения · Удобные заметки 3.2</span>
-    <a href="https://github.com/Legoman-1337/notes/releases">Все версии на GitHub Releases</a>
-    <button class="sandbox-toggle" type="button" aria-pressed="false">Включить песочницу букв</button>
-    <span class="sandbox-status" role="status" aria-live="polite"></span>
-  </footer>
-
-  <script>
-    (() => {
-      const root = document.documentElement;
-      const toggle = document.querySelector(".theme-toggle");
-      const themeIcon = document.querySelector(".theme-icon");
-      const accentButtons = document.querySelectorAll(".accent-swatch");
-      const themeMeta = document.querySelector('meta[name="theme-color"]');
-      const card = document.querySelector(".app-card");
-      const heroStage = document.getElementById("hero-stage");
-      const heroSection = document.querySelector(".hero");
-      const progress = document.querySelector(".scroll-progress");
-      const cursorAura = document.querySelector(".cursor-aura");
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      const validAccents = new Set(["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold"]);
-
-      let targetRgb = [169, 245, 189];
-      let currentRgb = [169, 245, 189];
-
-      function hexToRgbArray(hex) {
-        const clean = hex.trim().replace("#", "");
-        if (clean.length !== 6) return [169, 245, 189];
-        const num = parseInt(clean, 16);
-        return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
-      }
-
-      function refreshCanvasColor(instant = false) {
-        const active = document.querySelector(`.accent-swatch[data-accent="${root.dataset.accent || "green"}"]`);
-        if (active) {
-          const swatch = active.style.getPropertyValue("--swatch-color");
-          if (swatch) {
-            targetRgb = hexToRgbArray(swatch);
-            if (instant) currentRgb = [...targetRgb];
-          }
-        }
-      }
-
-      function savePreference(key, value) {
-        try {
-          localStorage.setItem(key, value);
-        } catch (_) {}
-      }
-
-      function syncThemeControls(instantColor = false) {
-        const isLight = root.dataset.theme === "light";
-        toggle.setAttribute("aria-pressed", String(isLight));
-        toggle.setAttribute("aria-label", isLight ? "Включить тёмную тему" : "Включить светлую тему");
-        if (themeMeta) themeMeta.setAttribute("content", isLight ? "#f1f6f3" : "#050907");
-        accentButtons.forEach((button) => {
-          button.setAttribute("aria-pressed", String(button.dataset.accent === (root.dataset.accent || "green")));
-        });
-        refreshCanvasColor(instantColor);
-      }
-
-      toggle.addEventListener("click", () => {
-        const nextMode = root.dataset.theme === "light" ? "dark" : "light";
-        root.dataset.theme = nextMode;
-        savePreference("notes-site-mode", nextMode);
-        syncThemeControls();
-        if (themeIcon && typeof themeIcon.animate === "function") {
-          themeIcon.animate(
-            [{ transform: "rotate(0deg) scale(0.85)" }, { transform: "rotate(360deg) scale(1)" }],
-            { duration: 560, easing: "cubic-bezier(.2,.75,.25,1)" }
-          );
-        }
-      });
-
-      accentButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const accent = button.dataset.accent;
-          if (!validAccents.has(accent)) return;
-
-          root.dataset.accent = accent;
-          savePreference("notes-site-accent", accent);
-          syncThemeControls();
-
-          document.querySelectorAll(".color-ripple").forEach((ripple) => ripple.remove());
-          const bounds = button.getBoundingClientRect();
-          const ripple = document.createElement("span");
-          ripple.className = "color-ripple";
-          ripple.setAttribute("aria-hidden", "true");
-          ripple.style.setProperty("--ripple-x", `${bounds.left + bounds.width / 2}px`);
-          ripple.style.setProperty("--ripple-y", `${bounds.top + bounds.height / 2}px`);
-          document.body.appendChild(ripple);
-          window.setTimeout(() => ripple.remove(), 760);
-        });
-      });
-
-      // Плавный скролл-прогресс + параллакс фоновых аур
-      function paintScroll() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const p = max > 0 ? Math.min(100, (window.scrollY * 100) / max) : 0;
-        if (progress) progress.style.width = `${p}%`;
-        if (!reducedMotion) {
-          root.style.setProperty("--scroll-shift", `${-(window.scrollY * 0.08).toFixed(1)}px`);
-        }
-      }
-      window.addEventListener("scroll", paintScroll, { passive: true });
-      window.addEventListener("resize", paintScroll, { passive: true });
-      paintScroll();
-
-      // Анимация счётчиков цифр (Count-up)
-      function animateNumber(el, target, duration = 900) {
-        if (reducedMotion || target === 0) {
-          el.textContent = target.toLocaleString("ru-RU");
-          return;
-        }
-        const start = performance.now();
-        function step(now) {
-          const t = Math.min(1, (now - start) / duration);
-          const eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = Math.round(target * eased).toLocaleString("ru-RU");
-          if (t < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-
-      // Появление секций при скролле
-      const revealItems = document.querySelectorAll(".reveal");
-      if ("IntersectionObserver" in window && !reducedMotion) {
-        const observer = new IntersectionObserver((entries, activeObserver) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              entry.target.querySelectorAll(".count-up").forEach((num) => {
-                const target = parseInt(num.dataset.target || "0", 10);
-                animateNumber(num, target, 1000);
-              });
-              activeObserver.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
-        revealItems.forEach((item) => observer.observe(item));
-      } else {
-        revealItems.forEach((item) => {
-          item.classList.add("is-visible");
-          item.querySelectorAll(".count-up").forEach((num) => {
-            num.textContent = num.dataset.target || "0";
-          });
-        });
-      }
-
-      // Аура за курсором + spotlight + 3D параллакс Hero + магнитные кнопки
-      let mouseX = -999;
-      let mouseY = -999;
-      let auraX = -999;
-      let auraY = -999;
-
-      if (hasFinePointer && !reducedMotion) {
-        window.addEventListener("pointermove", (e) => {
-          if (e.pointerType !== "mouse") return;
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          if (cursorAura) cursorAura.style.opacity = "1";
-        }, { passive: true });
-
-        function loopAura() {
-          if (mouseX > -500 && cursorAura) {
-            if (auraX < -500) {
-              auraX = mouseX;
-              auraY = mouseY;
-            } else {
-              auraX += (mouseX - auraX) * 0.12;
-              auraY += (mouseY - auraY) * 0.12;
-            }
-            cursorAura.style.transform = `translate3d(${auraX - 240}px, ${auraY - 240}px, 0)`;
-          }
-          requestAnimationFrame(loopAura);
-        }
-        requestAnimationFrame(loopAura);
-
-        document.querySelectorAll(".spotlight-card").forEach((el) => {
-          el.addEventListener("pointermove", (e) => {
-            if (e.pointerType !== "mouse") return;
-            const rect = el.getBoundingClientRect();
-            el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-            el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-          });
-        });
-
-        if (heroSection && heroStage) {
-          heroSection.addEventListener("pointermove", (e) => {
-            if (e.pointerType !== "mouse") return;
-            const r = heroSection.getBoundingClientRect();
-            const nx = (e.clientX - r.left) / r.width - 0.5;
-            const ny = (e.clientY - r.top) / r.height - 0.5;
-            heroStage.style.setProperty("--hero-rx", `${(-ny * 9).toFixed(2)}deg`);
-            heroStage.style.setProperty("--hero-ry", `${(nx * 11).toFixed(2)}deg`);
-          });
-          heroSection.addEventListener("pointerleave", () => {
-            heroStage.style.setProperty("--hero-rx", "0deg");
-            heroStage.style.setProperty("--hero-ry", "0deg");
-          });
-        }
-
-        if (card) {
-          let frame = 0;
-          let px = 0;
-          let py = 0;
-          card.addEventListener("pointermove", (event) => {
-            if (event.pointerType !== "mouse") return;
-            px = event.clientX;
-            py = event.clientY;
-            if (frame) return;
-            frame = window.requestAnimationFrame(() => {
-              frame = 0;
-              const bounds = card.getBoundingClientRect();
-              const h = (px - bounds.left) / bounds.width - 0.5;
-              const v = (py - bounds.top) / bounds.height - 0.5;
-              card.style.setProperty("--tilt-x", `${(-v * 4.5).toFixed(2)}deg`);
-              card.style.setProperty("--tilt-y", `${(h * 4.5).toFixed(2)}deg`);
-            });
-          });
-          card.addEventListener("pointerleave", () => {
-            if (frame) window.cancelAnimationFrame(frame);
-            frame = 0;
-            card.style.setProperty("--tilt-x", "0deg");
-            card.style.setProperty("--tilt-y", "0deg");
-          });
-        }
-
-        document.querySelectorAll(".magnetic").forEach((btn) => {
-          btn.addEventListener("pointermove", (e) => {
-            if (e.pointerType !== "mouse") return;
-            const r = btn.getBoundingClientRect();
-            const dx = (e.clientX - (r.left + r.width / 2)) * 0.16;
-            const dy = (e.clientY - (r.top + r.height / 2)) * 0.22;
-            btn.style.transform = `translate3d(${dx.toFixed(1)}px, ${(dy - 2).toFixed(1)}px, 0)`;
-          });
-          btn.addEventListener("pointerleave", () => {
-            btn.style.transform = "";
-          });
-        });
-      }
-
-      // Живой Canvas с глубиной слоёв (боке + звёзды) и плавным перетеканием цвета
-      const canvas = document.getElementById("bg-canvas");
-      if (canvas && !reducedMotion) {
-        const ctx = canvas.getContext("2d");
-        let width = 0;
-        let height = 0;
-        let dpr = 1;
-        const COUNT = window.innerWidth < 700 ? 36 : 64;
-        const particles = [];
-
-        function resizeCanvas() {
-          dpr = Math.min(window.devicePixelRatio || 1, 2);
-          width = window.innerWidth;
-          height = window.innerHeight;
-          canvas.width = width * dpr;
-          canvas.height = height * dpr;
-          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-
-        function initParticles() {
-          particles.length = 0;
-          for (let i = 0; i < COUNT; i++) {
-            const depth = 0.35 + Math.random() * 0.85;
-            particles.push({
-              x: Math.random() * width,
-              y: Math.random() * height,
-              vx: (Math.random() - 0.5) * 0.32 * depth,
-              vy: (-0.12 - Math.random() * 0.34) * depth,
-              r: (0.9 + Math.random() * 2.1) * depth,
-              alpha: 0.18 + Math.random() * 0.52,
-              depth
-            });
-          }
-        }
-
-        function drawCanvas() {
-          ctx.clearRect(0, 0, width, height);
-
-          // Плавная интерполяция RGB-цвета частиц при смене палитры
-          currentRgb[0] += (targetRgb[0] - currentRgb[0]) * 0.06;
-          currentRgb[1] += (targetRgb[1] - currentRgb[1]) * 0.06;
-          currentRgb[2] += (targetRgb[2] - currentRgb[2]) * 0.06;
-          const rgb = `${Math.round(currentRgb[0])}, ${Math.round(currentRgb[1])}, ${Math.round(currentRgb[2])}`;
-
-          const isLight = root.dataset.theme === "light";
-          const alphaScale = isLight ? 0.42 : 0.72;
-
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if (mouseX > -500) {
-              const dx = mouseX - p.x;
-              const dy = mouseY - p.y;
-              const dist = Math.hypot(dx, dy);
-              if (dist < 155 && dist > 1) {
-                const force = (155 - dist) / 155;
-                p.x -= (dx / dist) * force * 0.8 * p.depth;
-                p.y -= (dy / dist) * force * 0.8 * p.depth;
-              }
-            }
-
-            if (p.y < -14) { p.y = height + 14; p.x = Math.random() * width; }
-            if (p.x < -14) p.x = width + 14;
-            if (p.x > width + 14) p.x = -14;
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${rgb}, ${(p.alpha * alphaScale).toFixed(3)})`;
-            ctx.fill();
-
-            for (let j = i + 1; j < particles.length; j++) {
-              const q = particles[j];
-              const d = Math.hypot(p.x - q.x, p.y - q.y);
-              if (d < 125) {
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(q.x, q.y);
-                const lineAlpha = (1 - d / 125) * 0.13 * alphaScale;
-                ctx.strokeStyle = `rgba(${rgb}, ${lineAlpha.toFixed(3)})`;
-                ctx.lineWidth = 1;
-                ctx.stroke();
-              }
-            }
-          }
-          requestAnimationFrame(drawCanvas);
-        }
-
-        resizeCanvas();
-        initParticles();
-        window.addEventListener("resize", resizeCanvas, { passive: true });
-        requestAnimationFrame(drawCanvas);
-      }
-
-      // Счётчик скачиваний с GitHub API с плавным набором числа
-      const dl = document.getElementById("dl-count");
-      fetch("https://api.github.com/repos/Legoman-1337/notes/releases/tags/v3.2.0", {
-        headers: { Accept: "application/vnd.github+json" }
-      })
-        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-        .then((rel) => {
-          if (!rel || !Array.isArray(rel.assets)) return;
-          const total = rel.assets.reduce((s, a) => s + (a.download_count || 0), 0);
-          if (dl) animateNumber(dl, total, 1100);
-        })
-        .catch(() => {
-          if (dl) dl.textContent = "—";
-        });
-
-      // Конфетти при скачивании
-      const COLORS = ["#a9f5bd", "#4bf2d4", "#54ddff", "#70b5ff", "#c596ff", "#ff85d0", "#ffad5c", "#ffffff"];
-      function burst(x, y) {
-        for (let i = 0; i < 28; i++) {
-          const p = document.createElement("span");
-          p.className = "confetti-piece";
-          p.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
-          p.style.left = `${x}px`;
-          p.style.top = `${y}px`;
-          document.body.appendChild(p);
-          const dx = (Math.random() - 0.5) * 340;
-          const dy = -130 - Math.random() * 230;
-          const rot = (Math.random() - 0.5) * 580;
-          p.animate(
-            [
-              { transform: "translate(0,0) rotate(0deg) scale(1)", opacity: 1 },
-              { transform: `translate(${dx}px, ${dy + 270}px) rotate(${rot}deg) scale(0.6)`, opacity: 0 }
-            ],
-            { duration: 900 + Math.random() * 450, easing: "cubic-bezier(.2,.65,.3,1)" }
-          ).addEventListener("finish", () => p.remove());
-        }
-      }
-
-      document.querySelectorAll(".download-button").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          if (reducedMotion) return;
-          burst(e.clientX, e.clientY);
-        });
-      });
-
-      syncThemeControls(true);
-    })();
-  </script>
-
-  <script>
-    (() => {
-      const button = document.querySelector(".sandbox-toggle");
-      const status = document.querySelector(".sandbox-status");
-      const CELL_SIZE = 48;
-      const GRAVITY = 820;
-      const MIN_FONT_SIZE = 16;
-      const bodies = [];
-      const letters = [];
-      const bodyByElement = new WeakMap();
-      const ghostContainer = document.createElement("div");
-      ghostContainer.id = "sandbox-ghost-container";
-      let enabled = false;
-      let activeBody = null;
-      let selectedBody = null;
-      let animationFrame = 0;
-      let lastFrameTime = 0;
-
-      const hasLetter = /\p{L}/u;
-      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-      const worldHeight = () => Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
-      function announce(message) {
-        if (status) status.textContent = message;
-      }
-
-      function splitGraphemes(text) {
-        if (typeof Intl.Segmenter === "function") {
-          const segmenter = new Intl.Segmenter("ru", { granularity: "grapheme" });
-          return Array.from(segmenter.segment(text), (part) => part.segment);
-        }
-        return Array.from(text);
-      }
-
-      function wrapPageLetters() {
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-          acceptNode(node) {
-            const parent = node.parentElement;
-            if (!parent || !hasLetter.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
-            if (parent.closest('script, style, svg, textarea, input, select, option, [contenteditable="true"], .sandbox-toggle, .sandbox-status, #sandbox-ghost-container')) {
-              return NodeFilter.FILTER_REJECT;
-            }
-            const isMainAction = parent.closest(".primary-link, .download-button");
-            if (!isMainAction && parseFloat(getComputedStyle(parent).fontSize) < MIN_FONT_SIZE) {
-              return NodeFilter.FILTER_REJECT;
-            }
-            return NodeFilter.FILTER_ACCEPT;
-          }
-        });
-        const textNodes = [];
-        while (walker.nextNode()) textNodes.push(walker.currentNode);
-
-        textNodes.forEach((node) => {
-          const fragment = document.createDocumentFragment();
-          splitGraphemes(node.nodeValue).forEach((part) => {
-            if (hasLetter.test(part)) {
-              const span = document.createElement("span");
-              span.className = "sandbox-letter";
-              span.textContent = part;
-              letters.push(span);
-              fragment.appendChild(span);
-            } else {
-              fragment.appendChild(document.createTextNode(part));
-            }
-          });
-          node.replaceWith(fragment);
-        });
-      }
-
-      function createLetterBody(sourceSpan) {
-        const rect = sourceSpan.getBoundingClientRect();
-        const computed = getComputedStyle(sourceSpan);
-        const width = Math.max(4, rect.width);
-        const height = Math.max(4, rect.height);
-        const startX = rect.left;
-        const startY = rect.top + window.scrollY;
-
-        const ghost = document.createElement("span");
-        ghost.className = "sandbox-ghost";
-        ghost.textContent = sourceSpan.textContent;
-        ghost.setAttribute("aria-hidden", "true");
-        ghost.style.width = `${width}px`;
-        ghost.style.height = `${height}px`;
-        ghost.style.font = computed.font;
-        ghost.style.lineHeight = computed.lineHeight;
-        ghost.style.letterSpacing = computed.letterSpacing;
-        ghost.style.color = computed.color;
-        ghost.style.textShadow = `0 2px 8px color-mix(in srgb, ${computed.color} 38%, transparent)`;
-
-        const area = width * height;
-        const body = {
-          source: sourceSpan,
-          element: ghost,
-          x: startX,
-          y: startY,
-          width,
-          height,
-          mass: clamp(area, 40, 5000),
-          vx: 0,
-          vy: 0,
-          rotation: 0,
-          dragging: false,
-          pinned: false,
-          sleeping: false,
-          supported: false,
-          sleepTime: 0,
-          mobilePinUntil: 0,
-          mobileHoldTimer: null,
-          tapCount: 0,
-          lastTapTime: 0,
-          pointerType: "",
-          pointerId: null,
-          offsetX: 0,
-          offsetY: 0,
-          targetX: startX,
-          targetY: startY,
-          lastPointerX: 0,
-          lastPointerY: 0,
-          lastPointerTime: 0,
-          cellLeft: 0,
-          cellRight: 0,
-          cellTop: 0,
-          cellBottom: 0
-        };
-
-        sourceSpan.classList.add("is-detached");
-        bodyByElement.set(ghost, body);
-        bodies.push(body);
-        ghostContainer.appendChild(ghost);
-        paintBody(body);
-        return body;
-      }
-
-      function selectBody(body) {
-        if (selectedBody && selectedBody.element) {
-          selectedBody.element.classList.remove("is-selected");
-        }
-        selectedBody = body;
-        if (selectedBody && selectedBody.element && !selectedBody.pinned) {
-          selectedBody.element.classList.add("is-selected");
-        }
-      }
-
-      function paintBody(body) {
-        const maxX = Math.max(0, document.documentElement.clientWidth - body.width);
-        const maxY = Math.max(0, worldHeight() - body.height);
-        body.x = clamp(body.x, 0, maxX);
-        body.y = clamp(body.y, 0, maxY);
-        const screenY = body.y - window.scrollY;
-        body.element.style.transform = `translate3d(${body.x.toFixed(2)}px, ${screenY.toFixed(2)}px, 0) rotate(${body.rotation.toFixed(2)}deg)`;
-        body.element.style.willChange = body.dragging ? "transform" : "auto";
-      }
-
-      function updatePaletteColor(body, pointerX, pointerY) {
-        for (const swatch of document.querySelectorAll(".accent-swatch")) {
-          const rect = swatch.getBoundingClientRect();
-          if (pointerX < rect.left || pointerX > rect.right || pointerY < rect.top || pointerY > rect.bottom) continue;
-          const color = getComputedStyle(swatch).getPropertyValue("--swatch-color").trim();
-          if (color) {
-            body.element.style.color = color;
-            body.element.style.textShadow = `0 0 16px ${color}`;
-          }
-          return;
-        }
-      }
-
-      function togglePinBody(body, method) {
-        if (!body) return;
-        if (body.mobileHoldTimer) {
-          clearTimeout(body.mobileHoldTimer);
-          body.mobileHoldTimer = null;
-        }
-        body.mobilePinUntil = 0;
-        body.element.classList.remove("is-holding");
-
-        if (body.pinned) {
-          body.pinned = false;
-          body.sleeping = false;
-          body.sleepTime = 0;
-          body.element.classList.remove("is-pinned");
-          announce("Закрепление снято.");
-          requestPhysicsFrame();
-        } else {
-          body.pinned = true;
-          body.dragging = false;
-          body.sleeping = true;
-          body.vx = 0;
-          body.vy = 0;
-          body.element.classList.remove("is-selected");
-          body.element.classList.add("is-pinned");
-          if (activeBody === body) activeBody = null;
-          paintBody(body);
-          announce(method === "touch" ? "Буква закреплена!" : "Буква закреплена!");
-        }
-      }
-
-      function activate() {
-        if (enabled) return;
-        enabled = true;
-        wrapPageLetters();
-        if (!ghostContainer.parentElement) {
-          document.body.appendChild(ghostContainer);
-        }
-        document.documentElement.classList.add("sandbox-active");
-        button.setAttribute("aria-pressed", "true");
-        button.textContent = "Выключить песочницу";
-        announce("Песочница включена.");
-      }
-
-      function deactivate() {
-        if (!enabled) return;
-        enabled = false;
-        activeBody = null;
-        selectBody(null);
-        if (animationFrame) cancelAnimationFrame(animationFrame);
-        animationFrame = 0;
-        lastFrameTime = 0;
-        bodies.forEach((body) => {
-          if (body.mobileHoldTimer) clearTimeout(body.mobileHoldTimer);
-          body.element.remove();
-        });
-        bodies.length = 0;
-        letters.forEach((span) => {
-          if (!span.isConnected) return;
-          span.classList.remove("is-detached");
-          span.replaceWith(document.createTextNode(span.textContent));
-        });
-        letters.length = 0;
-        document.documentElement.classList.remove("sandbox-active");
-        button.setAttribute("aria-pressed", "false");
-        button.textContent = "Включить песочницу букв";
-        announce("Песочница выключена.");
-      }
-
-      function solveCollisions(now) {
-        const columns = Math.max(1, Math.ceil(document.documentElement.clientWidth / CELL_SIZE));
-        const grid = new Map();
-        const currentWorldHeight = worldHeight();
-
-        bodies.forEach((body) => {
-          body.supported = body.y + body.height >= currentWorldHeight - 1;
-          body.cellLeft = Math.floor(body.x / CELL_SIZE);
-          body.cellRight = Math.floor((body.x + body.width) / CELL_SIZE);
-          body.cellTop = Math.floor(body.y / CELL_SIZE);
-          body.cellBottom = Math.floor((body.y + body.height) / CELL_SIZE);
-          for (let cx = body.cellLeft; cx <= body.cellRight; cx += 1) {
-            for (let cy = body.cellTop; cy <= body.cellBottom; cy += 1) {
-              const key = cy * columns + cx;
-              let bucket = grid.get(key);
-              if (!bucket) grid.set(key, bucket = []);
-              bucket.push(body);
-            }
-          }
-        });
-
-        for (const [key, bucket] of grid) {
-          const cy = Math.floor(key / columns);
-          const cx = key - cy * columns;
-          for (let i = 0; i < bucket.length; i += 1) {
-            const a = bucket[i];
-            for (let j = i + 1; j < bucket.length; j += 1) {
-              const b = bucket[j];
-              if (cx !== Math.max(a.cellLeft, b.cellLeft) || cy !== Math.max(a.cellTop, b.cellTop)) continue;
-
-              const dx = (a.x + a.width / 2) - (b.x + b.width / 2);
-              const dy = (a.y + a.height / 2) - (b.y + b.height / 2);
-              const overlapX = (a.width + b.width) / 2 - Math.abs(dx);
-              const overlapY = (a.height + b.height) / 2 - Math.abs(dy);
-              if (overlapX <= 0 || overlapY <= 0) continue;
-
-              let nx = 0;
-              let ny = 0;
-              let penetration;
-              if (overlapX < overlapY) {
-                nx = dx < 0 ? -1 : 1;
-                penetration = overlapX;
-              } else {
-                ny = dy < 0 ? -1 : 1;
-                penetration = overlapY;
-              }
-
-              if (ny < 0) a.supported = true;
-              else if (ny > 0) b.supported = true;
-
-              const aFixed = a.dragging || a.pinned || a.mobilePinUntil > now;
-              const bFixed = b.dragging || b.pinned || b.mobilePinUntil > now;
-              if (aFixed && bFixed) continue;
-
-              if (aFixed) {
-                b.x -= nx * penetration;
-                b.y -= ny * penetration;
-                if (nx) b.vx = -nx * Math.max(90, Math.abs(a.vx) * 0.45);
-                if (ny) b.vy = -ny * Math.max(65, Math.abs(a.vy) * 0.35);
-                b.sleeping = false;
-                b.sleepTime = 0;
-              } else if (bFixed) {
-                a.x += nx * penetration;
-                a.y += ny * penetration;
-                if (nx) a.vx = nx * Math.max(90, Math.abs(b.vx) * 0.45);
-                if (ny) a.vy = ny * Math.max(65, Math.abs(b.vy) * 0.35);
-                a.sleeping = false;
-                a.sleepTime = 0;
-              } else {
-                if ((a.sleeping && !b.sleeping) || (b.sleeping && !a.sleeping)) {
-                  a.sleeping = false;
-                  b.sleeping = false;
-                  a.sleepTime = 0;
-                  b.sleepTime = 0;
-                }
-                const inverseA = 1 / a.mass;
-                const inverseB = 1 / b.mass;
-                const inverseTotal = inverseA + inverseB;
-                a.x += nx * penetration * inverseA / inverseTotal;
-                a.y += ny * penetration * inverseA / inverseTotal;
-                b.x -= nx * penetration * inverseB / inverseTotal;
-                b.y -= ny * penetration * inverseB / inverseTotal;
-
-                const relativeVelocity = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;
-                if (relativeVelocity < 0) {
-                  const impulse = -(1 + 0.28) * relativeVelocity / inverseTotal;
-                  a.vx += impulse * nx * inverseA;
-                  a.vy += impulse * ny * inverseA;
-                  b.vx -= impulse * nx * inverseB;
-                  b.vy -= impulse * ny * inverseB;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      function animate(now) {
-        animationFrame = 0;
-        if (!enabled) return;
-        const dt = lastFrameTime ? clamp((now - lastFrameTime) / 1000, 0, 0.024) : 1 / 60;
-        lastFrameTime = now;
-        const damping = Math.pow(0.992, dt * 60);
-        const currentWorldHeight = worldHeight();
-
-        bodies.forEach((body) => {
-          if (body.dragging || body.pinned) {
-            if (body.dragging) {
-              body.sleeping = false;
-              body.x = body.targetX;
-              body.y = body.targetY;
-              body.rotation = clamp(body.vx * 0.01, -18, 18);
-              body.supported = false;
-            }
-            return;
-          }
-          if (body.mobilePinUntil > now) {
-            body.sleeping = true;
-            body.vx = 0;
-            body.vy = 0;
-            return;
-          }
-          if (body.mobilePinUntil) {
-            body.mobilePinUntil = 0;
-            body.element.classList.remove("is-holding");
-            body.sleeping = false;
-            body.sleepTime = 0;
-          }
-          if (body.sleeping) return;
-
-          const floor = Math.max(0, currentWorldHeight - body.height);
-          const rightWall = Math.max(0, document.documentElement.clientWidth - body.width);
-          body.supported = body.y >= floor - 1;
-          body.vy += GRAVITY * dt;
-          body.x += body.vx * dt;
-          body.y += body.vy * dt;
-          body.vx *= damping;
-          body.vy *= damping;
-          body.rotation += body.vx * dt * 0.035;
-
-          if (body.x < 0 || body.x > rightWall) {
-            body.x = clamp(body.x, 0, rightWall);
-            body.vx *= -0.34;
-          }
-          if (body.y < 0) {
-            body.y = 0;
-            body.vy = Math.abs(body.vy) * 0.3;
-          } else if (body.y >= floor) {
-            body.y = floor;
-            body.supported = true;
-            if (Math.abs(body.vy) < 38) body.vy = 0;
-            else body.vy *= -0.28;
-            body.vx *= 0.88;
-          }
-        });
-
-        solveCollisions(now);
-
-        bodies.forEach((body) => {
-          if (body.pinned || body.mobilePinUntil > now) {
-            body.sleeping = true;
-          } else if (!body.dragging && body.supported && Math.abs(body.vx) < 20 && Math.abs(body.vy) < 22) {
-            body.sleepTime += dt;
-            if (body.sleepTime >= 0.32) {
-              body.sleeping = true;
-              body.vx = 0;
-              body.vy = 0;
-            }
-          } else if (!body.sleeping) {
-            body.sleepTime = 0;
-          }
-          if (!body.pinned && body.mobilePinUntil <= now && body.sleeping && !body.supported && body.y + body.height < currentWorldHeight - 2) {
-            body.sleeping = false;
-            body.sleepTime = 0;
-          }
-          paintBody(body);
-        });
-
-        if (bodies.some((body) => body.dragging || (!body.sleeping && !body.pinned))) {
-          animationFrame = requestAnimationFrame(animate);
-        } else {
-          lastFrameTime = 0;
-        }
-      }
-
-      function requestPhysicsFrame() {
-        if (enabled && !animationFrame) animationFrame = requestAnimationFrame(animate);
-      }
-
-      function startDrag(body, event) {
-        if (body.mobileHoldTimer) {
-          clearTimeout(body.mobileHoldTimer);
-          body.mobileHoldTimer = null;
-        }
-        body.mobilePinUntil = 0;
-        body.element.classList.remove("is-holding");
-
-        if (body.pinned) {
-          body.pinned = false;
-          body.element.classList.remove("is-pinned");
-        }
-        body.sleeping = false;
-        body.sleepTime = 0;
-        body.dragging = true;
-        body.pointerType = event.pointerType || "mouse";
-        body.pointerId = event.pointerId;
-        body.offsetX = event.clientX - body.x;
-        body.offsetY = event.clientY + window.scrollY - body.y;
-        body.targetX = body.x;
-        body.targetY = body.y;
-        body.lastPointerX = event.clientX;
-        body.lastPointerY = event.clientY;
-        body.lastPointerTime = performance.now();
-        activeBody = body;
-        selectBody(body);
-        try {
-          body.element.setPointerCapture(event.pointerId);
-        } catch (_) {}
-        updatePaletteColor(body, event.clientX, event.clientY);
-        requestPhysicsFrame();
-      }
-
-      function handlePointerDown(event) {
-        if (!enabled || event.button !== 0) return;
-        const target = event.target;
-
-        const ghost = target.closest && target.closest(".sandbox-ghost");
-        if (ghost) {
-          const body = bodyByElement.get(ghost);
-          if (body) {
-            const now = performance.now();
-            if (event.pointerType === "touch") {
-              if (now - body.lastTapTime < 450) {
-                body.tapCount += 1;
-              } else {
-                body.tapCount = 1;
-              }
-              body.lastTapTime = now;
-
-              if (body.tapCount >= 2) {
-                event.preventDefault();
-                togglePinBody(body, "touch");
-                return;
-              }
-            }
-
-            event.preventDefault();
-            startDrag(body, event);
-            return;
-          }
-        }
-
-        const letterSpan = target.closest && target.closest(".sandbox-letter:not(.is-detached)");
-        if (letterSpan) {
-          event.preventDefault();
-          const body = createLetterBody(letterSpan);
-          startDrag(body, event);
-          return;
-        }
-      }
-
-      function handlePointerMove(event) {
-        const body = activeBody;
-        if (!body || event.pointerId !== body.pointerId) return;
-        const now = performance.now();
-        const elapsed = Math.max(0.008, (now - body.lastPointerTime) / 1000);
-        body.vx = clamp((event.clientX - body.lastPointerX) / elapsed, -1600, 1600);
-        body.vy = clamp((event.clientY - body.lastPointerY) / elapsed, -1600, 1600);
-        body.lastPointerX = event.clientX;
-        body.lastPointerY = event.clientY;
-        body.lastPointerTime = now;
-        body.targetX = clamp(event.clientX - body.offsetX, 0, Math.max(0, document.documentElement.clientWidth - body.width));
-        body.targetY = clamp(event.clientY + window.scrollY - body.offsetY, 0, Math.max(0, worldHeight() - body.height));
-        updatePaletteColor(body, event.clientX, event.clientY);
-        requestPhysicsFrame();
-      }
-
-      function handlePointerUp(event) {
-        if (!activeBody || (event.pointerId !== undefined && event.pointerId !== activeBody.pointerId)) return;
-        const body = activeBody;
-        body.dragging = false;
-        body.pointerId = null;
-        activeBody = null;
-
-        if (body.pointerType === "touch" && !body.pinned) {
-          body.mobilePinUntil = performance.now() + 2000;
-          body.element.classList.add("is-holding");
-          body.vx = 0;
-          body.vy = 0;
-          body.sleeping = true;
-
-          body.mobileHoldTimer = window.setTimeout(() => {
-            if (!enabled || body.pinned || body.mobilePinUntil > performance.now()) return;
-            body.mobilePinUntil = 0;
-            body.element.classList.remove("is-holding");
-            body.sleeping = false;
-            body.sleepTime = 0;
-            body.mobileHoldTimer = null;
-            requestPhysicsFrame();
-          }, 2050);
-        }
-
-        requestPhysicsFrame();
-      }
-
-      button.addEventListener("click", () => {
-        if (enabled) deactivate();
-        else activate();
-      });
-
-      document.addEventListener("pointerdown", handlePointerDown);
-      document.addEventListener("pointermove", handlePointerMove, { passive: true });
-      document.addEventListener("pointerup", handlePointerUp);
-      document.addEventListener("pointercancel", handlePointerUp);
-      window.addEventListener("blur", () => handlePointerUp({}));
-
-      window.addEventListener("keydown", (event) => {
-        if (!enabled || event.repeat) return;
-        const target = event.target;
-        if (target && target.closest && target.closest('input, textarea, select, [contenteditable="true"]')) return;
-
-        const isKeyC = event.code === "KeyC" ||
-                       event.key === "c" || event.key === "C" ||
-                       event.key === "с" || event.key === "С";
-
-        if (!isKeyC || !selectedBody) return;
-        event.preventDefault();
-        togglePinBody(selectedBody, "keyboard");
-      });
-
-      window.addEventListener("scroll", () => {
-        if (enabled) bodies.forEach(paintBody);
-      }, { passive: true });
-
-      window.addEventListener("resize", () => {
-        if (!enabled) return;
-        bodies.forEach(paintBody);
-        requestPhysicsFrame();
-      }, { passive: true });
-    })();
-  </script>
-</body>
-</html>
+        <article class="bento-card bento-narrow spotlight-card hud-frame reveal" style="--delay: 140ms;">
+          <span class="hud-corner tr"></span>
+          <div class="bento-visual" aria-hidd

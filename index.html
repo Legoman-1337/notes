@@ -7,6 +7,31 @@
   <meta name="description" content="Удобные заметки 3.2 для Android и Windows: без регистрации — заметки сразу на устройстве, напоминания, будильник и гибкое форматирование. Скачай APK или портативную версию для ПК.">
   <title>Удобные заметки 3.2 · Android и ПК</title>
 
+  <script>
+    (() => {
+      const ua = navigator.userAgent || "";
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+      const isCoarseOnly =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(pointer: coarse)").matches &&
+        !window.matchMedia("(any-pointer: fine)").matches;
+
+      document.documentElement.dataset.device = (isMobileUA || isCoarseOnly) ? "mobile" : "desktop";
+
+      const validAccents = ["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold", "silver"];
+      try {
+        const mode = localStorage.getItem("notes-site-mode");
+        const accent = localStorage.getItem("notes-site-accent");
+        if (mode === "light" || mode === "dark") {
+          document.documentElement.dataset.theme = mode;
+        }
+        if (validAccents.includes(accent)) {
+          document.documentElement.dataset.accent = accent;
+        }
+      } catch (_) {}
+    })();
+  </script>
+
   <style>
     @property --background {
       syntax: "<color>";
@@ -84,15 +109,15 @@
       --card-bg: linear-gradient(158deg, color-mix(in srgb, var(--surface-light) 82%, var(--accent-color) 11%), color-mix(in srgb, var(--surface) 96%, black) 80%);
       --card-shadow: 0 36px 100px rgba(0, 0, 0, 0.65);
       transition:
-        --background 0.65s ease,
-        --surface 0.65s ease,
-        --surface-light 0.65s ease,
-        --text 0.65s ease,
-        --muted 0.65s ease,
-        --text-soft 0.65s ease,
-        --subtle 0.65s ease,
-        --accent-color 0.65s ease,
-        --accent-ink 0.65s ease;
+        --background 0.55s ease,
+        --surface 0.55s ease,
+        --surface-light 0.55s ease,
+        --text 0.55s ease,
+        --muted 0.55s ease,
+        --text-soft 0.55s ease,
+        --subtle 0.55s ease,
+        --accent-color 0.55s ease,
+        --accent-ink 0.55s ease;
     }
 
     :root[data-theme="light"] {
@@ -146,7 +171,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Стартовая световая вспышка линии горизонта (бесшовная, без блокировки) */
+    /* Стартовая световая вспышка (только ПК) */
     .horizon-flash {
       position: fixed;
       top: 0;
@@ -161,7 +186,7 @@
       pointer-events: none;
     }
 
-    /* Генеративный Canvas */
+    /* Генеративный Canvas (только ПК) */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -171,7 +196,7 @@
       pointer-events: none;
     }
 
-    /* Объёмные фоновые ауры с параллаксом */
+    /* Объёмные фоновые ауры с параллаксом (только ПК) */
     .ambient-bg {
       position: fixed;
       inset: 0;
@@ -254,7 +279,7 @@
       pointer-events: none;
     }
 
-    /* Аура за курсором + Оптический прицел курсора */
+    /* Аура за курсором + прицел курсора */
     .cursor-aura {
       position: fixed;
       top: 0;
@@ -299,9 +324,7 @@
       transform: scale(0.82);
     }
 
-    a {
-      color: inherit;
-    }
+    a { color: inherit; }
 
     .container {
       width: min(1180px, calc(100% - 44px));
@@ -473,11 +496,7 @@
       transform: translateY(-2px);
     }
 
-    .theme-icon {
-      width: 19px;
-      height: 19px;
-    }
-
+    .theme-icon { width: 19px; height: 19px; }
     .moon-icon { display: none; }
     :root[data-theme="light"] .sun-icon { display: none; }
     :root[data-theme="light"] .moon-icon { display: block; }
@@ -493,7 +512,7 @@
       outline-offset: 3px;
     }
 
-    /* Тончайшие 1px световые кромки (пофикшенные лучи) */
+    /* Тончайшие 1px световые кромки */
     .beam-border {
       position: relative;
       border: 1px solid color-mix(in srgb, var(--accent-ink) 15%, transparent);
@@ -525,9 +544,7 @@
       pointer-events: none;
     }
 
-    .beam-border:hover::before {
-      opacity: 0.64;
-    }
+    .beam-border:hover::before { opacity: 0.64; }
 
     :root[data-theme="light"] .beam-border::before {
       opacity: 0.26;
@@ -541,14 +558,10 @@
       );
     }
 
-    :root[data-theme="light"] .beam-border:hover::before {
-      opacity: 0.48;
-    }
+    :root[data-theme="light"] .beam-border:hover::before { opacity: 0.48; }
 
     /* Стилистические уголки-засечки (+) */
-    .hud-frame {
-      position: relative;
-    }
+    .hud-frame { position: relative; }
 
     .hud-corner {
       position: absolute;
@@ -636,10 +649,7 @@
       line-height: 0.94;
     }
 
-    .hero-line {
-      display: block;
-      overflow: hidden;
-    }
+    .hero-line { display: block; overflow: hidden; }
 
     .hero-line-inner {
       display: block;
@@ -742,9 +752,7 @@
       transition: transform 220ms ease;
     }
 
-    .primary-link:hover .arrow {
-      transform: translateY(3px);
-    }
+    .primary-link:hover .arrow { transform: translateY(3px); }
 
     .ghost-link {
       display: inline-flex;
@@ -796,7 +804,7 @@
       content: "";
     }
 
-    /* 3D Скульптура Hero с гироскопом и динамическим бликом */
+    /* 3D Скульптура Hero */
     .hero-visual {
       position: relative;
       display: grid;
@@ -888,7 +896,6 @@
 
     .orbit-two::after { display: none; }
 
-    /* Двойные 3D гироскопические кольца */
     .orbit-tilt {
       position: absolute;
       z-index: -2;
@@ -947,7 +954,6 @@
       animation: float-card 6.2s ease-in-out infinite;
     }
 
-    /* Динамический зеркальный блик, следующий за мышью */
     .specular-glare {
       position: absolute;
       inset: 0;
@@ -997,10 +1003,7 @@
       border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 13%, transparent);
     }
 
-    .window-dots {
-      display: flex;
-      gap: 6px;
-    }
+    .window-dots { display: flex; gap: 6px; }
 
     .window-dots span {
       width: 7px;
@@ -1073,11 +1076,7 @@
       background: color-mix(in srgb, var(--surface-light) 75%, white);
     }
 
-    .mock-row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
+    .mock-row { display: flex; align-items: center; gap: 9px; }
 
     .mock-check {
       width: 12px;
@@ -1088,9 +1087,7 @@
       flex: 0 0 auto;
     }
 
-    .mock-check.pulse {
-      animation: check-glow 3.4s ease-in-out infinite;
-    }
+    .mock-check.pulse { animation: check-glow 3.4s ease-in-out infinite; }
 
     .mock-bar {
       position: relative;
@@ -1115,7 +1112,6 @@
       content: "";
     }
 
-    /* Телеметрия-чипы внутри карточки Hero */
     .telemetry-strip {
       display: flex;
       justify-content: space-between;
@@ -1168,7 +1164,6 @@
       letter-spacing: 0.1em;
     }
 
-    /* Парящие 3D-бейджи */
     .float-badge {
       position: absolute;
       display: inline-flex;
@@ -1243,9 +1238,7 @@
       animation: marquee-scroll 32s linear infinite;
     }
 
-    .marquee-wrap:hover .marquee-track {
-      animation-play-state: paused;
-    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
 
     .marquee-item {
       display: inline-flex;
@@ -1268,7 +1261,6 @@
       content: "";
     }
 
-    /* Саморисующийся разделитель секций */
     .section-rule {
       height: 1px;
       margin-bottom: 42px;
@@ -1277,11 +1269,8 @@
       transition: transform 900ms cubic-bezier(.16,1,.3,1);
     }
 
-    .section-rule.is-visible {
-      transform: scaleX(1);
-    }
+    .section-rule.is-visible { transform: scaleX(1); }
 
-    /* Заголовки секций */
     .section-heading {
       display: flex;
       align-items: end;
@@ -1318,16 +1307,13 @@
       letter-spacing: 0.08em;
     }
 
-    /* Карточка приложения с 3D-подиумом */
+    /* Карточка приложения */
     .library {
       padding-block: 6px 86px;
       scroll-margin-top: 90px;
     }
 
-    .spotlight-card {
-      position: relative;
-      overflow: hidden;
-    }
+    .spotlight-card { position: relative; overflow: hidden; }
 
     .spotlight-card::after {
       position: absolute;
@@ -1344,9 +1330,7 @@
       content: "";
     }
 
-    .spotlight-card:hover::after {
-      opacity: 1;
-    }
+    .spotlight-card:hover::after { opacity: 1; }
 
     .app-card {
       --card-scale: 1;
@@ -1386,7 +1370,6 @@
         color-mix(in srgb, var(--surface-light) 65%, transparent);
     }
 
-    /* Вращающийся транспортир со шкалой градусов */
     .dial-svg {
       position: absolute;
       width: 248px;
@@ -1406,11 +1389,7 @@
       animation: breathe 4.8s ease-in-out infinite alternate;
     }
 
-    .art-sparks {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
+    .art-sparks { position: absolute; inset: 0; pointer-events: none; }
 
     .art-sparks span {
       position: absolute;
@@ -1436,7 +1415,6 @@
       animation: float-card 5.6s ease-in-out infinite;
     }
 
-    /* Проекция светящейся тени на подиуме под иконкой */
     .pedestal-glow {
       position: absolute;
       bottom: -44px;
@@ -1459,9 +1437,7 @@
       transition: transform 380ms cubic-bezier(.2,.85,.3,1);
     }
 
-    .app-card:hover .app-icon-shadow {
-      transform: rotate(16deg) translate(16px, 12px);
-    }
+    .app-card:hover .app-icon-shadow { transform: rotate(16deg) translate(16px, 12px); }
 
     .app-icon {
       position: relative;
@@ -1592,17 +1568,9 @@
       text-transform: uppercase;
     }
 
-    .fact-value {
-      color: var(--text);
-      font-size: 13.5px;
-      font-weight: 720;
-    }
+    .fact-value { color: var(--text); font-size: 13.5px; font-weight: 720; }
 
-    .download-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .download-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
     .download-button {
       position: relative;
@@ -1638,9 +1606,7 @@
       transition: transform 240ms cubic-bezier(.2,.8,.3,1);
     }
 
-    .download-button:hover svg {
-      transform: translateY(2px);
-    }
+    .download-button:hover svg { transform: translateY(2px); }
 
     .download-button.outline {
       border-color: color-mix(in srgb, var(--accent-ink) 32%, transparent);
@@ -1663,9 +1629,7 @@
     }
 
     /* Bento-витрина */
-    .features {
-      padding-block: 0 84px;
-    }
+    .features { padding-block: 0 84px; }
 
     .bento-grid {
       display: grid;
@@ -1740,7 +1704,6 @@
       line-height: 1.68;
     }
 
-    /* Визуал 1: Локальный щит + мягкий сканер */
     .vis-vault {
       position: relative;
       display: flex;
@@ -1772,15 +1735,8 @@
       animation: float-card 5s ease-in-out infinite;
     }
 
-    .vault-shield svg {
-      width: 25px;
-      height: 25px;
-    }
-
-    .vault-pills {
-      display: grid;
-      gap: 8px;
-    }
+    .vault-shield svg { width: 25px; height: 25px; }
+    .vault-pills { display: grid; gap: 8px; }
 
     .vault-pill {
       display: inline-flex;
@@ -1802,7 +1758,6 @@
       text-decoration: line-through;
     }
 
-    /* Визуал 2: Хронограф будильника */
     .vis-alarm-stage {
       position: relative;
       display: flex;
@@ -1868,7 +1823,6 @@
     .alarm-toast strong { font-size: 13px; color: var(--accent-ink); }
     .alarm-toast span { font-size: 11px; color: var(--muted); }
 
-    /* Визуал 3: Парящий лист форматирования */
     .vis-format {
       width: 82%;
       padding: 14px 16px;
@@ -1882,15 +1836,9 @@
       transition: transform 350ms ease;
     }
 
-    .bento-card:hover .vis-format {
-      transform: perspective(600px) rotateX(0deg) rotateY(0deg);
-    }
+    .bento-card:hover .vis-format { transform: perspective(600px) rotateX(0deg) rotateY(0deg); }
 
-    .fmt-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .fmt-row { display: flex; align-items: center; gap: 10px; }
 
     .fmt-tag {
       display: grid;
@@ -1916,6 +1864,7 @@
     }
 
     .fmt-fill {
+      width: 84%;
       height: 100%;
       border-radius: inherit;
       background: linear-gradient(90deg, var(--accent-ink), var(--accent-color));
@@ -1925,7 +1874,6 @@
     .fmt-fill.f2 { animation-delay: 0.65s; width: 65%; opacity: 0.72; }
     .fmt-fill.f3 { animation-delay: 1.3s; width: 80%; opacity: 0.5; }
 
-    /* Визуал 4: Android + Windows + Лазерная дуга связи */
     .vis-devices {
       position: relative;
       display: flex;
@@ -2020,9 +1968,7 @@
     }
 
     /* Секция 3 ключевых цифр */
-    .metrics {
-      padding-block: 0 96px;
-    }
+    .metrics { padding-block: 0 96px; }
 
     .metrics-grid {
       display: grid;
@@ -2089,11 +2035,8 @@
       transition: color 180ms ease;
     }
 
-    footer a:hover {
-      color: var(--accent-ink);
-    }
+    footer a:hover { color: var(--accent-ink); }
 
-    /* Эффекты */
     .color-ripple {
       position: fixed;
       z-index: 98;
@@ -2113,7 +2056,6 @@
       border-radius: 3px;
     }
 
-    /* 3D Появление при скролле */
     .reveal {
       opacity: 0;
       filter: blur(8px);
@@ -2147,10 +2089,7 @@
       transition: transform 180ms ease, background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
     }
 
-    .sandbox-toggle:hover {
-      border-color: var(--accent-ink);
-      transform: translateY(-1px);
-    }
+    .sandbox-toggle:hover { border-color: var(--accent-ink); transform: translateY(-1px); }
 
     :root.sandbox-active .sandbox-toggle {
       border-color: var(--accent-ink);
@@ -2183,9 +2122,7 @@
       transform: translateY(-2px) scale(1.08);
     }
 
-    :root.sandbox-active .sandbox-letter.is-detached {
-      visibility: hidden !important;
-    }
+    :root.sandbox-active .sandbox-letter.is-detached { visibility: hidden !important; }
 
     .sandbox-ghost {
       position: fixed;
@@ -2216,9 +2153,7 @@
       border-radius: 4px;
     }
 
-    .sandbox-ghost.is-holding {
-      animation: sandbox-pulse 1.2s infinite ease-in-out alternate;
-    }
+    .sandbox-ghost.is-holding { animation: sandbox-pulse 1.2s infinite ease-in-out alternate; }
 
     .sandbox-ghost.is-pinned {
       text-decoration: underline;
@@ -2248,21 +2183,11 @@
     }
 
     @keyframes kinetic-unmask {
-      from {
-        opacity: 0;
-        filter: blur(10px);
-        transform: translateY(105%) skewY(3deg);
-      }
-      to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0) skewY(0);
-      }
+      from { opacity: 0; filter: blur(10px); transform: translateY(105%) skewY(3deg); }
+      to   { opacity: 1; filter: blur(0); transform: translateY(0) skewY(0); }
     }
 
-    @keyframes spin-beam {
-      to { --beam-angle: 360deg; }
-    }
+    @keyframes spin-beam { to { --beam-angle: 360deg; } }
 
     @keyframes aurora-float {
       from { transform: translate3d(0, 0, 0) scale(1); }
@@ -2279,18 +2204,14 @@
       to   { opacity: 1; filter: blur(0); transform: scale(1) translateY(0); }
     }
 
-    @keyframes shine {
-      to { background-position: -230% 0; }
-    }
+    @keyframes shine { to { background-position: -230% 0; } }
 
     @keyframes sheen-sweep {
       0%, 62% { transform: translateX(-120%) rotate(25deg); }
       100%    { transform: translateX(340%) rotate(25deg); }
     }
 
-    @keyframes marquee-scroll {
-      to { transform: translateX(-50%); }
-    }
+    @keyframes marquee-scroll { to { transform: translateX(-50%); } }
 
     @keyframes spark-rise {
       0%   { transform: translateY(0) scale(0.5); opacity: 0; }
@@ -2313,9 +2234,7 @@
       to   { transform: scale(1.07); opacity: 1; }
     }
 
-    @keyframes rotate-slow {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes rotate-slow { to { transform: rotate(360deg); } }
 
     @keyframes float-card {
       0%, 100% { transform: translateZ(20px) translateY(0); }
@@ -2337,10 +2256,7 @@
       50%      { transform: translateZ(36px) translate3d(-4px, 7px, 0); }
     }
 
-    @keyframes bar-pulse {
-      from { width: 38%; }
-      to   { width: 92%; }
-    }
+    @keyframes bar-pulse { from { width: 38%; } to { width: 92%; } }
 
     @keyframes check-glow {
       0%, 100% { box-shadow: 0 0 0 transparent; transform: scale(1); }
@@ -2372,15 +2288,9 @@
       92% { transform: rotate(-4deg); }
     }
 
-    @keyframes type-flow {
-      from { width: 28%; }
-      to   { width: 92%; }
-    }
+    @keyframes type-flow { from { width: 28%; } to { width: 92%; } }
 
-    @keyframes arc-flow {
-      from { stroke-dashoffset: 108; }
-      to   { stroke-dashoffset: 0; }
-    }
+    @keyframes arc-flow { from { stroke-dashoffset: 108; } to { stroke-dashoffset: 0; } }
 
     @keyframes color-ripple {
       10% { opacity: 0.72; }
@@ -2395,6 +2305,171 @@
       to   { filter: drop-shadow(0 0 14px var(--accent-color)); }
     }
 
+    @keyframes mobile-fade-up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================================
+       МОБИЛЬНАЯ / ANDROID БАЗОВАЯ ВЕРСИЯ (0 ЛАГОВ, БЕЗ ТЯЖЁЛЫХ ЭФФЕКТОВ)
+       ===================================================================== */
+    :root[data-device="mobile"] {
+      --card-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    :root[data-device="mobile"][data-theme="light"] {
+      --card-shadow: 0 12px 32px rgba(14, 42, 24, 0.08);
+    }
+
+    :root[data-device="mobile"] body {
+      background:
+        radial-gradient(ellipse at 80% 10%, color-mix(in srgb, var(--accent-color) 16%, transparent), transparent 28rem),
+        radial-gradient(ellipse at 10% 45%, color-mix(in srgb, var(--accent-color) 10%, transparent), transparent 26rem),
+        var(--background);
+    }
+
+    :root[data-device="mobile"][data-theme="light"] body {
+      background:
+        radial-gradient(ellipse at 80% 10%, color-mix(in srgb, var(--accent-color) 11%, transparent), transparent 28rem),
+        radial-gradient(ellipse at 10% 45%, color-mix(in srgb, var(--accent-color) 7%, transparent), transparent 26rem),
+        var(--background);
+    }
+
+    :root[data-device="mobile"] body::before {
+      position: absolute;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    /* Отключаем все GPU-пожирающие слои на мобильном */
+    :root[data-device="mobile"] #bg-canvas,
+    :root[data-device="mobile"] .ambient-bg,
+    :root[data-device="mobile"] .cursor-aura,
+    :root[data-device="mobile"] .cursor-reticle,
+    :root[data-device="mobile"] .horizon-flash,
+    :root[data-device="mobile"] body::after,
+    :root[data-device="mobile"] .beam-border::before,
+    :root[data-device="mobile"] .orbit-tilt,
+    :root[data-device="mobile"] .preview-sheen,
+    :root[data-device="mobile"] .specular-glare,
+    :root[data-device="mobile"] .scan-beam,
+    :root[data-device="mobile"] .art-sparks,
+    :root[data-device="mobile"] .dial-svg,
+    :root[data-device="mobile"] .alarm-wave,
+    :root[data-device="mobile"] .bridge-pulse,
+    :root[data-device="mobile"] .marquee-wrap,
+    :root[data-device="mobile"] .color-ripple,
+    :root[data-device="mobile"] .spotlight-card::after {
+      display: none !important;
+      animation: none !important;
+    }
+
+    :root[data-device="mobile"] .topbar-wrap {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: color-mix(in srgb, var(--background) 94%, transparent);
+    }
+
+    :root[data-device="mobile"] .ghost-link,
+    :root[data-device="mobile"] .float-badge {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: var(--surface);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    :root[data-device="mobile"] .hero-visual {
+      overflow: hidden;
+      min-height: 360px;
+      perspective: none;
+      animation: mobile-fade-up 480ms ease both;
+    }
+
+    :root[data-device="mobile"] .hero-stage {
+      transform: none !important;
+      transform-style: flat;
+    }
+
+    :root[data-device="mobile"] .hero-glow-disc {
+      filter: none;
+      transform: none;
+      animation: none;
+      opacity: 0.7;
+    }
+
+    :root[data-device="mobile"] .orbit,
+    :root[data-device="mobile"] .orbit-two,
+    :root[data-device="mobile"] .app-art-ring,
+    :root[data-device="mobile"] .radar-dial,
+    :root[data-device="mobile"] .alarm-core,
+    :root[data-device="mobile"] .alarm-toast,
+    :root[data-device="mobile"] .vault-shield,
+    :root[data-device="mobile"] .dev-pc,
+    :root[data-device="mobile"] .dev-phone,
+    :root[data-device="mobile"] .app-icon-stack,
+    :root[data-device="mobile"] .pedestal-glow,
+    :root[data-device="mobile"] .status-dot,
+    :root[data-device="mobile"] .available::before,
+    :root[data-device="mobile"] .float-badge,
+    :root[data-device="mobile"] .float-badge-dot,
+    :root[data-device="mobile"] .mock-check.pulse,
+    :root[data-device="mobile"] .mock-bar.accent::after,
+    :root[data-device="mobile"] .wave-bars span,
+    :root[data-device="mobile"] .fmt-fill {
+      animation: none !important;
+      transform: none;
+    }
+
+    :root[data-device="mobile"] .preview-card {
+      animation: none;
+      transform: none;
+      box-shadow: var(--card-shadow);
+    }
+
+    :root[data-device="mobile"] .hero-meta-bar,
+    :root[data-device="mobile"] .hero-line-inner,
+    :root[data-device="mobile"] .intro,
+    :root[data-device="mobile"] .hero-actions,
+    :root[data-device="mobile"] .hero-pills {
+      animation: mobile-fade-up 480ms ease both;
+      filter: none;
+    }
+
+    :root[data-device="mobile"] h1 span.accent-word {
+      background: none;
+      -webkit-background-clip: border-box;
+      background-clip: border-box;
+      -webkit-text-fill-color: var(--accent-ink);
+      color: var(--accent-ink);
+      filter: none;
+      animation: none;
+    }
+
+    :root[data-device="mobile"] .app-card {
+      transform: none !important;
+      transform-style: flat;
+    }
+
+    :root[data-device="mobile"] .reveal {
+      opacity: 0;
+      filter: none;
+      transform: translateY(14px);
+      transition: opacity 420ms ease, transform 420ms ease;
+      transition-delay: 0ms;
+    }
+
+    :root[data-device="mobile"] .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :root[data-device="mobile"] .section-rule {
+      transition: transform 420ms ease;
+    }
+
+    :root[data-device="mobile"] .vis-format {
+      transform: none;
+    }
+
     /* Адаптивность */
     @media (max-width: 980px) {
       .top-status { display: none; }
@@ -2402,15 +2477,15 @@
       .hero {
         min-height: auto;
         grid-template-columns: 1fr;
-        gap: 34px;
-        padding-block: 48px 54px;
+        gap: 32px;
+        padding-block: 44px 50px;
       }
 
-      .hero-visual { min-height: 390px; }
+      .hero-visual { min-height: 360px; }
       .app-card { grid-template-columns: 1fr; }
 
       .app-art {
-        min-height: 240px;
+        min-height: 220px;
         border-right: 0;
         border-bottom: 1px solid color-mix(in srgb, var(--accent-ink) 12%, transparent);
       }
@@ -2423,10 +2498,10 @@
       .container { width: min(100% - 30px, 1180px); }
       .topbar { flex-wrap: wrap; padding-block: 12px; }
       .header-tools { width: 100%; justify-content: space-between; }
-      .accent-picker { max-width: calc(100% - 50px); justify-content: center; }
+      .accent-picker { max-width: calc(100% - 48px); justify-content: center; gap: 5px; padding: 6px 9px; }
       .accent-swatch { width: 14px; height: 14px; }
-      .float-badge.top-right { right: 0; }
-      .float-badge.bottom-left { left: 0; }
+      .float-badge.top-right { right: 0; top: 8px; }
+      .float-badge.bottom-left { left: 0; bottom: 12px; }
       .float-badge.mid-right { display: none; }
       .download-button { width: 100%; }
       .fact { flex: 1 1 calc(50% - 5px); }
@@ -2447,22 +2522,6 @@
       .color-ripple, .cursor-aura, .cursor-reticle, .horizon-flash, #bg-canvas { display: none; }
     }
   </style>
-
-  <script>
-    (() => {
-      const validAccents = ["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold", "silver"];
-      try {
-        const mode = localStorage.getItem("notes-site-mode");
-        const accent = localStorage.getItem("notes-site-accent");
-        if (mode === "light" || mode === "dark") {
-          document.documentElement.dataset.theme = mode;
-        }
-        if (validAccents.includes(accent)) {
-          document.documentElement.dataset.accent = accent;
-        }
-      } catch (_) {}
-    })();
-  </script>
 </head>
 
 <body>
@@ -2811,4 +2870,1159 @@
 
         <article class="bento-card bento-narrow spotlight-card hud-frame reveal" style="--delay: 140ms;">
           <span class="hud-corner tr"></span>
-          <div class="bento-visual" aria-hidd
+          <div class="bento-visual" aria-hidden="true">
+            <div class="vis-format">
+              <div class="fmt-row">
+                <span class="fmt-tag">H1</span>
+                <div class="fmt-track"><div class="fmt-fill"></div></div>
+              </div>
+              <div class="fmt-row">
+                <span class="fmt-tag">✓</span>
+                <div class="fmt-track"><div class="fmt-fill f2"></div></div>
+              </div>
+              <div class="fmt-row">
+                <span class="fmt-tag">B</span>
+                <div class="fmt-track"><div class="fmt-fill f3"></div></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="bento-kicker">Чистый текст</span>
+            <h3 class="bento-title">Гибкое форматирование</h3>
+            <p class="bento-text">
+              Выделяйте главное, оформляйте списки и структурируйте мысли так, чтобы читать было приятно.
+            </p>
+          </div>
+        </article>
+
+        <article class="bento-card bento-wide spotlight-card hud-frame reveal" style="--delay: 200ms;">
+          <span class="hud-corner tr"></span>
+          <div class="bento-visual" aria-hidden="true">
+            <div class="vis-devices">
+              <svg class="bridge-arc" viewBox="0 0 100 50">
+                <path class="bridge-base" d="M 8 28 Q 50 4 92 28" />
+                <path class="bridge-pulse" d="M 8 28 Q 50 4 92 28" />
+              </svg>
+              <div class="dev-pc">
+                <span class="dev-tag">.EXE</span>
+                <div class="dev-line glow"></div>
+                <div class="dev-line s"></div>
+                <div class="dev-line"></div>
+              </div>
+              <div class="dev-phone">
+                <span class="dev-tag">APK</span>
+                <div class="dev-line glow"></div>
+                <div class="dev-line s"></div>
+                <div class="dev-line"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span class="bento-kicker">Две платформы</span>
+            <h3 class="bento-title">Android и портативный Windows</h3>
+            <p class="bento-text">
+              Один аккуратный интерфейс и плавные анимации как на смартфоне, так и на ПК. Версия для Windows запускается прямо из папки без установки.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="container section-rule reveal" aria-hidden="true"></div>
+
+    <section class="container metrics" aria-label="Главные преимущества в цифрах">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-kicker">03 // Показатели</p>
+          <h2>Коротко о главном</h2>
+        </div>
+        <span class="app-count">3.2.0</span>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card spotlight-card hud-frame reveal" style="--delay: 0ms;">
+          <span class="hud-corner tr"></span>
+          <span class="metric-num"><span class="count-up" data-target="0">0</span></span>
+          <span class="metric-label">Лишних шагов при запуске</span>
+          <span class="metric-sub">Никакой регистрации и паролей — открываете и сразу пишете.</span>
+        </div>
+        <div class="metric-card spotlight-card hud-frame reveal" style="--delay: 90ms;">
+          <span class="hud-corner tr"></span>
+          <span class="metric-num"><span class="count-up" data-target="2">0</span></span>
+          <span class="metric-label">Платформы в одном релизе</span>
+          <span class="metric-sub">Нативный APK для Android и портативный .exe для Windows.</span>
+        </div>
+        <div class="metric-card spotlight-card hud-frame reveal" style="--delay: 180ms;">
+          <span class="hud-corner tr"></span>
+          <span class="metric-num"><span class="count-up" data-target="100">0</span>%</span>
+          <span class="metric-label">Записей прямо у вас</span>
+          <span class="metric-sub">Все заметки хранятся локально на вашем устройстве.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container reveal">
+    <span>Мои приложения · Удобные заметки 3.2</span>
+    <a href="https://github.com/Legoman-1337/notes/releases">Все версии на GitHub Releases</a>
+    <button class="sandbox-toggle" type="button" aria-pressed="false">Включить песочницу букв</button>
+    <span class="sandbox-status" role="status" aria-live="polite"></span>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const isMobileDevice = root.dataset.device === "mobile";
+      const toggle = document.querySelector(".theme-toggle");
+      const themeIcon = document.querySelector(".theme-icon");
+      const accentButtons = document.querySelectorAll(".accent-swatch");
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      const card = document.querySelector(".app-card");
+      const heroStage = document.getElementById("hero-stage");
+      const heroCard = document.getElementById("hero-card");
+      const heroSection = document.querySelector(".hero");
+      const progress = document.querySelector(".scroll-progress");
+      const cursorAura = document.querySelector(".cursor-aura");
+      const cursorReticle = document.querySelector(".cursor-reticle");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      const validAccents = new Set(["green", "emerald", "teal", "cyan", "blue", "indigo", "purple", "magenta", "pink", "red", "orange", "gold", "silver"]);
+
+      let targetRgb = [169, 245, 189];
+      let currentRgb = [169, 245, 189];
+
+      function hexToRgbArray(hex) {
+        const clean = hex.trim().replace("#", "");
+        if (clean.length !== 6) return [169, 245, 189];
+        const num = parseInt(clean, 16);
+        return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+      }
+
+      function refreshCanvasColor(instant = false) {
+        const active = document.querySelector(`.accent-swatch[data-accent="${root.dataset.accent || "green"}"]`);
+        if (active) {
+          const swatch = active.style.getPropertyValue("--swatch-color");
+          if (swatch) {
+            targetRgb = hexToRgbArray(swatch);
+            if (instant) currentRgb = [...targetRgb];
+          }
+        }
+      }
+
+      function savePreference(key, value) {
+        try {
+          localStorage.setItem(key, value);
+        } catch (_) {}
+      }
+
+      function syncThemeControls(instantColor = false) {
+        const isLight = root.dataset.theme === "light";
+        toggle.setAttribute("aria-pressed", String(isLight));
+        toggle.setAttribute("aria-label", isLight ? "Включить тёмную тему" : "Включить светлую тему");
+        if (themeMeta) themeMeta.setAttribute("content", isLight ? "#eff5f1" : "#040705");
+        accentButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.accent === (root.dataset.accent || "green")));
+        });
+        if (!isMobileDevice) refreshCanvasColor(instantColor);
+      }
+
+      toggle.addEventListener("click", () => {
+        const nextMode = root.dataset.theme === "light" ? "dark" : "light";
+        root.dataset.theme = nextMode;
+        savePreference("notes-site-mode", nextMode);
+        syncThemeControls();
+        if (!isMobileDevice && themeIcon && typeof themeIcon.animate === "function") {
+          themeIcon.animate(
+            [{ transform: "rotate(0deg) scale(0.85)" }, { transform: "rotate(360deg) scale(1)" }],
+            { duration: 560, easing: "cubic-bezier(.2,.75,.25,1)" }
+          );
+        }
+      });
+
+      accentButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const accent = button.dataset.accent;
+          if (!validAccents.has(accent)) return;
+
+          root.dataset.accent = accent;
+          savePreference("notes-site-accent", accent);
+          syncThemeControls();
+
+          if (!isMobileDevice && !reducedMotion) {
+            document.querySelectorAll(".color-ripple").forEach((ripple) => ripple.remove());
+            const bounds = button.getBoundingClientRect();
+            const ripple = document.createElement("span");
+            ripple.className = "color-ripple";
+            ripple.setAttribute("aria-hidden", "true");
+            ripple.style.setProperty("--ripple-x", `${bounds.left + bounds.width / 2}px`);
+            ripple.style.setProperty("--ripple-y", `${bounds.top + bounds.height / 2}px`);
+            document.body.appendChild(ripple);
+            window.setTimeout(() => ripple.remove(), 760);
+          }
+        });
+      });
+
+      // Скролл-прогресс (и параллакс фоновых аур только на ПК)
+      function paintScroll() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(100, (window.scrollY * 100) / max) : 0;
+        if (progress) progress.style.width = `${p}%`;
+        if (!isMobileDevice && !reducedMotion) {
+          root.style.setProperty("--scroll-shift", `${-(window.scrollY * 0.08).toFixed(1)}px`);
+        }
+      }
+      window.addEventListener("scroll", paintScroll, { passive: true });
+      window.addEventListener("resize", paintScroll, { passive: true });
+      paintScroll();
+
+      // Анимация счётчиков цифр (на мобильном сразу ставим число, на ПК — плавный набор)
+      function animateNumber(el, target, duration = 900) {
+        if (isMobileDevice || reducedMotion || target === 0) {
+          el.textContent = target.toLocaleString("ru-RU");
+          return;
+        }
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(target * eased).toLocaleString("ru-RU");
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Появление секций при скролле
+      const revealItems = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && !reducedMotion) {
+        const observer = new IntersectionObserver((entries, activeObserver) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              entry.target.querySelectorAll(".count-up").forEach((num) => {
+                const target = parseInt(num.dataset.target || "0", 10);
+                animateNumber(num, target, 1000);
+              });
+              activeObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: "0px 0px -20px 0px" });
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => {
+          item.classList.add("is-visible");
+          item.querySelectorAll(".count-up").forEach((num) => {
+            num.textContent = num.dataset.target || "0";
+          });
+        });
+      }
+
+      // Тяжёлые ПК-эффекты (мышь, параллакс, canvas) не инициализируются на телефонах
+      if (!isMobileDevice && !reducedMotion) {
+        let mouseX = -999;
+        let mouseY = -999;
+        let auraX = -999;
+        let auraY = -999;
+        let retX = -999;
+        let retY = -999;
+
+        if (hasFinePointer) {
+          window.addEventListener("pointermove", (e) => {
+            if (e.pointerType !== "mouse") return;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (cursorAura) cursorAura.style.opacity = "1";
+            if (cursorReticle) cursorReticle.style.opacity = "1";
+          }, { passive: true });
+
+          document.addEventListener("pointerover", (e) => {
+            if (cursorReticle && e.target.closest("a, button")) cursorReticle.classList.add("is-hover");
+          });
+          document.addEventListener("pointerout", (e) => {
+            if (cursorReticle && e.target.closest("a, button")) cursorReticle.classList.remove("is-hover");
+          });
+          document.addEventListener("pointerdown", () => cursorReticle && cursorReticle.classList.add("is-down"));
+          document.addEventListener("pointerup", () => cursorReticle && cursorReticle.classList.remove("is-down"));
+
+          function loopCursor() {
+            if (mouseX > -500) {
+              if (auraX < -500) {
+                auraX = mouseX; auraY = mouseY;
+                retX = mouseX; retY = mouseY;
+              } else {
+                auraX += (mouseX - auraX) * 0.1;
+                auraY += (mouseY - auraY) * 0.1;
+                retX += (mouseX - retX) * 0.24;
+                retY += (mouseY - retY) * 0.24;
+              }
+              if (cursorAura) cursorAura.style.transform = `translate3d(${auraX - 240}px, ${auraY - 240}px, 0)`;
+              if (cursorReticle) cursorReticle.style.transform = `translate3d(${retX}px, ${retY}px, 0)`;
+            }
+            requestAnimationFrame(loopCursor);
+          }
+          requestAnimationFrame(loopCursor);
+
+          document.querySelectorAll(".spotlight-card").forEach((el) => {
+            el.addEventListener("pointermove", (e) => {
+              if (e.pointerType !== "mouse") return;
+              const rect = el.getBoundingClientRect();
+              el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+              el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+            });
+          });
+
+          if (heroSection && heroStage) {
+            heroSection.addEventListener("pointermove", (e) => {
+              if (e.pointerType !== "mouse") return;
+              const r = heroSection.getBoundingClientRect();
+              const nx = (e.clientX - r.left) / r.width - 0.5;
+              const ny = (e.clientY - r.top) / r.height - 0.5;
+              heroStage.style.setProperty("--hero-rx", `${(-ny * 10).toFixed(2)}deg`);
+              heroStage.style.setProperty("--hero-ry", `${(nx * 12).toFixed(2)}deg`);
+              if (heroCard) {
+                const cr = heroCard.getBoundingClientRect();
+                heroCard.style.setProperty("--glare-x", `${(((e.clientX - cr.left) / cr.width) * 100).toFixed(1)}%`);
+                heroCard.style.setProperty("--glare-y", `${(((e.clientY - cr.top) / cr.height) * 100).toFixed(1)}%`);
+              }
+            });
+            heroSection.addEventListener("pointerleave", () => {
+              heroStage.style.setProperty("--hero-rx", "0deg");
+              heroStage.style.setProperty("--hero-ry", "0deg");
+            });
+          }
+
+          if (card) {
+            let frame = 0;
+            let px = 0;
+            let py = 0;
+            card.addEventListener("pointermove", (event) => {
+              if (event.pointerType !== "mouse") return;
+              px = event.clientX;
+              py = event.clientY;
+              if (frame) return;
+              frame = window.requestAnimationFrame(() => {
+                frame = 0;
+                const bounds = card.getBoundingClientRect();
+                const h = (px - bounds.left) / bounds.width - 0.5;
+                const v = (py - bounds.top) / bounds.height - 0.5;
+                card.style.setProperty("--tilt-x", `${(-v * 4.5).toFixed(2)}deg`);
+                card.style.setProperty("--tilt-y", `${(h * 4.5).toFixed(2)}deg`);
+              });
+            });
+            card.addEventListener("pointerleave", () => {
+              if (frame) window.cancelAnimationFrame(frame);
+              frame = 0;
+              card.style.setProperty("--tilt-x", "0deg");
+              card.style.setProperty("--tilt-y", "0deg");
+            });
+          }
+
+          document.querySelectorAll(".magnetic").forEach((btn) => {
+            btn.addEventListener("pointermove", (e) => {
+              if (e.pointerType !== "mouse") return;
+              const r = btn.getBoundingClientRect();
+              const dx = (e.clientX - (r.left + r.width / 2)) * 0.18;
+              const dy = (e.clientY - (r.top + r.height / 2)) * 0.24;
+              btn.style.transform = `translate3d(${dx.toFixed(1)}px, ${(dy - 2).toFixed(1)}px, 0)`;
+            });
+            btn.addEventListener("pointerleave", () => {
+              btn.style.transform = "";
+            });
+          });
+        }
+
+        // Генеративный Canvas только для ПК
+        const canvas = document.getElementById("bg-canvas");
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          let width = 0;
+          let height = 0;
+          let dpr = 1;
+          let time = 0;
+          const COUNT = 64;
+          const particles = [];
+          const comets = [];
+          const waves = [];
+
+          function resizeCanvas() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          }
+
+          function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < COUNT; i++) {
+              const depth = 0.35 + Math.random() * 0.85;
+              particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.32 * depth,
+                vy: (-0.12 - Math.random() * 0.34) * depth,
+                r: (0.9 + Math.random() * 2.1) * depth,
+                alpha: 0.18 + Math.random() * 0.52,
+                depth
+              });
+            }
+          }
+
+          function spawnComet() {
+            comets.push({
+              x: Math.random() * width * 0.9,
+              y: -20,
+              vx: 3.2 + Math.random() * 2.5,
+              vy: 2.2 + Math.random() * 2.0,
+              life: 1
+            });
+          }
+
+          window.addEventListener("pointerdown", (e) => {
+            if (root.classList.contains("sandbox-active")) return;
+            if (e.target.closest("a, button")) return;
+            waves.push({ x: e.clientX, y: e.clientY, r: 4, maxR: 220, alpha: 0.45 });
+          }, { passive: true });
+
+          function drawCanvas() {
+            time += 0.012;
+            ctx.clearRect(0, 0, width, height);
+
+            currentRgb[0] += (targetRgb[0] - currentRgb[0]) * 0.06;
+            currentRgb[1] += (targetRgb[1] - currentRgb[1]) * 0.06;
+            currentRgb[2] += (targetRgb[2] - currentRgb[2]) * 0.06;
+            const rgb = `${Math.round(currentRgb[0])}, ${Math.round(currentRgb[1])}, ${Math.round(currentRgb[2])}`;
+
+            const isLight = root.dataset.theme === "light";
+            const alphaScale = isLight ? 0.38 : 0.72;
+
+            ctx.save();
+            if (!isLight) ctx.globalCompositeOperation = "lighter";
+            for (let w = 0; w < 2; w++) {
+              ctx.beginPath();
+              const baseY = height * (0.48 + w * 0.16);
+              for (let x = 0; x <= width; x += 28) {
+                const y = baseY + Math.sin(x * 0.003 + time + w * 1.6) * 46 + Math.cos(x * 0.0015 - time * 0.7) * 26;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+              }
+              ctx.strokeStyle = `rgba(${rgb}, ${(isLight ? 0.045 : 0.055)})`;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+            }
+            ctx.restore();
+
+            for (let i = waves.length - 1; i >= 0; i--) {
+              const w = waves[i];
+              w.r += 7;
+              w.alpha *= 0.94;
+              ctx.beginPath();
+              ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2);
+              ctx.strokeStyle = `rgba(${rgb}, ${(w.alpha * alphaScale).toFixed(3)})`;
+              ctx.lineWidth = 1.4;
+              ctx.stroke();
+
+              for (const p of particles) {
+                const dx = p.x - w.x;
+                const dy = p.y - w.y;
+                const dist = Math.hypot(dx, dy);
+                if (Math.abs(dist - w.r) < 28 && dist > 1) {
+                  p.x += (dx / dist) * 1.6;
+                  p.y += (dy / dist) * 1.6;
+                }
+              }
+              if (w.r > w.maxR || w.alpha < 0.02) waves.splice(i, 1);
+            }
+
+            if (Math.random() < 0.006 && comets.length < 2) spawnComet();
+            for (let i = comets.length - 1; i >= 0; i--) {
+              const c = comets[i];
+              c.x += c.vx;
+              c.y += c.vy;
+              c.life -= 0.012;
+              const grad = ctx.createLinearGradient(c.x, c.y, c.x - c.vx * 14, c.y - c.vy * 14);
+              grad.addColorStop(0, `rgba(${rgb}, ${(0.65 * c.life * alphaScale).toFixed(3)})`);
+              grad.addColorStop(1, `rgba(${rgb}, 0)`);
+              ctx.beginPath();
+              ctx.moveTo(c.x, c.y);
+              ctx.lineTo(c.x - c.vx * 14, c.y - c.vy * 14);
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 1.6;
+              ctx.stroke();
+              if (c.life <= 0 || c.x > width + 100 || c.y > height + 100) comets.splice(i, 1);
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+              const p = particles[i];
+              p.x += p.vx;
+              p.y += p.vy;
+
+              if (mouseX > -500) {
+                const dx = mouseX - p.x;
+                const dy = mouseY - p.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 155 && dist > 1) {
+                  const force = (155 - dist) / 155;
+                  p.x -= (dx / dist) * force * 0.85 * p.depth;
+                  p.y -= (dy / dist) * force * 0.85 * p.depth;
+                }
+              }
+
+              if (p.y < -14) { p.y = height + 14; p.x = Math.random() * width; }
+              if (p.x < -14) p.x = width + 14;
+              if (p.x > width + 14) p.x = -14;
+
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(${rgb}, ${(p.alpha * alphaScale).toFixed(3)})`;
+              ctx.fill();
+
+              for (let j = i + 1; j < particles.length; j++) {
+                const q = particles[j];
+                const d = Math.hypot(p.x - q.x, p.y - q.y);
+                if (d < 120) {
+                  ctx.beginPath();
+                  ctx.moveTo(p.x, p.y);
+                  ctx.lineTo(q.x, q.y);
+                  const lineAlpha = (1 - d / 120) * 0.12 * alphaScale;
+                  ctx.strokeStyle = `rgba(${rgb}, ${lineAlpha.toFixed(3)})`;
+                  ctx.lineWidth = 1;
+                  ctx.stroke();
+                }
+              }
+            }
+            requestAnimationFrame(drawCanvas);
+          }
+
+          resizeCanvas();
+          initParticles();
+          window.addEventListener("resize", resizeCanvas, { passive: true });
+          requestAnimationFrame(drawCanvas);
+        }
+
+        // Конфетти при скачивании только на ПК
+        const COLORS = ["#a9f5bd", "#4bf2d4", "#54ddff", "#70b5ff", "#c596ff", "#ff85d0", "#ffad5c", "#ffffff"];
+        function burst(x, y) {
+          for (let i = 0; i < 30; i++) {
+            const p = document.createElement("span");
+            p.className = "confetti-piece";
+            p.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+            p.style.left = `${x}px`;
+            p.style.top = `${y}px`;
+            document.body.appendChild(p);
+            const dx = (Math.random() - 0.5) * 350;
+            const dy = -130 - Math.random() * 240;
+            const rot = (Math.random() - 0.5) * 600;
+            p.animate(
+              [
+                { transform: "translate(0,0) rotate(0deg) scale(1)", opacity: 1 },
+                { transform: `translate(${dx}px, ${dy + 280}px) rotate(${rot}deg) scale(0.55)`, opacity: 0 }
+              ],
+              { duration: 920 + Math.random() * 450, easing: "cubic-bezier(.2,.65,.3,1)" }
+            ).addEventListener("finish", () => p.remove());
+          }
+        }
+
+        document.querySelectorAll(".download-button").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            burst(e.clientX, e.clientY);
+          });
+        });
+      }
+
+      // Счётчик скачиваний с GitHub API (работает и на ПК, и на мобильном)
+      const dl = document.getElementById("dl-count");
+      fetch("https://api.github.com/repos/Legoman-1337/notes/releases/tags/v3.2.0", {
+        headers: { Accept: "application/vnd.github+json" }
+      })
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then((rel) => {
+          if (!rel || !Array.isArray(rel.assets)) return;
+          const total = rel.assets.reduce((s, a) => s + (a.download_count || 0), 0);
+          if (dl) animateNumber(dl, total, 1100);
+        })
+        .catch(() => {
+          if (dl) dl.textContent = "—";
+        });
+
+      syncThemeControls(true);
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const button = document.querySelector(".sandbox-toggle");
+      const status = document.querySelector(".sandbox-status");
+      const CELL_SIZE = 48;
+      const GRAVITY = 820;
+      const MIN_FONT_SIZE = 16;
+      const bodies = [];
+      const letters = [];
+      const bodyByElement = new WeakMap();
+      const ghostContainer = document.createElement("div");
+      ghostContainer.id = "sandbox-ghost-container";
+      let enabled = false;
+      let activeBody = null;
+      let selectedBody = null;
+      let animationFrame = 0;
+      let lastFrameTime = 0;
+
+      const hasLetter = /\p{L}/u;
+      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+      const worldHeight = () => Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+      function announce(message) {
+        if (status) status.textContent = message;
+      }
+
+      function splitGraphemes(text) {
+        if (typeof Intl.Segmenter === "function") {
+          const segmenter = new Intl.Segmenter("ru", { granularity: "grapheme" });
+          return Array.from(segmenter.segment(text), (part) => part.segment);
+        }
+        return Array.from(text);
+      }
+
+      function wrapPageLetters() {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent || !hasLetter.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+            if (parent.closest('script, style, svg, textarea, input, select, option, [contenteditable="true"], .sandbox-toggle, .sandbox-status, #sandbox-ghost-container')) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            const isMainAction = parent.closest(".primary-link, .download-button");
+            if (!isMainAction && parseFloat(getComputedStyle(parent).fontSize) < MIN_FONT_SIZE) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach((node) => {
+          const fragment = document.createDocumentFragment();
+          splitGraphemes(node.nodeValue).forEach((part) => {
+            if (hasLetter.test(part)) {
+              const span = document.createElement("span");
+              span.className = "sandbox-letter";
+              span.textContent = part;
+              letters.push(span);
+              fragment.appendChild(span);
+            } else {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+          node.replaceWith(fragment);
+        });
+      }
+
+      function createLetterBody(sourceSpan) {
+        const rect = sourceSpan.getBoundingClientRect();
+        const computed = getComputedStyle(sourceSpan);
+        const width = Math.max(4, rect.width);
+        const height = Math.max(4, rect.height);
+        const startX = rect.left;
+        const startY = rect.top + window.scrollY;
+
+        const ghost = document.createElement("span");
+        ghost.className = "sandbox-ghost";
+        ghost.textContent = sourceSpan.textContent;
+        ghost.setAttribute("aria-hidden", "true");
+        ghost.style.width = `${width}px`;
+        ghost.style.height = `${height}px`;
+        ghost.style.font = computed.font;
+        ghost.style.lineHeight = computed.lineHeight;
+        ghost.style.letterSpacing = computed.letterSpacing;
+        ghost.style.color = computed.color;
+        ghost.style.textShadow = `0 2px 8px color-mix(in srgb, ${computed.color} 38%, transparent)`;
+
+        const area = width * height;
+        const body = {
+          source: sourceSpan,
+          element: ghost,
+          x: startX,
+          y: startY,
+          width,
+          height,
+          mass: clamp(area, 40, 5000),
+          vx: 0,
+          vy: 0,
+          rotation: 0,
+          dragging: false,
+          pinned: false,
+          sleeping: false,
+          supported: false,
+          sleepTime: 0,
+          mobilePinUntil: 0,
+          mobileHoldTimer: null,
+          tapCount: 0,
+          lastTapTime: 0,
+          pointerType: "",
+          pointerId: null,
+          offsetX: 0,
+          offsetY: 0,
+          targetX: startX,
+          targetY: startY,
+          lastPointerX: 0,
+          lastPointerY: 0,
+          lastPointerTime: 0,
+          cellLeft: 0,
+          cellRight: 0,
+          cellTop: 0,
+          cellBottom: 0
+        };
+
+        sourceSpan.classList.add("is-detached");
+        bodyByElement.set(ghost, body);
+        bodies.push(body);
+        ghostContainer.appendChild(ghost);
+        paintBody(body);
+        return body;
+      }
+
+      function selectBody(body) {
+        if (selectedBody && selectedBody.element) {
+          selectedBody.element.classList.remove("is-selected");
+        }
+        selectedBody = body;
+        if (selectedBody && selectedBody.element && !selectedBody.pinned) {
+          selectedBody.element.classList.add("is-selected");
+        }
+      }
+
+      function paintBody(body) {
+        const maxX = Math.max(0, document.documentElement.clientWidth - body.width);
+        const maxY = Math.max(0, worldHeight() - body.height);
+        body.x = clamp(body.x, 0, maxX);
+        body.y = clamp(body.y, 0, maxY);
+        const screenY = body.y - window.scrollY;
+        body.element.style.transform = `translate3d(${body.x.toFixed(2)}px, ${screenY.toFixed(2)}px, 0) rotate(${body.rotation.toFixed(2)}deg)`;
+        body.element.style.willChange = body.dragging ? "transform" : "auto";
+      }
+
+      function updatePaletteColor(body, pointerX, pointerY) {
+        for (const swatch of document.querySelectorAll(".accent-swatch")) {
+          const rect = swatch.getBoundingClientRect();
+          if (pointerX < rect.left || pointerX > rect.right || pointerY < rect.top || pointerY > rect.bottom) continue;
+          const color = getComputedStyle(swatch).getPropertyValue("--swatch-color").trim();
+          if (color) {
+            body.element.style.color = color;
+            body.element.style.textShadow = `0 0 16px ${color}`;
+          }
+          return;
+        }
+      }
+
+      function togglePinBody(body, method) {
+        if (!body) return;
+        if (body.mobileHoldTimer) {
+          clearTimeout(body.mobileHoldTimer);
+          body.mobileHoldTimer = null;
+        }
+        body.mobilePinUntil = 0;
+        body.element.classList.remove("is-holding");
+
+        if (body.pinned) {
+          body.pinned = false;
+          body.sleeping = false;
+          body.sleepTime = 0;
+          body.element.classList.remove("is-pinned");
+          announce("Закрепление снято.");
+          requestPhysicsFrame();
+        } else {
+          body.pinned = true;
+          body.dragging = false;
+          body.sleeping = true;
+          body.vx = 0;
+          body.vy = 0;
+          body.element.classList.remove("is-selected");
+          body.element.classList.add("is-pinned");
+          if (activeBody === body) activeBody = null;
+          paintBody(body);
+          announce(method === "touch" ? "Буква закреплена!" : "Буква закреплена!");
+        }
+      }
+
+      function activate() {
+        if (enabled) return;
+        enabled = true;
+        wrapPageLetters();
+        if (!ghostContainer.parentElement) {
+          document.body.appendChild(ghostContainer);
+        }
+        document.documentElement.classList.add("sandbox-active");
+        button.setAttribute("aria-pressed", "true");
+        button.textContent = "Выключить песочницу";
+        announce("Песочница включена.");
+      }
+
+      function deactivate() {
+        if (!enabled) return;
+        enabled = false;
+        activeBody = null;
+        selectBody(null);
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+        lastFrameTime = 0;
+        bodies.forEach((body) => {
+          if (body.mobileHoldTimer) clearTimeout(body.mobileHoldTimer);
+          body.element.remove();
+        });
+        bodies.length = 0;
+        letters.forEach((span) => {
+          if (!span.isConnected) return;
+          span.classList.remove("is-detached");
+          span.replaceWith(document.createTextNode(span.textContent));
+        });
+        letters.length = 0;
+        document.documentElement.classList.remove("sandbox-active");
+        button.setAttribute("aria-pressed", "false");
+        button.textContent = "Включить песочницу букв";
+        announce("Песочница выключена.");
+      }
+
+      function solveCollisions(now) {
+        const columns = Math.max(1, Math.ceil(document.documentElement.clientWidth / CELL_SIZE));
+        const grid = new Map();
+        const currentWorldHeight = worldHeight();
+
+        bodies.forEach((body) => {
+          body.supported = body.y + body.height >= currentWorldHeight - 1;
+          body.cellLeft = Math.floor(body.x / CELL_SIZE);
+          body.cellRight = Math.floor((body.x + body.width) / CELL_SIZE);
+          body.cellTop = Math.floor(body.y / CELL_SIZE);
+          body.cellBottom = Math.floor((body.y + body.height) / CELL_SIZE);
+          for (let cx = body.cellLeft; cx <= body.cellRight; cx += 1) {
+            for (let cy = body.cellTop; cy <= body.cellBottom; cy += 1) {
+              const key = cy * columns + cx;
+              let bucket = grid.get(key);
+              if (!bucket) grid.set(key, bucket = []);
+              bucket.push(body);
+            }
+          }
+        });
+
+        for (const [key, bucket] of grid) {
+          const cy = Math.floor(key / columns);
+          const cx = key - cy * columns;
+          for (let i = 0; i < bucket.length; i += 1) {
+            const a = bucket[i];
+            for (let j = i + 1; j < bucket.length; j += 1) {
+              const b = bucket[j];
+              if (cx !== Math.max(a.cellLeft, b.cellLeft) || cy !== Math.max(a.cellTop, b.cellTop)) continue;
+
+              const dx = (a.x + a.width / 2) - (b.x + b.width / 2);
+              const dy = (a.y + a.height / 2) - (b.y + b.height / 2);
+              const overlapX = (a.width + b.width) / 2 - Math.abs(dx);
+              const overlapY = (a.height + b.height) / 2 - Math.abs(dy);
+              if (overlapX <= 0 || overlapY <= 0) continue;
+
+              let nx = 0;
+              let ny = 0;
+              let penetration;
+              if (overlapX < overlapY) {
+                nx = dx < 0 ? -1 : 1;
+                penetration = overlapX;
+              } else {
+                ny = dy < 0 ? -1 : 1;
+                penetration = overlapY;
+              }
+
+              if (ny < 0) a.supported = true;
+              else if (ny > 0) b.supported = true;
+
+              const aFixed = a.dragging || a.pinned || a.mobilePinUntil > now;
+              const bFixed = b.dragging || b.pinned || b.mobilePinUntil > now;
+              if (aFixed && bFixed) continue;
+
+              if (aFixed) {
+                b.x -= nx * penetration;
+                b.y -= ny * penetration;
+                if (nx) b.vx = -nx * Math.max(90, Math.abs(a.vx) * 0.45);
+                if (ny) b.vy = -ny * Math.max(65, Math.abs(a.vy) * 0.35);
+                b.sleeping = false;
+                b.sleepTime = 0;
+              } else if (bFixed) {
+                a.x += nx * penetration;
+                a.y += ny * penetration;
+                if (nx) a.vx = nx * Math.max(90, Math.abs(b.vx) * 0.45);
+                if (ny) a.vy = ny * Math.max(65, Math.abs(b.vy) * 0.35);
+                a.sleeping = false;
+                a.sleepTime = 0;
+              } else {
+                if ((a.sleeping && !b.sleeping) || (b.sleeping && !a.sleeping)) {
+                  a.sleeping = false;
+                  b.sleeping = false;
+                  a.sleepTime = 0;
+                  b.sleepTime = 0;
+                }
+                const inverseA = 1 / a.mass;
+                const inverseB = 1 / b.mass;
+                const inverseTotal = inverseA + inverseB;
+                a.x += nx * penetration * inverseA / inverseTotal;
+                a.y += ny * penetration * inverseA / inverseTotal;
+                b.x -= nx * penetration * inverseB / inverseTotal;
+                b.y -= ny * penetration * inverseB / inverseTotal;
+
+                const relativeVelocity = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;
+                if (relativeVelocity < 0) {
+                  const impulse = -(1 + 0.28) * relativeVelocity / inverseTotal;
+                  a.vx += impulse * nx * inverseA;
+                  a.vy += impulse * ny * inverseA;
+                  b.vx -= impulse * nx * inverseB;
+                  b.vy -= impulse * ny * inverseB;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      function animate(now) {
+        animationFrame = 0;
+        if (!enabled) return;
+        const dt = lastFrameTime ? clamp((now - lastFrameTime) / 1000, 0, 0.024) : 1 / 60;
+        lastFrameTime = now;
+        const damping = Math.pow(0.992, dt * 60);
+        const currentWorldHeight = worldHeight();
+
+        bodies.forEach((body) => {
+          if (body.dragging || body.pinned) {
+            if (body.dragging) {
+              body.sleeping = false;
+              body.x = body.targetX;
+              body.y = body.targetY;
+              body.rotation = clamp(body.vx * 0.01, -18, 18);
+              body.supported = false;
+            }
+            return;
+          }
+          if (body.mobilePinUntil > now) {
+            body.sleeping = true;
+            body.vx = 0;
+            body.vy = 0;
+            return;
+          }
+          if (body.mobilePinUntil) {
+            body.mobilePinUntil = 0;
+            body.element.classList.remove("is-holding");
+            body.sleeping = false;
+            body.sleepTime = 0;
+          }
+          if (body.sleeping) return;
+
+          const floor = Math.max(0, currentWorldHeight - body.height);
+          const rightWall = Math.max(0, document.documentElement.clientWidth - body.width);
+          body.supported = body.y >= floor - 1;
+          body.vy += GRAVITY * dt;
+          body.x += body.vx * dt;
+          body.y += body.vy * dt;
+          body.vx *= damping;
+          body.vy *= damping;
+          body.rotation += body.vx * dt * 0.035;
+
+          if (body.x < 0 || body.x > rightWall) {
+            body.x = clamp(body.x, 0, rightWall);
+            body.vx *= -0.34;
+          }
+          if (body.y < 0) {
+            body.y = 0;
+            body.vy = Math.abs(body.vy) * 0.3;
+          } else if (body.y >= floor) {
+            body.y = floor;
+            body.supported = true;
+            if (Math.abs(body.vy) < 38) body.vy = 0;
+            else body.vy *= -0.28;
+            body.vx *= 0.88;
+          }
+        });
+
+        solveCollisions(now);
+
+        bodies.forEach((body) => {
+          if (body.pinned || body.mobilePinUntil > now) {
+            body.sleeping = true;
+          } else if (!body.dragging && body.supported && Math.abs(body.vx) < 20 && Math.abs(body.vy) < 22) {
+            body.sleepTime += dt;
+            if (body.sleepTime >= 0.32) {
+              body.sleeping = true;
+              body.vx = 0;
+              body.vy = 0;
+            }
+          } else if (!body.sleeping) {
+            body.sleepTime = 0;
+          }
+          if (!body.pinned && body.mobilePinUntil <= now && body.sleeping && !body.supported && body.y + body.height < currentWorldHeight - 2) {
+            body.sleeping = false;
+            body.sleepTime = 0;
+          }
+          paintBody(body);
+        });
+
+        if (bodies.some((body) => body.dragging || (!body.sleeping && !body.pinned))) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          lastFrameTime = 0;
+        }
+      }
+
+      function requestPhysicsFrame() {
+        if (enabled && !animationFrame) animationFrame = requestAnimationFrame(animate);
+      }
+
+      function startDrag(body, event) {
+        if (body.mobileHoldTimer) {
+          clearTimeout(body.mobileHoldTimer);
+          body.mobileHoldTimer = null;
+        }
+        body.mobilePinUntil = 0;
+        body.element.classList.remove("is-holding");
+
+        if (body.pinned) {
+          body.pinned = false;
+          body.element.classList.remove("is-pinned");
+        }
+        body.sleeping = false;
+        body.sleepTime = 0;
+        body.dragging = true;
+        body.pointerType = event.pointerType || "mouse";
+        body.pointerId = event.pointerId;
+        body.offsetX = event.clientX - body.x;
+        body.offsetY = event.clientY + window.scrollY - body.y;
+        body.targetX = body.x;
+        body.targetY = body.y;
+        body.lastPointerX = event.clientX;
+        body.lastPointerY = event.clientY;
+        body.lastPointerTime = performance.now();
+        activeBody = body;
+        selectBody(body);
+        try {
+          body.element.setPointerCapture(event.pointerId);
+        } catch (_) {}
+        updatePaletteColor(body, event.clientX, event.clientY);
+        requestPhysicsFrame();
+      }
+
+      function handlePointerDown(event) {
+        if (!enabled || event.button !== 0) return;
+        const target = event.target;
+
+        const ghost = target.closest && target.closest(".sandbox-ghost");
+        if (ghost) {
+          const body = bodyByElement.get(ghost);
+          if (body) {
+            const now = performance.now();
+            if (event.pointerType === "touch") {
+              if (now - body.lastTapTime < 450) {
+                body.tapCount += 1;
+              } else {
+                body.tapCount = 1;
+              }
+              body.lastTapTime = now;
+
+              if (body.tapCount >= 2) {
+                event.preventDefault();
+                togglePinBody(body, "touch");
+                return;
+              }
+            }
+
+            event.preventDefault();
+            startDrag(body, event);
+            return;
+          }
+        }
+
+        const letterSpan = target.closest && target.closest(".sandbox-letter:not(.is-detached)");
+        if (letterSpan) {
+          event.preventDefault();
+          const body = createLetterBody(letterSpan);
+          startDrag(body, event);
+          return;
+        }
+      }
+
+      function handlePointerMove(event) {
+        const body = activeBody;
+        if (!body || event.pointerId !== body.pointerId) return;
+        const now = performance.now();
+        const elapsed = Math.max(0.008, (now - body.lastPointerTime) / 1000);
+        body.vx = clamp((event.clientX - body.lastPointerX) / elapsed, -1600, 1600);
+        body.vy = clamp((event.clientY - body.lastPointerY) / elapsed, -1600, 1600);
+        body.lastPointerX = event.clientX;
+        body.lastPointerY = event.clientY;
+        body.lastPointerTime = now;
+        body.targetX = clamp(event.clientX - body.offsetX, 0, Math.max(0, document.documentElement.clientWidth - body.width));
+        body.targetY = clamp(event.clientY + window.scrollY - body.offsetY, 0, Math.max(0, worldHeight() - body.height));
+        updatePaletteColor(body, event.clientX, event.clientY);
+        requestPhysicsFrame();
+      }
+
+      function handlePointerUp(event) {
+        if (!activeBody || (event.pointerId !== undefined && event.pointerId !== activeBody.pointerId)) return;
+        const body = activeBody;
+        body.dragging = false;
+        body.pointerId = null;
+        activeBody = null;
+
+        if (body.pointerType === "touch" && !body.pinned) {
+          body.mobilePinUntil = performance.now() + 2000;
+          body.element.classList.add("is-holding");
+          body.vx = 0;
+          body.vy = 0;
+          body.sleeping = true;
+
+          body.mobileHoldTimer = window.setTimeout(() => {
+            if (!enabled || body.pinned || body.mobilePinUntil > performance.now()) return;
+            body.mobilePinUntil = 0;
+            body.element.classList.remove("is-holding");
+            body.sleeping = false;
+            body.sleepTime = 0;
+            body.mobileHoldTimer = null;
+            requestPhysicsFrame();
+          }, 2050);
+        }
+
+        requestPhysicsFrame();
+      }
+
+      button.addEventListener("click", () => {
+        if (enabled) deactivate();
+        else activate();
+      });
+
+      document.addEventListener("pointerdown", handlePointerDown);
+      document.addEventListener("pointermove", handlePointerMove, { passive: true });
+      document.addEventListener("pointerup", handlePointerUp);
+      document.addEventListener("pointercancel", handlePointerUp);
+      window.addEventListener("blur", () => handlePointerUp({}));
+
+      window.addEventListener("keydown", (event) => {
+        if (!enabled || event.repeat) return;
+        const target = event.target;
+        if (target && target.closest && target.closest('input, textarea, select, [contenteditable="true"]')) return;
+
+        const isKeyC = event.code === "KeyC" ||
+                       event.key === "c" || event.key === "C" ||
+                       event.key === "с" || event.key === "С";
+
+        if (!isKeyC || !selectedBody) return;
+        event.preventDefault();
+        togglePinBody(selectedBody, "keyboard");
+      });
+
+      window.addEventListener("scroll", () => {
+        if (enabled) bodies.forEach(paintBody);
+      }, { passive: true });
+
+      window.addEventListener("resize", () => {
+        if (!enabled) return;
+        bodies.forEach(paintBody);
+        requestPhysicsFrame();
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "id": "packing-list",
+  "name": "Сборы в поездку",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Готовый чек-лист для чемодана, чтобы ничего не забыть в дорогу",
+  "main": "plugin.js",
+  "icon": "🧳"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "warranties",
+  "name": "Гарантии",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "На какую технику ещё действует гарантия и до какой даты",
+  "main": "plugin.js",
+  "icon": "🧾"
+}

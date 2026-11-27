@@ -1,0 +1,14 @@
+<resources>
+    <color name="icon_background_red">#D64545</color>
+    <color name="icon_background_orange">#E67828</color>
+    <color name="icon_background_yellow">#E8C52E</color>
+    <color name="icon_background_green">#31824B</color>
+    <color name="icon_background_teal">#168A83</color>
+    <color name="icon_background_sky">#258BC4</color>
+    <color name="icon_background_blue">#3676C8</color>
+    <color name="icon_background_purple">#8055B7</color>
+    <color name="icon_background_pink">#C14F7A</color>
+    <color name="icon_background_terra">#C26343</color>
+    <color name="icon_background_gray">#69747E</color>
+    <color name="icon_background_black">#25282C</color>
+</resources>

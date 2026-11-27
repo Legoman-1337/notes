@@ -1,0 +1,9 @@
+{
+  "id": "spend-diary",
+  "name": "Траты дня",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Быстрый дневник расходов за день и сравнение с прошлыми днями",
+  "main": "plugin.js",
+  "icon": "💸"
+}

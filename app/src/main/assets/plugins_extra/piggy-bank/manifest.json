@@ -1,0 +1,9 @@
+{
+  "id": "piggy-bank",
+  "name": "Копилка мечты",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Финансовая цель и прогресс откладываний",
+  "main": "plugin.js",
+  "icon": "🐷"
+}

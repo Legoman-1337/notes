@@ -1,0 +1,9 @@
+{
+  "id": "home-tasks",
+  "name": "Домашние дела",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Удобный список дел по дому с прогрессом выполнения",
+  "main": "plugin.js",
+  "icon": "🏠"
+}

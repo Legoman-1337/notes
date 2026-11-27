@@ -1,0 +1,9 @@
+{
+  "id": "quick-sticker",
+  "name": "Стикер",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Быстрый черновик под рукой — сохраняется сам при вводе",
+  "main": "plugin.js",
+  "icon": "📝"
+}

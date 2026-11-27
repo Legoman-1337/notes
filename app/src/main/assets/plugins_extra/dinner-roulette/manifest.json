@@ -1,0 +1,9 @@
+{
+  "id": "dinner-roulette",
+  "name": "Что на ужин",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Не знаете, что приготовить? Выберите случайную идею из своего списка",
+  "main": "plugin.js",
+  "icon": "🍽️"
+}

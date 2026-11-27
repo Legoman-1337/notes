@@ -1,0 +1,9 @@
+{
+  "id": "subscriptions-list",
+  "name": "Подписки",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Учёт ежемесячных подписок и списаний — ничего лишнего",
+  "main": "plugin.js",
+  "icon": "📺"
+}

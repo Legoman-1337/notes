@@ -1,0 +1,9 @@
+{
+  "id": "freezer-log",
+  "name": "Морозилка",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Учёт заготовок в морозилке с датой заморозки",
+  "main": "plugin.js",
+  "icon": "❄️"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "weight-diary",
+  "name": "Вес",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Дневник взвешиваний с автоматической разницей",
+  "main": "plugin.js",
+  "icon": "⚖️"
+}

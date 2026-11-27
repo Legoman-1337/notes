@@ -1,0 +1,9 @@
+{
+  "id": "age-calc",
+  "name": "Возраст",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Точный возраст в годах и днях + обратный отсчёт до дня рождения",
+  "main": "plugin.js",
+  "icon": "🎂"
+}

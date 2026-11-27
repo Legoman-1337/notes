@@ -1,0 +1,9 @@
+{
+  "id": "sizes-memo",
+  "name": "Размеры",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Шпаргалка размеров одежды и обуви для себя и близких",
+  "main": "plugin.js",
+  "icon": "📏"
+}

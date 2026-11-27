@@ -1,0 +1,9 @@
+{
+  "id": "currency-memo",
+  "name": "Валюты",
+  "version": "1.1.0",
+  "author": "Legoman",
+  "description": "Перевод рублей в валюту и обратно по своему курсу без интернета",
+  "main": "plugin.js",
+  "icon": "💱"
+}

@@ -604,6 +604,11 @@ private fun DrawScope.drawFourPointStar(cx: Float, cy: Float, r: Float, color: C
     drawPath(p, color)
 }
 
+/** Android: кадры привязаны к Choreographer и сами замирают, когда активити
+ *  не видно, — поэтому анимации считаются всегда активными. */
+@Composable
+internal fun rememberAnimationsActive(): Boolean = true
+
 @Composable
 internal fun NoteThemeCanvas(
     themeId: String,
@@ -614,7 +619,7 @@ internal fun NoteThemeCanvas(
     val defaultBg = MaterialTheme.colorScheme.background
     val defaultSurface = MaterialTheme.colorScheme.surface
     val accentCol = MaterialTheme.colorScheme.primary
-    val phase = if (animated) {
+    val phase = if (animated && rememberAnimationsActive()) {
         val transition = rememberInfiniteTransition(label = "theme-anim-$themeId")
         val value by transition.animateFloat(
             initialValue = 0f,

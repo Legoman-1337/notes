@@ -1,6 +1,5 @@
 package ru.momnotes.app
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -9,13 +8,13 @@ import android.text.Editable
 import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.TextPaint
 import android.text.TextWatcher
 import android.text.style.CharacterStyle
 import android.text.style.UpdateAppearance
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
@@ -23,6 +22,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -71,16 +72,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import org.json.JSONArray
 import org.json.JSONObject
 
-internal fun hideSoftKeyboard(context: Context, view: View?) {
-    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager ?: return
-    val targetView = view ?: (context as? Activity)?.currentFocus ?: (context as? Activity)?.window?.decorView
-    targetView?.clearFocus()
-    val token = targetView?.windowToken ?: (context as? Activity)?.window?.decorView?.windowToken
-    if (token != null) {
-        imm.hideSoftInputFromWindow(token, 0)
-    }
-}
-
 internal data class RichRun(
     val start: Int,
     val end: Int,
@@ -98,13 +89,19 @@ internal class RichEditorState {
     internal var lastCallbackValue: String = ""
     var activeFlags by mutableStateOf(emptySet<String>())
         internal set
+    var activeColor by mutableStateOf<String?>(null)
+        internal set
+    var activeSize by mutableStateOf<Float?>(null)
+        internal set
+    var activeFont by mutableStateOf<String?>(null)
+        internal set
     var onFormatted: ((String) -> Unit)? = null
 
     fun apply(attribute: String, style: String = "toggle") {
         val editor = editText ?: return
         val updated = editor.applyFormat(attribute, style)
         lastCallbackValue = updated
-        activeFlags = editor.activeStyleFlags()
+        syncFlags()
         onFormatted?.invoke(updated)
     }
 
@@ -112,12 +109,23 @@ internal class RichEditorState {
         val editor = editText ?: return
         val updated = editor.clearFormatting()
         lastCallbackValue = updated
-        activeFlags = editor.activeStyleFlags()
+        syncFlags()
         onFormatted?.invoke(updated)
     }
 
     internal fun syncFlags() {
-        activeFlags = editText?.activeStyleFlags().orEmpty()
+        val editor = editText
+        if (editor == null) {
+            activeFlags = emptySet()
+            activeColor = null
+            activeSize = null
+            activeFont = null
+        } else {
+            activeFlags = editor.activeStyleFlags()
+            activeColor = editor.activeAttributeValue("color")
+            activeSize = editor.activeAttributeValue("size")?.toFloatOrNull()
+            activeFont = editor.activeAttributeValue("font")
+        }
     }
 }
 
@@ -163,24 +171,49 @@ internal object RichTextDocument {
         return if (runs.isEmpty()) text + addition else encode(text + addition, runs)
     }
 
+    private fun mergeAdjacentRuns(runs: List<RichRun>, textLen: Int): List<RichRun> {
+        val valid = runs.filter { it.start >= 0 && it.end <= textLen && it.end > it.start }
+            .sortedWith(compareBy<RichRun> { it.start }.thenBy { it.end }.thenBy { it.color ?: it.font ?: it.underline ?: "" })
+        if (valid.size <= 1) return valid
+        val merged = ArrayList<RichRun>(valid.size)
+        for (run in valid) {
+            val idx = merged.indexOfLast {
+                it.end >= run.start &&
+                        it.color == run.color &&
+                        it.size == run.size &&
+                        it.font == run.font &&
+                        it.bold == run.bold &&
+                        it.italic == run.italic &&
+                        it.underline == run.underline &&
+                        it.strike == run.strike
+            }
+            if (idx >= 0) {
+                val prev = merged[idx]
+                merged[idx] = prev.copy(end = maxOf(prev.end, run.end))
+            } else {
+                merged.add(run)
+            }
+        }
+        return merged
+    }
+
     fun encode(text: String, runs: List<RichRun> = emptyList()): String = JSONObject().apply {
         put("text", text)
+        val compact = mergeAdjacentRuns(runs, text.length)
         put("runs", JSONArray().apply {
-            runs.filter { it.start >= 0 && it.end <= text.length && it.end > it.start }
-                .sortedWith(compareBy<RichRun> { it.start }.thenBy { it.end }.thenBy { it.color ?: it.font ?: it.underline ?: "" })
-                .forEach { run ->
-                    put(JSONObject().apply {
-                        put("start", run.start)
-                        put("end", run.end)
-                        run.color?.let { put("color", it) }
-                        run.size?.let { put("size", it.toDouble()) }
-                        run.font?.let { put("font", it) }
-                        if (run.bold) put("bold", true)
-                        if (run.italic) put("italic", true)
-                        run.underline?.let { put("underline", it) }
-                        if (run.strike) put("strike", true)
-                    })
-                }
+            compact.forEach { run ->
+                put(JSONObject().apply {
+                    put("start", run.start)
+                    put("end", run.end)
+                    run.color?.let { put("color", it) }
+                    run.size?.let { put("size", it.toDouble()) }
+                    run.font?.let { put("font", it) }
+                    if (run.bold) put("bold", true)
+                    if (run.italic) put("italic", true)
+                    run.underline?.let { put("underline", it) }
+                    if (run.strike) put("strike", true)
+                })
+            }
         })
     }.toString()
 
@@ -254,14 +287,26 @@ private class RichStrikeSpan : CharacterStyle(), UpdateAppearance {
     override fun updateDrawState(tp: TextPaint) { tp.isStrikeThruText = true }
 }
 
+private data class SavedReplacedSpan(
+    val relStart: Int,
+    val relEnd: Int,
+    val span: CharacterStyle
+)
+
 internal class RichEditText(context: Context) : AppCompatEditText(context) {
     private var suppressCallback = false
+    // Активные параметры ввода: сохраняются, пока пользователь сам их не выключит или не сбросит
     private val pendingFormats = linkedMapOf<String, String>()
     private var lastSelectionStart = 0
     private var lastSelectionEnd = 0
-    private var oldChangedSlice = ""
-    private var actualInsertStart = 0
-    private var actualInsertLength = 0
+
+    // Отслеживание точного диффа при IME-композиции (Gboard / Яндекс / Samsung),
+    // чтобы замена/коммит слова не сбрасывали спаны уже набранных букв.
+    private var changedStart = 0
+    private var oldReplacedText = ""
+    private var savedReplacedSpans: List<SavedReplacedSpan> = emptyList()
+    private var newReplacedText = ""
+
     private var pendingTypedText: String? = null
     private var pendingTypedEnd: Int = 0
     var onRichTextChanged: ((String) -> Unit)? = null
@@ -286,48 +331,41 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         }
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                oldChangedSlice = if (s != null && count > 0) {
-                    s.subSequence(start, (start + count).coerceAtMost(s.length)).toString()
+                if (suppressCallback) return
+                changedStart = start
+                if (s != null && count > 0) {
+                    val safeEnd = (start + count).coerceAtMost(s.length)
+                    oldReplacedText = s.subSequence(start, safeEnd).toString()
+                    savedReplacedSpans = if (s is Spanned) {
+                        s.getSpans(start, safeEnd, CharacterStyle::class.java).mapNotNull { sp ->
+                            if (!isOurRichSpan(sp)) return@mapNotNull null
+                            val spStart = maxOf(s.getSpanStart(sp), start) - start
+                            val spEnd = minOf(s.getSpanEnd(sp), safeEnd) - start
+                            if (spEnd > spStart) SavedReplacedSpan(spStart, spEnd, sp) else null
+                        }
+                    } else emptyList()
                 } else {
-                    ""
+                    oldReplacedText = ""
+                    savedReplacedSpans = emptyList()
                 }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (suppressCallback || s == null || count <= 0) {
+                if (suppressCallback) {
                     pendingTypedText = null
-                    actualInsertLength = 0
                     return
                 }
-                val newSlice = s.subSequence(start, (start + count).coerceAtMost(s.length)).toString()
-                // Сравниваем только изменённый срез с предыдущим (критично для IME/Gboard,
-                // которые пересылают всё слово целиком как composing-текст, из-за чего
-                // count > 12 после ~10 букв и простая проверка count in 1..12 переставала работать).
-                var prefix = 0
-                val minLen = minOf(oldChangedSlice.length, newSlice.length)
-                while (prefix < minLen && oldChangedSlice[prefix] == newSlice[prefix]) {
-                    prefix++
-                }
-                var suffix = 0
-                while (suffix < minLen - prefix &&
-                    oldChangedSlice[oldChangedSlice.length - 1 - suffix] == newSlice[newSlice.length - 1 - suffix]
-                ) {
-                    suffix++
-                }
-                val insertedEndInSlice = newSlice.length - suffix
-                if (insertedEndInSlice > prefix) {
-                    val inserted = newSlice.substring(prefix, insertedEndInSlice)
-                    actualInsertStart = start + prefix
-                    actualInsertLength = inserted.length
-                    if (inserted.length in 1..24) {
-                        pendingTypedText = inserted
-                        pendingTypedEnd = (start + insertedEndInSlice).coerceAtMost(s.length)
+                if (s != null && count > 0) {
+                    val safeEnd = (start + count).coerceAtMost(s.length)
+                    newReplacedText = s.subSequence(start, safeEnd).toString()
+                    if (count in 1..12) {
+                        pendingTypedText = newReplacedText
+                        pendingTypedEnd = safeEnd
                     } else {
                         pendingTypedText = null
                     }
                 } else {
-                    actualInsertStart = start
-                    actualInsertLength = 0
+                    newReplacedText = ""
                     pendingTypedText = null
                 }
             }
@@ -335,9 +373,11 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
             override fun afterTextChanged(s: Editable?) {
                 if (suppressCallback) {
                     pendingTypedText = null
+                    savedReplacedSpans = emptyList()
                     return
                 }
-                applyPendingFormats(s, actualInsertStart, actualInsertLength)
+                applyDiffFormatting(s)
+                savedReplacedSpans = emptyList()
                 onRichTextChanged?.invoke(currentRichText())
 
                 val typed = pendingTypedText
@@ -347,7 +387,6 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
                     val callback = onCharacterTyped
                     if (callback != null) {
                         post {
-                            if (!isAttachedToWindow) return@post
                             val textLayout = this@RichEditText.layout ?: return@post
                             val textLen = this@RichEditText.length()
                             if (textLen <= 0) return@post
@@ -374,12 +413,13 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         })
     }
 
-    override fun onDetachedFromWindow() {
-        if (hasFocus()) {
-            hideSoftKeyboard(context, this)
-        }
-        super.onDetachedFromWindow()
-    }
+    private fun isOurRichSpan(span: Any): Boolean = span is RichColorSpan ||
+            span is RichSizeSpan ||
+            span is RichFontSpan ||
+            span is RichBoldSpan ||
+            span is RichItalicSpan ||
+            span is RichUnderlineSpan ||
+            span is RichStrikeSpan
 
     fun configurePadding(horizontalDp: Int, topDp: Int, bottomDp: Int) {
         val d = resources.displayMetrics.density
@@ -392,7 +432,6 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         if (selStart != lastSelectionStart || selEnd != lastSelectionEnd) {
             lastSelectionStart = selStart
             lastSelectionEnd = selEnd
-            if (selStart != selEnd) pendingFormats.clear()
             onSelectionChanged?.invoke()
         }
     }
@@ -407,11 +446,66 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         else -> RichStrikeSpan::class.java
     }
 
-    private fun applyPendingFormats(editable: Editable?, start: Int, inserted: Int) {
-        if (editable == null || pendingFormats.isEmpty() || inserted <= 0) return
-        val safeStart = start.coerceIn(0, editable.length)
-        val end = (safeStart + inserted).coerceIn(safeStart, editable.length)
-        if (end <= safeStart) return
+    private fun applyDiffFormatting(editable: Editable?) {
+        if (editable == null) return
+        val start = changedStart.coerceIn(0, editable.length)
+        val oldLen = oldReplacedText.length
+        val newLen = newReplacedText.length
+        val newEnd = (start + newLen).coerceIn(start, editable.length)
+
+        var prefix = 0
+        val minLen = minOf(oldLen, newLen)
+        while (prefix < minLen && oldReplacedText[prefix] == newReplacedText[prefix]) {
+            prefix++
+        }
+        if (prefix == 0 && oldLen == newLen && oldLen > 0 && oldReplacedText.equals(newReplacedText, ignoreCase = true)) {
+            prefix = oldLen
+        }
+        var suffix = 0
+        while (suffix < minLen - prefix &&
+            oldReplacedText[oldLen - 1 - suffix] == newReplacedText[newLen - 1 - suffix]
+        ) {
+            suffix++
+        }
+
+        if (savedReplacedSpans.isNotEmpty() && (prefix > 0 || suffix > 0)) {
+            val delta = newLen - oldLen
+            for (saved in savedReplacedSpans) {
+                val kind = saved.span.javaClass
+                if (prefix > 0 && saved.relStart < prefix) {
+                    val pStart = (start + saved.relStart).coerceIn(0, editable.length)
+                    val pEnd = (start + minOf(saved.relEnd, prefix)).coerceIn(pStart, editable.length)
+                    if (pEnd > pStart && !hasExactSpan(editable, pStart, pEnd, kind)) {
+                        cloneSpan(saved.span).forEach {
+                            editable.setSpan(it, pStart, pEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
+                if (suffix > 0 && saved.relEnd > oldLen - suffix) {
+                    val origTailStart = maxOf(saved.relStart, oldLen - suffix)
+                    val sStart = (start + origTailStart + delta).coerceIn(0, editable.length)
+                    val sEnd = (start + saved.relEnd + delta).coerceIn(sStart, editable.length)
+                    if (sEnd > sStart && !hasExactSpan(editable, sStart, sEnd, kind)) {
+                        cloneSpan(saved.span).forEach {
+                            editable.setSpan(it, sStart, sEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
+                    }
+                }
+            }
+        }
+
+        val insertStart = (start + prefix).coerceIn(0, editable.length)
+        val insertEnd = (newEnd - suffix).coerceIn(insertStart, editable.length)
+        if (insertEnd > insertStart && pendingFormats.isNotEmpty()) {
+            applyPendingFormatsRange(editable, insertStart, insertEnd)
+        }
+    }
+
+    private fun hasExactSpan(editable: Spannable, start: Int, end: Int, kind: Class<out CharacterStyle>): Boolean =
+        editable.getSpans(start, end, kind).any { editable.getSpanStart(it) <= start && editable.getSpanEnd(it) >= end }
+
+    private fun applyPendingFormatsRange(editable: Editable, safeStart: Int, end: Int) {
+        if (end <= safeStart || pendingFormats.isEmpty()) return
         pendingFormats.toMap().forEach { (attribute, value) ->
             val kind = spanClassFor(attribute)
             val existing = editable.getSpans(safeStart, end, kind).toList()
@@ -444,6 +538,37 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
     private fun hasSpanAtRange(editable: Spannable, start: Int, end: Int, kind: Class<out CharacterStyle>): Boolean =
         editable.getSpans(start, end, kind).any { editable.getSpanStart(it) < end && editable.getSpanEnd(it) > start }
 
+    private fun extractSpanValue(span: CharacterStyle): String? = when (span) {
+        is RichColorSpan -> span.value
+        is RichSizeSpan -> span.value.toInt().toString()
+        is RichFontSpan -> span.value
+        is RichUnderlineSpan -> span.value
+        else -> null
+    }
+
+    fun activeAttributeValue(attribute: String): String? {
+        val pending = pendingFormats[attribute]
+        if (pending == "off") return null
+        if (pending != null) return pending
+
+        val editable = text as? Spannable ?: return null
+        val s = selectionStart.coerceIn(0, editable.length)
+        val e = selectionEnd.coerceIn(0, editable.length)
+        val kind = spanClassFor(attribute)
+        val span = if (s == e) {
+            if (s > 0) editable.getSpans(s - 1, s, kind).lastOrNull {
+                editable.getSpanStart(it) < s && editable.getSpanEnd(it) >= s
+            } else null
+        } else {
+            val start = minOf(s, e)
+            val end = maxOf(s, e)
+            editable.getSpans(start, end, kind).lastOrNull {
+                editable.getSpanStart(it) < end && editable.getSpanEnd(it) > start
+            }
+        }
+        return span?.let(::extractSpanValue)
+    }
+
     fun activeStyleFlags(): Set<String> {
         val editable = text as? Spannable ?: return emptySet()
         val s = selectionStart.coerceIn(0, editable.length)
@@ -474,20 +599,19 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         val start = minOf(selectionStart.coerceAtLeast(0), selectionEnd.coerceAtLeast(0))
         val end = maxOf(selectionStart.coerceAtLeast(0), selectionEnd.coerceAtLeast(0))
         pendingFormats.clear()
-        if (start == end) {
-            listOf("bold", "italic", "underline", "strike", "color", "size", "font").forEach {
-                pendingFormats[it] = "off"
-            }
-            invalidate()
-            return currentRichText()
+        listOf("bold", "italic", "underline", "strike", "color", "size", "font").forEach {
+            pendingFormats[it] = "off"
         }
-        editable.getSpans(start, end, CharacterStyle::class.java).forEach { span ->
-            val oldStart = editable.getSpanStart(span)
-            val oldEnd = editable.getSpanEnd(span)
-            if (oldStart < end && oldEnd > start) {
-                editable.removeSpan(span)
-                if (oldStart < start) cloneSpan(span).forEach { editable.setSpan(it, oldStart, minOf(start, oldEnd), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
-                if (oldEnd > end) cloneSpan(span).forEach { editable.setSpan(it, maxOf(end, oldStart), oldEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+        if (start != end) {
+            editable.getSpans(start, end, CharacterStyle::class.java).forEach { span ->
+                if (!isOurRichSpan(span)) return@forEach
+                val oldStart = editable.getSpanStart(span)
+                val oldEnd = editable.getSpanEnd(span)
+                if (oldStart < end && oldEnd > start) {
+                    editable.removeSpan(span)
+                    if (oldStart < start) cloneSpan(span).forEach { editable.setSpan(it, oldStart, minOf(start, oldEnd), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                    if (oldEnd > end) cloneSpan(span).forEach { editable.setSpan(it, maxOf(end, oldStart), oldEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                }
             }
         }
         invalidate()
@@ -512,10 +636,10 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         return if (runs.isEmpty()) editable.toString() else RichTextDocument.encode(editable.toString(), runs)
     }
 
-    fun loadRichText(encoded: String) {
+    fun loadRichText(encoded: String, clearPending: Boolean = false) {
         val (plain, runs) = RichTextDocument.decode(encoded)
         suppressCallback = true
-        pendingFormats.clear()
+        if (clearPending) pendingFormats.clear()
         setText(plain)
         val editable = text as? SpannableStringBuilder
         if (editable != null) runs.forEach { run ->
@@ -545,7 +669,7 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
                 val activeAtCursor = attribute in activeStyleFlags()
                 pendingFormats[attribute] = if (activeAtCursor) "off" else value
             } else {
-                if (value == "none") pendingFormats[attribute] = "off"
+                if (value == "none" || value == "off") pendingFormats[attribute] = "off"
                 else pendingFormats[attribute] = value
             }
             invalidate()
@@ -556,7 +680,8 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
         val end = maxOf(selectionStart, selectionEnd)
         val kind = spanClassFor(attribute)
         val existing = editable.getSpans(start, end, kind).toList()
-        val turnOff = isToggle && existing.any { editable.getSpanStart(it) < end && editable.getSpanEnd(it) > start }
+        val turnOff = (isToggle && existing.any { editable.getSpanStart(it) < end && editable.getSpanEnd(it) > start }) ||
+                value == "none" || value == "off"
         existing.forEach { old ->
             val oldStart = editable.getSpanStart(old)
             val oldEnd = editable.getSpanEnd(old)
@@ -568,6 +693,9 @@ internal class RichEditText(context: Context) : AppCompatEditText(context) {
             createFormatSpan(attribute, value)?.let {
                 editable.setSpan(it, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
+            pendingFormats[attribute] = value
+        } else {
+            pendingFormats[attribute] = "off"
         }
         setSelection(selectionStart, selectionEnd)
         invalidate()
@@ -647,7 +775,22 @@ internal fun RichFormatBar(
         "#43A047", "#00897B", "#00ACC1", "#1E88E5", "#3949AB", "#5E35B1", "#8E24AA", "#D81B60"
     )
     val sizeOptions = listOf("12", "14", "16", "18", "22", "26")
+    val fontOptions = listOf(
+        "sans-serif" to "Обычный (Sans)",
+        "serif" to "С засечками (Serif)",
+        "monospace" to "Моноширинный",
+        "cursive" to "Рукописный"
+    )
     val active = state.activeFlags
+    val currentColorHex = state.activeColor
+    val currentSize = state.activeSize
+    val currentFont = state.activeFont
+    val parsedColor = remember(currentColorHex) {
+        currentColorHex?.let { runCatching { Color(android.graphics.Color.parseColor(it)) }.getOrNull() }
+    }
+    val sizeActive = currentSize != null
+    val fontActive = currentFont != null && currentFont != "sans-serif"
+    val colorActive = parsedColor != null
 
     Row(
         modifier = Modifier
@@ -691,14 +834,47 @@ internal fun RichFormatBar(
 
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = textColor.copy(alpha = 0.08f),
-            modifier = Modifier.clip(RoundedCornerShape(10.dp)).clickable { chooser = "size" }
+            color = if (sizeActive) accentColor.copy(alpha = 0.22f) else textColor.copy(alpha = 0.08f),
+            border = if (sizeActive) BorderStroke(1.dp, accentColor.copy(alpha = 0.55f)) else null,
+            modifier = Modifier.clip(RoundedCornerShape(10.dp)).clickable {
+                customSize = (currentSize?.toInt() ?: 16).toString()
+                chooser = "size"
+            }
         ) {
-            Text("Размер ▾", modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp), fontSize = 13.sp, color = textColor)
+            Text(
+                if (currentSize != null) "${currentSize.toInt()} sp ▾" else "Размер ▾",
+                modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
+                fontSize = 13.sp,
+                fontWeight = if (sizeActive) FontWeight.SemiBold else FontWeight.Normal,
+                color = if (sizeActive) accentColor else textColor
+            )
+        }
+
+        val fontLabel = when (currentFont) {
+            "serif" -> "Serif ▾"
+            "monospace" -> "Mono ▾"
+            "cursive" -> "Cursive ▾"
+            else -> "Шрифт ▾"
         }
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = textColor.copy(alpha = 0.08f),
+            color = if (fontActive) accentColor.copy(alpha = 0.22f) else textColor.copy(alpha = 0.08f),
+            border = if (fontActive) BorderStroke(1.dp, accentColor.copy(alpha = 0.55f)) else null,
+            modifier = Modifier.clip(RoundedCornerShape(10.dp)).clickable { chooser = "font" }
+        ) {
+            Text(
+                fontLabel,
+                modifier = Modifier.padding(horizontal = 11.dp, vertical = 6.dp),
+                fontSize = 13.sp,
+                fontWeight = if (fontActive) FontWeight.SemiBold else FontWeight.Normal,
+                color = if (fontActive) accentColor else textColor
+            )
+        }
+
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            color = if (colorActive) accentColor.copy(alpha = 0.22f) else textColor.copy(alpha = 0.08f),
+            border = if (colorActive) BorderStroke(1.dp, accentColor.copy(alpha = 0.55f)) else null,
             modifier = Modifier.clip(RoundedCornerShape(10.dp)).clickable { chooser = "color" }
         ) {
             Row(
@@ -706,8 +882,19 @@ internal fun RichFormatBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                Box(Modifier.size(11.dp).clip(CircleShape).background(accentColor))
-                Text("Цвет ▾", fontSize = 13.sp, color = textColor)
+                Box(
+                    Modifier
+                        .size(12.dp)
+                        .clip(CircleShape)
+                        .background(parsedColor ?: accentColor)
+                        .border(1.dp, textColor.copy(alpha = 0.35f), CircleShape)
+                )
+                Text(
+                    "Цвет ▾",
+                    fontSize = 13.sp,
+                    fontWeight = if (colorActive) FontWeight.SemiBold else FontWeight.Normal,
+                    color = if (colorActive) accentColor else textColor
+                )
             }
         }
         TextButton(onClick = { state.clearFormatting() }, contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)) {
@@ -718,39 +905,100 @@ internal fun RichFormatBar(
     chooser?.let { mode ->
         AlertDialog(
             onDismissRequest = { chooser = null },
-            title = { Text(if (mode == "size") "Размер текста" else "Цвет текста") },
+            title = {
+                Text(
+                    when (mode) {
+                        "size" -> "Размер текста"
+                        "font" -> "Шрифт текста"
+                        else -> "Цвет текста"
+                    }
+                )
+            },
             text = {
                 when (mode) {
-                    "color" -> Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        colors.forEach { hex ->
-                            Surface(
-                                modifier = Modifier.padding(2.dp),
-                                shape = RoundedCornerShape(50),
-                                color = Color(android.graphics.Color.parseColor(hex)),
-                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-                                onClick = { state.apply("color", hex); chooser = null }
+                    "color" -> Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Row(
+                            modifier = Modifier.horizontalScroll(rememberScrollState()),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            colors.forEach { hex ->
+                                val selected = currentColorHex.equals(hex, ignoreCase = true)
+                                Surface(
+                                    modifier = Modifier.padding(2.dp),
+                                    shape = RoundedCornerShape(50),
+                                    color = Color(android.graphics.Color.parseColor(hex)),
+                                    border = BorderStroke(
+                                        if (selected) 3.dp else 1.dp,
+                                        if (selected) accentColor else MaterialTheme.colorScheme.outline
+                                    ),
+                                    onClick = { state.apply("color", hex); chooser = null }
+                                ) {
+                                    Text(
+                                        "A",
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
+                                        color = if (hex == "#FFFFFF") Color.Black else Color.White,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
+                        }
+                        if (colorActive) {
+                            TextButton(onClick = { state.apply("color", "off"); chooser = null }) {
+                                Text("Вернуть обычный цвет")
+                            }
+                        }
+                    }
+                    "font" -> Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        fontOptions.forEach { (fontKey, title) ->
+                            val family = when (fontKey) {
+                                "serif" -> FontFamily.Serif
+                                "monospace" -> FontFamily.Monospace
+                                "cursive" -> FontFamily.Cursive
+                                else -> FontFamily.SansSerif
+                            }
+                            val selected = currentFont == fontKey
+                            TextButton(
+                                onClick = {
+                                    state.apply("font", if (fontKey == "sans-serif") "off" else fontKey)
+                                    chooser = null
+                                },
+                                modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text("A", modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp), color = if (hex == "#FFFFFF") Color.Black else Color.White, fontWeight = FontWeight.Bold)
+                                Text(
+                                    if (selected) "✓ $title" else title,
+                                    fontFamily = family,
+                                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+                                )
                             }
                         }
                     }
                     else -> Column {
                         sizeOptions.forEach { size ->
+                            val selected = currentSize?.toInt()?.toString() == size
                             TextButton(
                                 onClick = { state.apply("size", size); chooser = null },
                                 modifier = Modifier.fillMaxWidth()
-                            ) { Text("$size sp", fontSize = size.toInt().sp) }
+                            ) {
+                                Text(
+                                    if (selected) "✓ $size sp" else "$size sp",
+                                    fontSize = size.toInt().sp,
+                                    fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+                                )
+                            }
                         }
+                        Spacer(Modifier.height(6.dp))
                         OutlinedTextField(
                             value = customSize,
                             onValueChange = { customSize = it.filter(Char::isDigit).take(2) },
                             label = { Text("Другой размер, 8–48 sp") },
                             singleLine = true
                         )
+                        if (sizeActive) {
+                            TextButton(onClick = { state.apply("size", "off"); chooser = null }) {
+                                Text("Вернуть обычный размер")
+                            }
+                        }
                     }
                 }
             },
@@ -808,7 +1056,7 @@ internal fun RichTextField(
                     setHintTextColor(editorHintColor)
                     hint = "Начните писать заметку…"
                     internalState.lastCallbackValue = value
-                    loadRichText(value)
+                    loadRichText(value, clearPending = true)
                     onRichTextChanged = { updated ->
                         internalState.lastCallbackValue = updated
                         internalState.syncFlags()
@@ -821,13 +1069,19 @@ internal fun RichTextField(
                 }
             },
             update = { editor ->
-                editor.setTextColor(editorTextColor)
-                editor.setHintTextColor(editorHintColor)
-                if (value != internalState.lastCallbackValue) {
+                if (editor.currentTextColor != editorTextColor) {
+                    editor.setTextColor(editorTextColor)
+                }
+                if (editor.currentHintTextColor != editorHintColor) {
+                    editor.setHintTextColor(editorHintColor)
+                }
+                val canonicalIncoming = RichTextDocument.canonical(value)
+                val canonicalLast = RichTextDocument.canonical(internalState.lastCallbackValue)
+                if (canonicalIncoming != canonicalLast && canonicalIncoming != RichTextDocument.canonical(editor.currentRichText())) {
                     internalState.lastCallbackValue = value
                     val selectionStart = editor.selectionStart.coerceAtLeast(0)
                     val selectionEnd = editor.selectionEnd.coerceAtLeast(0)
-                    editor.loadRichText(value)
+                    editor.loadRichText(value, clearPending = false)
                     editor.setSelection(
                         selectionStart.coerceAtMost(editor.length()),
                         selectionEnd.coerceAtMost(editor.length())

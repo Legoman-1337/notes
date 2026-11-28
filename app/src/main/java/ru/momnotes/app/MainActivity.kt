@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Base64OutputStream
+import android.util.LruCache
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -68,7 +69,8 @@ internal data class AppSettings(
     val vibration: Boolean = true,
     val voiceLanguage: String = "Русский",
     val animateNoteThemes: Boolean = true,
-    val keyboardToNoteAnimation: Boolean = true
+    val keyboardToNoteAnimation: Boolean = true,
+    val appBackgroundTheme: String = ""
 )
 
 internal data class NoteTable(
@@ -193,11 +195,9 @@ internal fun contrastColor(color: Color): Color {
 
 internal fun readAppSettings(context: Context): AppSettings {
     val prefs = context.getSharedPreferences("mom_notes", Context.MODE_PRIVATE)
-    val savedAccent = prefs.getString("pref_accent", "Зелёный") ?: "Зелёный"
-    val cleanAccent = if (savedAccent == "Gemini") "Зелёный" else savedAccent
     return AppSettings(
         theme = prefs.getString("pref_theme", "Тёмная") ?: "Тёмная",
-        accent = cleanAccent,
+        accent = prefs.getString("pref_accent", "Зелёный") ?: "Зелёный",
         headerColor = prefs.getString("pref_header_color", "") ?: "",
         sectionColor = prefs.getString("pref_section_color", "") ?: "",
         noteColor = prefs.getString("pref_note_color", "") ?: "",
@@ -218,7 +218,8 @@ internal fun readAppSettings(context: Context): AppSettings {
         vibration = prefs.getBoolean("pref_vibration", true),
         voiceLanguage = prefs.getString("pref_voice_language", "Русский") ?: "Русский",
         animateNoteThemes = prefs.getBoolean("pref_animate_note_themes", true),
-        keyboardToNoteAnimation = prefs.getBoolean("pref_keyboard_to_note_anim", true)
+        keyboardToNoteAnimation = prefs.getBoolean("pref_keyboard_to_note_anim", true),
+        appBackgroundTheme = prefs.getString("pref_app_background_theme", "") ?: ""
     )
 }
 
@@ -236,7 +237,9 @@ internal fun writeAppSettings(context: Context, s: AppSettings) {
         .putString("pref_ai_transfer", s.aiTransfer).putString("pref_language", s.language)
         .putBoolean("pref_vibration", s.vibration).putString("pref_voice_language", s.voiceLanguage)
         .putBoolean("pref_animate_note_themes", s.animateNoteThemes)
-        .putBoolean("pref_keyboard_to_note_anim", s.keyboardToNoteAnimation).apply()
+        .putBoolean("pref_keyboard_to_note_anim", s.keyboardToNoteAnimation)
+        .putString("pref_app_background_theme", s.appBackgroundTheme)
+        .apply()
 }
 
 internal fun cancelNoteReminders(context: Context, note: Note) {
@@ -260,14 +263,30 @@ internal fun updateReminder(context: Context, note: Note) {
     }
 }
 
-internal fun decodeThumbnail(path: String): Bitmap? = try {
-    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    BitmapFactory.decodeFile(path, bounds)
-    var sample = 1
-    while (bounds.outWidth / sample > 320 || bounds.outHeight / sample > 320) sample *= 2
-    BitmapFactory.decodeFile(path, BitmapFactory.Options().apply { inSampleSize = sample })
-} catch (_: Exception) {
-    null
+private val thumbnailCache = object : LruCache<String, Bitmap>(48) {}
+
+internal fun decodeThumbnail(path: String): Bitmap? {
+    val file = File(path)
+    if (!file.isFile) return null
+    val cacheKey = "$path|${file.lastModified()}"
+    synchronized(thumbnailCache) {
+        thumbnailCache.get(cacheKey)?.let { return it }
+    }
+    val decoded = try {
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        BitmapFactory.decodeFile(path, bounds)
+        var sample = 1
+        while (bounds.outWidth / sample > 320 || bounds.outHeight / sample > 320) sample *= 2
+        BitmapFactory.decodeFile(path, BitmapFactory.Options().apply { inSampleSize = sample })
+    } catch (_: Exception) {
+        null
+    }
+    if (decoded != null) {
+        synchronized(thumbnailCache) {
+            thumbnailCache.put(cacheKey, decoded)
+        }
+    }
+    return decoded
 }
 
 internal fun decodeFullPreview(path: String): Bitmap? = try {
@@ -810,12 +829,12 @@ private fun escapeMarkdownTableCell(value: String): String =
         .replace('\r', '\n')
         .replace("\n", "<br>")
 
-private fun NoteTable.toMarkdownTable(): String {
+internal fun NoteTable.toMarkdownTable(): String {
     val columnCount = cells.maxOfOrNull { it.size } ?: return ""
     if (columnCount == 0) return ""
 
     val rows = cells.map { row ->
-        List(columnCount) { column -> escapeMarkdownTableCell(row.getOrNull(column).orEmpty()) }
+        List(columnCount) { column -> escapeMarkdownTableCell(RichTextDocument.plainText(row.getOrNull(column).orEmpty())) }
     }
     val header = rows.firstOrNull() ?: return ""
     val markdownRows = buildList {
